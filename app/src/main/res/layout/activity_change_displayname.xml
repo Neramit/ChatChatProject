@@ -14,7 +14,7 @@
         android:id="@+id/countDisplayname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="2/20"
+        android:text="0/20"
         android:textAlignment="viewEnd"
         android:textSize="18sp"/>
 
@@ -25,6 +25,8 @@
         android:layout_marginTop="10dp"
         android:background="@drawable/rounded_border_edittext"
         android:hint="@string/title_dislayname"
+        android:maxLength="20"
+        android:maxLines="1"
         tools:targetApi="lollipop" />
 
     <com.dd.CircularProgressButton
@@ -37,5 +39,4 @@
         android:textColor="@color/white_text"
         app:cpb_cornerRadius="10dp"
         app:cpb_selectorIdle="@color/cpb_green" />
-
 </LinearLayout>
