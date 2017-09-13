@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="36dp"
+    android:orientation="vertical"
+    android:background="@color/main_background"
+    tools:context="com.example.chatchatapplication.FP_EnterEmail">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_enter_email"
+            android:layout_marginTop="10dp"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:textColor="@color/dark_text"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_1.3"
+            android:layout_marginTop="10dp"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            />
+
+        <EditText
+            android:id="@+id/enter_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:hint="@string/hint_enter_email"
+            android:inputType="textEmailAddress"
+            android:maxLines="1"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="20dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/title_forgot"
+                android:textSize="18sp"
+                android:layout_marginTop="10dp"
+                android:textStyle="bold"
+                android:textColor="@color/cpb_green_dark"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:textSize="18sp"
+                android:text="@string/message_forgot"
+                android:textColor="@color/dark_text"/>
+        </LinearLayout>
+
+        <com.dd.CircularProgressButton
+            android:id="@+id/ok_button"
+            style="?android:textAppearanceSmall"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginTop="30dp"
+            android:textAllCaps="false"
+            android:padding="20dp"
+            app:cpb_iconComplete="@drawable/ic_action_accept"
+            app:cpb_iconError="@drawable/ic_action_cancel"
+            app:cpb_textIdle="@string/button_OK"
+            android:textStyle="bold"
+            android:textColor="@color/white_text"
+            app:cpb_cornerRadius="5dp"
+            app:cpb_selectorError="@drawable/error_state_selector"
+            app:cpb_selectorIdle="@drawable/idle_state_selector_g"
+            app:cpb_selectorComplete="@drawable/complete_state_selector"/>
+
+    </LinearLayout>
+
+</LinearLayout>

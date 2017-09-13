@@ -1,0 +1,99 @@
+<resources>
+    <string name="app_name">Chat Chat</string>
+
+    <!-- TODO:Strings related to URL -->
+    <!--<string name="URL">http://172.20.10.5/Application-Real/CentralController.php</string>-->
+    <!--<string name="URL">http://192.168.43.54/Application-Real/CentralController.php</string>-->
+    <string name="URL">http://192.168.43.143/Application-Real/CentralController.php</string>
+
+    <!-- TODO:Strings related to login -->
+    <string name="user_name">User name</string>
+    <string name="prompt_password">Password</string>
+    <string name="prompt_email">Email</string>
+    <string name="action_sign_in">Log in</string>
+    <string name="action_register">Register</string>
+    <string name="action_sign_in_short">Log in</string>
+    <string name="remember_password">Remember</string>
+    <string name="forgot_password">Forgot password?</string>
+
+    <!-- TODO:Strings related to register -->
+    <string name="your_password">Must more than 6 characters </string>
+    <string name="retype_password">Retype password</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_user_valid">The username or password you entered is incorrect</string>
+    <string name="error_already_email">This email is already to use</string>
+    <string name="error_invalid_userName">This user name is already to use</string>
+    <string name="error_invalid_user">This user name is already to use</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="error_field_password">This field is required</string>
+    <string name="error_re_password">This password do not match</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email completions."</string>
+
+    <!-- TODO:Strings related to exit app -->
+    <string name="title_exit">Exit application ? </string>
+    <string name="message_exit">\n Sure to exit Chat Chat application ? </string>
+    <string name="Yes_exit">Exit</string>
+    <string name="No_exit">Cancel</string>
+
+    <!-- TODO:Strings related to Forgot password - enter email -->
+    <string name="title_enter_email">Enter E-mail</string>
+    <string name="title_1.3">Step 1 of 3</string>
+    <string name="title_forgot">Forgot your password</string>
+    <string name="message_forgot">Enter your registered e-mail address to send a password reset e-mail to it.</string>
+    <string name="button_OK">OK</string>
+    <string name="hint_enter_email">Enter your E-mail</string>
+    <!-- Strings related to Forgot password - check email -->
+    <string name="title_check_email">Check E-mail</string>
+    <string name="title_2.3">Step 2 of 3</string>
+    <string name="title_check">Check generate number</string>
+    <string name="message_check">Enter the generate number from your e-mail in 3 minutes.</string>
+    <string name="hint_check_email">Enter your generate number</string>
+    <!-- Strings related to Forgot password - reset password -->
+    <string name="title_reset_password">Reset password</string>
+    <string name="title_3.3">Step 3 of 3</string>
+    <string name="title_reset">Enter new password</string>
+    <string name="message_reset">Enter new password to use for login to your account.</string>
+    <string name="new_password">New password</string>
+    <string name="retype_new_password">Retype new password</string>
+
+    <!-- TODO: String related to main activity -->
+    <string name="friend_tab">Friend</string>
+    <string name="group_tab">Group</string>
+    <string name="setting_tab">Setting</string>
+    <!-- String related to menu -->
+    <string name="add_friends">Add friends</string>
+    <string name="filter_friend">Filter friend</string>
+    <string name="create_group">Create group</string>
+    <string name="filter_group">Filter group</string>
+    <string name="block_list">Block list</string>
+    <string name="sort">Sort</string>
+    <string name="manage_category">Manage category</string>
+
+    <!-- TODO: String related to addFriend activity -->
+    <string name="action_search">Search</string>
+    <string name="action_add">Add</string>
+    <string name="action_wrong">Wrong username</string>
+
+    <!-- TODO: String related to Profile account -->
+    <string name="title_profile">Profile</string>
+    <string name="title_account">Account</string>
+    <string name="title_dislayname">Display name</string>
+    <string name="title_username">Username</string>
+    <string name="title_email">Email</string>
+    <string name="title_delete_account">Delete account</string>
+    <string name="title_activity_settings">Settings</string>
+
+    <!-- TODO: Strings related to Settings -->
+    <string name="pref_notification_title">Notification</string>
+    <string name="pref_title_notification">Notification</string>
+    <string name="pref_title_sound">Sound</string>
+    <string name="pref_title_vibration">Vibration</string>
+    <string name="pref_title_music">Music</string>
+    <string name="pref_privacy_title">Privacy</string>
+    <string name="pref_title_passcode">Passcode lock</string>
+    <string name="pref_title_change_passcode">Change passcode</string>
+    <string name="pref_theme_title">Theme</string>
+    <string name="pref_title_theme">Select theme</string>
+</resources>

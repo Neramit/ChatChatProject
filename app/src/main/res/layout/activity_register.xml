@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="28dp"
+    tools:context="com.example.chatchatapplication.Register">
+
+    <LinearLayout
+        android:id="@+id/email_login_form"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:text="@string/action_register"
+            android:textAlignment="center"
+            android:textColor="@color/dark_text"
+            android:textSize="30sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/user_name"
+            android:textColor="@color/dark_text" />
+
+        <AutoCompleteTextView
+            android:id="@+id/user_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/user_name"
+            android:inputType="textAutoComplete"
+            android:maxLength="20"
+            android:maxLines="1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/prompt_email"
+            android:textColor="@color/dark_text" />
+
+        <AutoCompleteTextView
+            android:id="@+id/email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/prompt_email"
+            android:inputType="textEmailAddress"
+            android:maxLines="1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/prompt_password"
+            android:textColor="@color/dark_text" />
+
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/your_password"
+            android:inputType="textPassword"
+            android:maxLength="20"
+            android:maxLines="1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/retype_password"
+            android:textColor="@color/dark_text" />
+
+        <EditText
+            android:id="@+id/retype_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/retype_password"
+            android:inputType="textPassword"
+            android:maxLines="1"
+            android:maxLength="20"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom">
+
+        <com.dd.CircularProgressButton
+            android:id="@+id/register_button"
+            style="?android:textAppearanceSmall"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginBottom="3dp"
+            android:padding="20dp"
+            android:textAllCaps="false"
+            android:textColor="@color/white_text"
+            android:textStyle="bold"
+            app:cpb_cornerRadius="10dp"
+            app:cpb_iconComplete="@drawable/ic_action_accept"
+            app:cpb_iconError="@drawable/ic_action_cancel"
+            app:cpb_selectorComplete="@drawable/complete_state_selector"
+            app:cpb_selectorError="@drawable/error_state_selector"
+            app:cpb_selectorIdle="@drawable/idle_state_selector"
+            app:cpb_textIdle="@string/action_register" />
+
+    </LinearLayout>
+</LinearLayout>

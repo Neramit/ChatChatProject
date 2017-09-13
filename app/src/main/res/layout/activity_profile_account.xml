@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.chatchatapplication.ProfileAccount">
+
+    <LinearLayout
+        android:id="@+id/topLinear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="30dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="2dp"
+                android:text="@string/title_dislayname"
+                android:textColor="@color/dark_text" />
+
+            <TextView
+                android:id="@+id/displayname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="2dp"
+                android:clickable="true"
+                android:onClick="changeDisplayname"
+                android:text="@string/title_dislayname"
+                android:textColor="@color/colorAccent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:padding="2dp"
+                android:text="@string/title_username"
+                android:textColor="@color/dark_text" />
+
+            <TextView
+                android:id="@+id/user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="2dp"
+                android:text="@string/user_name"
+                android:textColor="@color/colorAccent" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorAccent"
+        android:title="@string/title_account"
+        android:titleTextColor="@color/white_text">
+    </Toolbar>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="30dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="2dp"
+                android:text="@string/title_email"
+                android:textColor="@color/dark_text" />
+            <TextView
+                android:id="@+id/email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="2dp"
+                android:text="@string/title_email"
+                android:textColor="@color/colorAccent"/>
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:padding="2dp"
+                android:text="@string/title_delete_account"
+                android:textColor="@color/dark_text" />
+
+            <com.dd.CircularProgressButton
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                app:cpb_textIdle="@string/title_delete_account"
+                android:padding="10dp"
+                app:cpb_cornerRadius="5dp"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/white_text"
+                app:cpb_selectorIdle="@color/cpb_red"/>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

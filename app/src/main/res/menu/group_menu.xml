@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/action_create_group"
+        android:title="@string/create_group"
+        android:orderInCategory="100"
+        android:icon="@drawable/add_group"
+        app:showAsAction="always" />
+    <item android:id="@+id/action_filter_group"
+        android:title="@string/filter_group"
+        android:orderInCategory="101"
+        android:icon="@drawable/filter"
+        app:showAsAction="always" />
+    <item android:id="@+id/action_manage_category"
+        android:title="@string/manage_category"
+        android:orderInCategory="102"
+        app:showAsAction="never" />
+    <item android:id="@+id/action_sort2"
+        android:title="@string/sort"
+        android:orderInCategory="103"
+        android:icon="@drawable/filter"
+        app:showAsAction="never" />
+</menu>

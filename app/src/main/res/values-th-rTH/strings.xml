@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Chat Chat</string>
+
+    <!-- Strings related to login -->
+    <string name="user_name">ชื่อผู้ใช้</string>
+    <string name="prompt_email">อีเมล</string>
+    <string name="prompt_password">รหัสผ่าน</string>
+    <string name="your_password">รหัสผ่าน (ต้องมีมากกว่า 6 ตัวอักษร) </string>
+    <string name="retype_password">พิมพ์รหัสผ่านอีกครั้ง</string>
+    <string name="action_sign_in">ลงชื่อเข้าใช้</string>
+    <string name="action_register">ลงทะเบียน</string>
+    <string name="action_sign_in_short">ลงชื่อเข้าใช้</string>
+    <string name="remember_password">จำรหัสผ่าน</string>
+    <string name="forgot_password">ลืมรหัสผ่าน?</string>
+
+    <!-- Strings related to register -->
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_user_valid">The username or password you entered is incorrect</string>
+    <string name="error_already_email">This email is already to use</string>
+    <string name="error_invalid_userName">This user name is already to use</string>
+    <string name="error_invalid_user">This user name is already to use</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="error_field_password">This field is required</string>
+    <string name="error_re_password">This password do not match</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email completions."</string>
+
+    <!-- Strings related to exit app -->
+    <string name="title_exit">ปิดแอพพลิเคชั่น ? </string>
+    <string name="message_exit"> คุณแน่ใจไหม ที่จะปิดแอพพลิเคชั่น Chat Chat ? </string>
+    <string name="Yes_exit">ปิด</string>
+    <string name="No_exit">ยกเลิก</string>
+
+</resources>

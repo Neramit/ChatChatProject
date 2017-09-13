@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Base application theme colors. -->
+    <color name="colorPrimary">#4caf50</color>
+    <color name="colorPrimaryDark">#4caf50</color>
+    <color name="colorAccent">#4CAF50</color>
+
+    <!-- Background theme colors. -->
+    <color name="black_overlay">#66000000</color>
+    <color name="main_background">#f0f6ff</color>
+
+    <!-- Button theme colors. -->
+    <color name="normal_button_G">#4CAF50</color>
+    <color name="pressed_button_G">#4C834F</color>
+    <color name="normal_button_B">#DE6461</color>
+    <color name="pressed_button_B">#A76260</color>
+
+    <!-- Background theme colors. -->
+    <color name="white_text">#FAFAFA</color>
+    <color name="dark_text">#010101</color>
+
+</resources>

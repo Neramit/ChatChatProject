@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_background"
+    android:orientation="vertical"
+    android:padding="30dp"
+    tools:context="com.example.chatchatapplication.AddFriend">
+
+    <SearchView
+        android:id="@+id/friend_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_border_edittext"
+        android:hint="@string/user_name"
+        android:maxLength="20"
+        android:maxLines="1"/>
+
+    <!--<EditText-->
+    <!--android:id="@+id/friend_search"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="45dp"-->
+    <!--android:background="@drawable/rounded_border_edittext"-->
+    <!--android:drawableLeft="@drawable/filter"-->
+    <!--android:hint="@string/user_name"-->
+    <!--android:inputType="text"-->
+    <!--android:maxLength="20"-->
+    <!--android:maxLines="1">-->
+
+    <!--<requestFocus />-->
+    <!--</EditText>-->
+
+    <LinearLayout
+        android:id="@+id/big_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="20dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:weightSum="1">
+
+        <LinearLayout
+            android:id="@+id/extend_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"/>
+
+        <LinearLayout
+            android:id="@+id/button_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.3"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <com.dd.CircularProgressButton
+                android:id="@+id/search_button"
+                style="?android:textAppearanceSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAllCaps="false"
+                android:textColor="@color/white_text"
+                android:textStyle="bold"
+                app:cpb_cornerRadius="10dp"
+                app:cpb_selectorIdle="@drawable/idle_state_selector_g"
+                app:cpb_textComplete="@string/action_add"
+                app:cpb_textError=""
+                app:cpb_textIdle="@string/action_search" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/empty_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.3"
+            android:orientation="vertical" />
+    </LinearLayout>
+
+</LinearLayout>

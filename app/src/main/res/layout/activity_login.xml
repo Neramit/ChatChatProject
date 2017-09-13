@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="35dp"
+    android:weightSum="1"
+    tools:context="com.example.chatchatapplication.Login">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.4"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.8">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="0dp"
+                android:src="@drawable/logo" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimaryDark"
+                android:textAlignment="center"
+                android:text="@string/app_name"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.6"
+        android:orientation="vertical">
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <AutoCompleteTextView
+                android:id="@+id/username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/user_name"
+                android:inputType="textEmailAddress"
+                android:maxLines="1"
+                android:maxLength="20"/>
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:hint="@string/prompt_password"
+                android:imeActionId="@+id/login"
+                android:imeActionLabel="@string/action_sign_in_short"
+                android:imeOptions="actionUnspecified"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:maxLength="20"/>
+
+        </android.support.design.widget.TextInputLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/remember_password" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:gravity="end">
+
+                <TextView
+                    android:id="@+id/forgot_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="@string/forgot_password"
+                    android:textColor="@color/cpb_green_dark"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="bottom"
+            android:orientation="vertical">
+
+            <!--<Button-->
+            <!--android:id="@+id/login_button"-->
+            <!--style="?android:textAppearanceSmall"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="55dp"-->
+            <!--android:layout_marginBottom="10dp"-->
+            <!--android:text="@string/action_sign_in"-->
+            <!--android:textStyle="bold"-->
+            <!--android:textAllCaps="false"-->
+            <!--android:textColor="@color/white_text"-->
+            <!--android:background="@color/normal_button_G" />-->
+
+            <com.dd.CircularProgressButton
+                android:id="@+id/login_button"
+                style="?android:textAppearanceSmall"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginBottom="10dp"
+                android:padding="20dp"
+                android:textAllCaps="false"
+                android:textColor="@color/white_text"
+                android:textStyle="bold"
+                app:cpb_cornerRadius="5dp"
+                app:cpb_iconComplete="@drawable/ic_action_accept"
+                app:cpb_iconError="@drawable/ic_action_cancel"
+                app:cpb_selectorComplete="@drawable/complete_state_selector"
+                app:cpb_selectorError="@drawable/error_state_selector"
+                app:cpb_selectorIdle="@drawable/idle_state_selector_g"
+                app:cpb_textIdle="@string/action_sign_in" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#6d6d6d" />
+
+            <com.dd.CircularProgressButton
+                android:id="@+id/register_button"
+                style="?android:textAppearanceSmall"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:textAllCaps="false"
+                android:textColor="@color/white_text"
+                android:textStyle="bold"
+                app:cpb_cornerRadius="5dp"
+                app:cpb_selectorIdle="@drawable/idle_state_selector"
+                app:cpb_textIdle="@string/action_register" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

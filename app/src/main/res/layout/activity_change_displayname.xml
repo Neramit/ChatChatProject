@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_background"
+    android:padding="30dp"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context="com.example.chatchatapplication.ChangeDisplayname">
+
+    <TextView
+        android:id="@+id/countDisplayname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="2/20"
+        android:textAlignment="viewEnd"
+        android:textSize="18sp"/>
+
+    <SearchView
+        android:id="@+id/edittextDisplayname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/rounded_border_edittext"
+        android:hint="@string/title_dislayname"
+        tools:targetApi="lollipop" />
+
+    <com.dd.CircularProgressButton
+        android:id="@+id/ok_button"
+        style="?android:textAppearanceSmall"
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cpb_textIdle="@string/button_OK"
+        android:textColor="@color/white_text"
+        app:cpb_cornerRadius="10dp"
+        app:cpb_selectorIdle="@color/cpb_green" />
+
+</LinearLayout>

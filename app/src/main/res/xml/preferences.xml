@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:title="@string/pref_notification_title"
+        android:key="pref_key_notification_settings">
+        <SwitchPreference
+            android:key="pref_key_notification_enable"
+            android:title="@string/pref_title_notification"
+            android:icon="@drawable/notification"
+            android:defaultValue="true"/>
+        <CheckBoxPreference
+            android:key="pref_key_sound"
+            android:dependency="pref_key_notification_enable"
+            android:title="@string/pref_title_sound"
+            android:icon="@drawable/sound"
+            android:defaultValue="true" />
+        <CheckBoxPreference
+            android:key="pref_key_vibration"
+            android:dependency="pref_key_notification_enable"
+            android:title="@string/pref_title_vibration"
+            android:icon="@drawable/vibration"
+            android:defaultValue="false" />
+        <ListPreference
+            android:key="pref_key_music"
+            android:dependency="pref_key_sound"
+            android:icon="@drawable/music"
+            android:title="@string/pref_title_music"/>
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:title="@string/pref_theme_title"
+        android:key="pref_key_theme_settings">
+        <ListPreference
+            android:key="pref_key_theme"
+            android:title="@string/pref_title_theme"
+            android:defaultValue="1"
+            android:entries="@array/colors"
+            android:icon="@drawable/theme"
+            android:entryValues="@array/colors_values"/>
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:title="@string/pref_privacy_title"
+        android:key="pref_key_privacy_settings">
+        <CheckBoxPreference
+            android:key="pref_key_passcode_enable"
+            android:title="@string/pref_title_passcode"
+            android:icon="@drawable/passcode"
+            android:defaultValue="false"/>
+        <Preference
+            android:key="pref_key_sound"
+            android:dependency="pref_key_passcode_enable"
+            android:title="@string/pref_title_change_passcode"
+            android:icon="@drawable/change_pass"
+            android:defaultValue="true" />
+    </PreferenceCategory>
+</PreferenceScreen>
