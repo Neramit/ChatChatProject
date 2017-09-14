@@ -20,7 +20,7 @@ import android.widget.Toast;
 import com.dd.CircularProgressButton;
 import com.example.chatchatapplication.Object_json.User;
 import com.example.chatchatapplication.Object_json.registerSend;
-import com.example.chatchatapplication.Object_json.simpleRetrieve;
+import com.example.chatchatapplication.Object_json.searchRetrieve;
 import com.google.gson.Gson;
 import com.kosalgeek.android.md5simply.MD5;
 
@@ -127,9 +127,14 @@ public class Login extends AppCompatActivity implements jsonBack{
     @Override
     public void processFinish(String output) {
         Gson gson = new Gson();
-        final simpleRetrieve data = gson.fromJson(output, simpleRetrieve.class);
+        final searchRetrieve data = gson.fromJson(output, searchRetrieve.class);
         if (data.getStatus() == 200) {
-            mEdit1.putString("token", data.getData());
+            mEdit1.putString("token", data.getData().getToken());
+            mEdit1.putString("username", data.getData().getUsername());
+            mEdit1.putString("email", data.getData().getEmail());
+            mEdit1.putString("displayName", data.getData().getDisplayName());
+            mEdit1.putString("displayPictureURL", data.getData().getDisplayPictureURL());
+            mEdit1.putString("displayPicturePath", data.getData().getDisplayPicturePath());
             mEdit1.commit();
             Toast.makeText(this, data.getMessage(), Toast.LENGTH_SHORT).show();
             circularProgressButton.setProgress(100);
@@ -183,6 +188,7 @@ public class Login extends AppCompatActivity implements jsonBack{
             public void onClick(DialogInterface dialog, int which) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                     finishAffinity();
+                    System.exit(0);
                 }
             }
         });

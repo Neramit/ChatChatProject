@@ -76,7 +76,7 @@
                 android:text="@string/title_email"
                 android:textColor="@color/dark_text" />
             <TextView
-                android:id="@+id/email"
+                android:id="@+id/Email"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="2dp"

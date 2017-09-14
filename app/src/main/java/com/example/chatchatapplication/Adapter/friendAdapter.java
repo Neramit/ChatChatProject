@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.example.chatchatapplication.Object_json.Friend;
 import com.example.chatchatapplication.R;
 
 import java.util.ArrayList;
@@ -21,7 +22,8 @@ public class friendAdapter extends BaseAdapter {
     private static final int TYPE_ITEM = 0;
     private static final int TYPE_SEPARATOR = 1;
 
-    private ArrayList<String> mData = new ArrayList<String>();
+    //    private ArrayList<String> mData = new ArrayList<String>();
+    private ArrayList<Friend> mData = new ArrayList<Friend>();
     private TreeSet<Integer> sectionHeader = new TreeSet<Integer>();
 
     private LayoutInflater mInflater;
@@ -30,12 +32,12 @@ public class friendAdapter extends BaseAdapter {
         mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
-    public void addItem(final String item) {
+    public void addItem(final Friend item) {
         mData.add(item);
         notifyDataSetChanged();
     }
 
-    public void addSectionHeaderItem(final String item) {
+    public void addSectionHeaderItem(final Friend item) {
         mData.add(item);
         sectionHeader.add(mData.size() - 1);
         notifyDataSetChanged();
@@ -57,7 +59,7 @@ public class friendAdapter extends BaseAdapter {
     }
 
     @Override
-    public String getItem(int position) {
+    public Friend getItem(int position) {
         return mData.get(position);
     }
 
@@ -75,13 +77,13 @@ public class friendAdapter extends BaseAdapter {
             switch (rowType) {
                 case TYPE_ITEM:
                     convertView = mInflater.inflate(R.layout.friend_listview, null);
-                    holder.textView = (TextView) convertView.findViewById(R.id.text);
-                    holder.textView.setText(mData.get(position));
+                    holder.textView = (TextView) convertView.findViewById(R.id.friendname);
+                    holder.textView.setText(mData.get(position).getFriendUsername());
                     break;
                 case TYPE_SEPARATOR:
                     convertView = mInflater.inflate(R.layout.section_listview, null);
                     holder.textView = (TextView) convertView.findViewById(R.id.textSequence);
-                    holder.textView.setText(mData.get(position));
+                    holder.textView.setText(mData.get(position).getFriendUsername());
                     break;
             }
             convertView.setTag(holder);

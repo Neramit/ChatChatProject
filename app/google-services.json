@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "220613162634",
+    "firebase_url": "https://eternal-petal-170304.firebaseio.com",
+    "project_id": "eternal-petal-170304",
+    "storage_bucket": "eternal-petal-170304.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:220613162634:android:90d9fd1c871b156b",
+        "android_client_info": {
+          "package_name": "com.example.chatchatapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "220613162634-998bhop5n649a9cv1gqni8ff0mb24cmj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRdn3ztR3eW3BeO96EsOxiiIIKAa9pvhs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

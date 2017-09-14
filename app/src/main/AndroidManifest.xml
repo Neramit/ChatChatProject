@@ -28,7 +28,7 @@
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"/>
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".FP_EnterEmail"
             android:screenOrientation="portrait"
@@ -44,17 +44,20 @@
         <activity
             android:name=".AddFriend"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"/>
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".ProfileAccount"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"/>
-        <activity android:name=".ChangeDisplayname"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".ChangeDisplayname"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"/>
-        <activity android:name=".Setting"
-            android:theme="@style/AppTheme"
-            android:screenOrientation="portrait"/>
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".Setting"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".FriendChatroom"></activity>
     </application>
 
 </manifest>

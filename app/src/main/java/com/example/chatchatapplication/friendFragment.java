@@ -1,18 +1,37 @@
 package com.example.chatchatapplication;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.chatchatapplication.Adapter.friendAdapter;
+import com.example.chatchatapplication.Object_json.Friend;
+import com.example.chatchatapplication.Object_json.User;
+import com.example.chatchatapplication.Object_json.friendListRetrieve;
+import com.example.chatchatapplication.Object_json.registerSend;
+import com.google.gson.Gson;
 
-public class friendFragment extends Fragment {
+import java.util.ArrayList;
+
+public class friendFragment extends Fragment implements jsonBack {
 
     ListView friendList;
     private friendAdapter mAdapter;
+    private String token;
+    private ArrayList<Friend> friend_list = new ArrayList<Friend>();
+
+    friendListRetrieve data;
+
+    // Shared preferrence
+    SharedPreferences sp;
+    SharedPreferences.Editor mEdit1;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -22,16 +41,25 @@ public class friendFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_friend, container, false);
         friendList = (ListView) view.findViewById(R.id.friendListview);
 
-        friendList.setAdapter(mAdapter);
+        sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        mEdit1 = sp.edit();
 
-//        friendList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                // TODO Auto-generated method stub
-//
-//                view.setBackgroundColor(Color.parseColor("#C5F9D4"));
-//
-//                Intent intent = null;
+        Gson sendJson = new Gson();
+//        button.setProgress(50);
+        final User data = new User();
+//        data.setDisplayName(displayname);
+        token = sp.getString("token", null);
+        registerSend send = new registerSend("Friend", "friendTabEnter", token, data);
+        String sendJson2 = sendJson.toJson(send);
+        new SimpleHttpTask(this).execute(sendJson2);
+
+        friendList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // TODO Auto-generated method stub
+                Intent intent = new Intent(getActivity(),FriendChatroom.class);
+                intent.putExtra("chatroomUid",friend_list.get(position).getChatroomUID());
+                startActivity(intent);
 //                switch (((HospitalNames)list.getAdapter().getItem(position)).getHospitalName()) {
 ////                switch (hospitalNameList[position])
 //                    case "โรงพยาบาลราษฎร์บูรณะ":
@@ -73,9 +101,28 @@ public class friendFragment extends Fragment {
 //                    overridePendingTransition(R.anim.enter, R.anim.exit);
 //                    finish();
 //                }
-//            }
-//        });
+            }
+        });
 
         return view;
+    }
+
+    @Override
+    public void processFinish(String output) {
+        Gson gson = new Gson();
+        data = gson.fromJson(output, friendListRetrieve.class);
+
+        if (data.getStatus() == 200) {
+            int i = 0;
+            while (data.getData().size() > i) {
+//                friend_list.add(data.getData().get(i));
+                friend_list.add(data.getData().get(i));
+                mAdapter.addItem(data.getData().get(i));
+//                data.getData().remove(i);
+                i++;
+            }
+            friendList.setAdapter(mAdapter);
+        }
+
     }
 }

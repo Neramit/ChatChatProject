@@ -92,6 +92,8 @@ public class ChangeDisplayname extends AppCompatActivity implements jsonBack {
 
         if (data.getStatus() == 200) {
             button.setProgress(100);
+            mEdit1.putString("displayName",displayname);
+            mEdit1.commit();
             Toast.makeText(this, data.getMessage(), Toast.LENGTH_SHORT).show();
             final Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
@@ -113,5 +115,9 @@ public class ChangeDisplayname extends AppCompatActivity implements jsonBack {
                 }
             }, 700);
         }
+    }
+    @Override
+    public void onBackPressed(){
+        finish();
     }
 }
