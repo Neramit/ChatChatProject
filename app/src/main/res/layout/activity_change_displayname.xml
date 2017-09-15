@@ -8,7 +8,7 @@
     android:padding="30dp"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    tools:context="com.example.chatchatapplication.ChangeDisplayname">
+    tools:context="com.example.chatchatapplication.Activity.ChangeDisplayname">
 
     <TextView
         android:id="@+id/countDisplayname"
@@ -18,7 +18,7 @@
         android:textAlignment="viewEnd"
         android:textSize="18sp"/>
 
-    <SearchView
+    <android.support.v7.widget.SearchView
         android:id="@+id/edittextDisplayname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -27,6 +27,8 @@
         android:hint="@string/title_dislayname"
         android:maxLength="20"
         android:maxLines="1"
+        app:iconifiedByDefault="false"
+        app:searchIcon="@null"
         tools:targetApi="lollipop" />
 
     <com.dd.CircularProgressButton

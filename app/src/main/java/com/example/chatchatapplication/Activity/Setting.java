@@ -1,7 +1,9 @@
-package com.example.chatchatapplication;
+package com.example.chatchatapplication.Activity;
 
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
+
+import com.example.chatchatapplication.R;
 
 public class Setting extends PreferenceActivity {
 

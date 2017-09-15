@@ -1,4 +1,4 @@
-package com.example.chatchatapplication;
+package com.example.chatchatapplication.Activity;
 
 import android.annotation.TargetApi;
 import android.content.Intent;
@@ -16,6 +16,7 @@ import com.dd.CircularProgressButton;
 import com.example.chatchatapplication.Object_json.User;
 import com.example.chatchatapplication.Object_json.registerSend;
 import com.example.chatchatapplication.Object_json.simpleRetrieve;
+import com.example.chatchatapplication.R;
 import com.google.gson.Gson;
 
 import org.apache.http.NameValuePair;

@@ -1,4 +1,4 @@
-package com.example.chatchatapplication;
+package com.example.chatchatapplication.Activity;
 
 import android.annotation.TargetApi;
 import android.content.Intent;
@@ -16,8 +16,8 @@ import com.dd.CircularProgressButton;
 import com.example.chatchatapplication.Object_json.User;
 import com.example.chatchatapplication.Object_json.registerSend;
 import com.example.chatchatapplication.Object_json.simpleRetrieve;
+import com.example.chatchatapplication.R;
 import com.google.gson.Gson;
-import com.kosalgeek.android.md5simply.MD5;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -35,67 +35,44 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
-public class FP_ResetPassword extends AppCompatActivity {
-
-    private EditText mPasswordView;
-    private EditText mRePasswordView;
+public class FP_EnterEmail extends AppCompatActivity {
 
     private CircularProgressButton circularProgressButton;
     private HttpURLConnection conn;
-
-    String salt = "a059a744729dfc7a4b4845109f591029";
-    String password,rePassword,email;
+    final Handler handler = new Handler();
+    private String email;
+    private EditText mEmailView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_fp__reset_password);
+        setContentView(R.layout.activity_fp__enter_email);
 
         circularProgressButton = (CircularProgressButton) findViewById(R.id.ok_button);
 
-        mPasswordView = (EditText) findViewById(R.id.password);
-        mRePasswordView = (EditText) findViewById(R.id.retype_password);
-
-        Bundle bundle = getIntent().getExtras();
-        email = bundle.getString("E-mail", null);
-
         circularProgressButton.setIndeterminateProgressMode(true);
         circularProgressButton.setProgress(0);
-
+        mEmailView = (EditText) findViewById(R.id.enter_email);
         circularProgressButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // Reset errors.
-                mPasswordView.setError(null);
-                mRePasswordView.setError(null);
+                mEmailView.setError(null);
 
-                password = mPasswordView.getText().toString();
-                rePassword = mRePasswordView.getText().toString();
+                email = mEmailView.getText().toString();
                 View focusView = null;
                 boolean cancel = false;
 
-                if (TextUtils.isEmpty(password)) {
-                    mPasswordView.setError(getString(R.string.error_field_password));
-                    focusView = mPasswordView;
+                // Check for a valid email address.
+                if (TextUtils.isEmpty(email)) {
+                    mEmailView.setError(getString(R.string.error_field_required));
+                    focusView = mEmailView;
                     cancel = true;
-                } else if (!isPasswordValid(password)) {
-                    mPasswordView.setError(getString(R.string.error_invalid_password));
-                    focusView = mPasswordView;
+                } else if (!isEmailValid(email)) {
+                    mEmailView.setError(getString(R.string.error_invalid_email));
+                    focusView = mEmailView;
                     cancel = true;
-                }
-
-                if (TextUtils.isEmpty(rePassword)) {
-                    mRePasswordView.setError(getString(R.string.error_field_password));
-                    focusView = mRePasswordView;
-                    cancel = true;
-                } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                    if (!Objects.equals(rePassword, password)) {
-                        mRePasswordView.setError(getString(R.string.error_re_password));
-                        focusView = mRePasswordView;
-                        cancel = true;
-                    }
                 }
 
                 if (cancel) {
@@ -110,10 +87,17 @@ public class FP_ResetPassword extends AppCompatActivity {
     }
 
     private class SimpleTask extends AsyncTask<String, Void, String> {
+//        ProgressBar progressBar;
 
         @Override
         protected void onPreExecute() {
-            // onProgress buton loading
+            // Create Show ProgressBar
+//            linearLayoutAll.setGravity(Gravity.CENTER);
+//            Toast.makeText(RegisterActivity.this, "Loading ...", Toast.LENGTH_SHORT).show();
+//            progressBar = new ProgressBar(Register.this);
+//            progressBar.setLayoutParams(new LinearLayout.LayoutParams(ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.WRAP_CONTENT));
+//            progressBar.getIndeterminateDrawable().setColorFilter(Color.parseColor("#1f3f99"), PorterDuff.Mode.MULTIPLY);
+//            linearLayoutAll.addView(progressBar);
             circularProgressButton.setProgress(50);
         }
 
@@ -126,9 +110,7 @@ public class FP_ResetPassword extends AppCompatActivity {
 
                 User data = new User();
                 data.setEmail(email);
-                String pw = MD5.encrypt(MD5.encrypt(password) + salt);
-                data.setPassword(pw);
-                registerSend send = new registerSend("Forgot password", "resetPassword", data);
+                registerSend send = new registerSend("Forgot password", "enterEmail", data);
                 String sendJson2 = sendJson.toJson(send);
                 //HttpURLconnection methods
                 URL url = new URL(getString(R.string.URL));
@@ -160,8 +142,6 @@ public class FP_ResetPassword extends AppCompatActivity {
                     result.append(line);
                 }
 
-
-
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {
@@ -174,14 +154,7 @@ public class FP_ResetPassword extends AppCompatActivity {
             // Dismiss ProgressBar
 //            linearLayoutAll.setGravity(Gravity.NO_GRAVITY);
 //            linearLayoutAll.removeView(progressBar);
-            final Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    // Do something after 5s = 5000ms
-                    showData(jsonString);
-                }
-            }, 2000);
+            showData(jsonString);
         }
     }
 
@@ -208,19 +181,21 @@ public class FP_ResetPassword extends AppCompatActivity {
         Gson gson = new Gson();
         final simpleRetrieve data = gson.fromJson(jsonString, simpleRetrieve.class);
         if (data.getStatus()==200) {
-            Toast.makeText(this, data.getMessage(), Toast.LENGTH_LONG).show();
+            Toast.makeText(this, data.getMessage(), Toast.LENGTH_SHORT).show();
             circularProgressButton.setProgress(100);
             final Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     // Do something after 5s = 5000ms
-                    startActivity(new Intent(FP_ResetPassword.this, Login.class));
+                    Intent intent = new Intent(FP_EnterEmail.this, FP_CheckEmail.class);
+                    intent.putExtra("E-mail", email);
+                    startActivity(intent);
                     overridePendingTransition(R.anim.enter, R.anim.exit);
                     finish();
                 }
             }, 1000);
-        } else {
+        }  else {
             Toast.makeText(this, data.getMessage(), Toast.LENGTH_SHORT).show();
             circularProgressButton.setProgress(-1);
             final Handler handler = new Handler();
@@ -228,8 +203,7 @@ public class FP_ResetPassword extends AppCompatActivity {
                 @Override
                 public void run() {
                     // Do something after 5s = 5000ms
-                    mPasswordView.setText("");
-                    mRePasswordView.setText("");
+                    mEmailView.setText("");
                     circularProgressButton.setProgress(0);
                 }
             }, 1000);
@@ -237,19 +211,15 @@ public class FP_ResetPassword extends AppCompatActivity {
         }
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-    }
-
-    private boolean isPasswordValid(String password) {
+    private boolean isEmailValid(String email) {
         //TODO: Replace this with your own logic
-        return password.length() >= 6;
+        return email.contains("@") && email.contains(".");
     }
 
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(this, Login.class));
+        Intent intent = new Intent(this,Login.class);
+        startActivity(intent);
         overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
         finish();
     }

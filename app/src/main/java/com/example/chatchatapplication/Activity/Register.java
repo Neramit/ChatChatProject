@@ -1,4 +1,4 @@
-package com.example.chatchatapplication;
+package com.example.chatchatapplication.Activity;
 
 import android.annotation.TargetApi;
 import android.content.Intent;
@@ -17,6 +17,7 @@ import com.dd.CircularProgressButton;
 import com.example.chatchatapplication.Object_json.User;
 import com.example.chatchatapplication.Object_json.registerSend;
 import com.example.chatchatapplication.Object_json.simpleRetrieve;
+import com.example.chatchatapplication.R;
 import com.google.gson.Gson;
 import com.kosalgeek.android.md5simply.MD5;
 
@@ -274,7 +275,10 @@ public class Register extends AppCompatActivity {
 
     private boolean isEmailValid(String email) {
         //TODO: Replace this with your own logic
-        return email.contains("@") && email.contains(".");
+        String ePattern = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";
+        java.util.regex.Pattern p = java.util.regex.Pattern.compile(ePattern);
+        java.util.regex.Matcher m = p.matcher(email);
+        return m.matches();
     }
 
     private boolean isEmailAlready(String email) {

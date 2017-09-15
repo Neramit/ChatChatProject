@@ -1,4 +1,4 @@
-package com.example.chatchatapplication;
+package com.example.chatchatapplication.Activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -7,6 +7,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -18,15 +19,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dd.CircularProgressButton;
+import com.example.chatchatapplication.Not_Activity.SimpleHttpTask;
+import com.example.chatchatapplication.Not_Activity.jsonBack;
 import com.example.chatchatapplication.Object_json.User;
 import com.example.chatchatapplication.Object_json.registerSend;
 import com.example.chatchatapplication.Object_json.searchRetrieve;
+import com.example.chatchatapplication.R;
 import com.google.gson.Gson;
 import com.kosalgeek.android.md5simply.MD5;
 
 import java.net.HttpURLConnection;
 
-public class Login extends AppCompatActivity implements jsonBack{
+public class Login extends AppCompatActivity implements jsonBack {
 
     private HttpURLConnection conn;
 
@@ -112,55 +116,73 @@ public class Login extends AppCompatActivity implements jsonBack{
                     // form field with an error.
                     focusView.requestFocus();
                 } else {
-                    Gson sendJson = new Gson();
-                    String pw = MD5.encrypt(salt + MD5.encrypt(MD5.encrypt(password) + salt));
-                    User user = new User(userName, pw);
-                    registerSend send = new registerSend("Authentication", "login", user);
-                    String sendJson2 = sendJson.toJson(send);
-                    circularProgressButton.setProgress(50);
-                    new SimpleHttpTask(Login.this).execute(sendJson2);
+
+                    connect();
                 }
             }
         });
     }
 
+    public void connect (){
+        Gson sendJson = new Gson();
+        String pw = MD5.encrypt(salt + MD5.encrypt(MD5.encrypt(password) + salt));
+        User user = new User(userName, pw);
+        registerSend send = new registerSend("Authentication", "login", user);
+        String sendJson2 = sendJson.toJson(send);
+        circularProgressButton.setProgress(50);
+        new SimpleHttpTask(Login.this).execute(sendJson2);
+    }
+
     @Override
     public void processFinish(String output) {
-        Gson gson = new Gson();
-        final searchRetrieve data = gson.fromJson(output, searchRetrieve.class);
-        if (data.getStatus() == 200) {
-            mEdit1.putString("token", data.getData().getToken());
-            mEdit1.putString("username", data.getData().getUsername());
-            mEdit1.putString("email", data.getData().getEmail());
-            mEdit1.putString("displayName", data.getData().getDisplayName());
-            mEdit1.putString("displayPictureURL", data.getData().getDisplayPictureURL());
-            mEdit1.putString("displayPicturePath", data.getData().getDisplayPicturePath());
-            mEdit1.commit();
-            Toast.makeText(this, data.getMessage(), Toast.LENGTH_SHORT).show();
-            circularProgressButton.setProgress(100);
-
-            final Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
+        if (output == "") {
+            circularProgressButton.setProgress(0);
+            circularProgressButton.setText("No connection");
+            Snackbar snackbar = Snackbar.make(getWindow().getDecorView().getRootView(), "No connection\nplease connect the internet for use", Snackbar.LENGTH_INDEFINITE).setAction("Retry", new View.OnClickListener() {
                 @Override
-                public void run() {
-                    // Do something after 5s = 5000ms
-                    startActivity(new Intent(Login.this, MainActivity.class));
-                    overridePendingTransition(R.anim.enter, R.anim.exit);
-                    finish();
+                public void onClick(View view) {
+                    connect();
                 }
-            }, 1000);
+            });
+            snackbar.show();
         } else {
-            Toast.makeText(this, data.getMessage(), Toast.LENGTH_SHORT).show();
-            circularProgressButton.setProgress(-1);
-            final Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    // Do something after 5s = 5000ms
-                    circularProgressButton.setProgress(0);
-                }
-            }, 1000);
+            Gson gson = new Gson();
+            final searchRetrieve data = gson.fromJson(output, searchRetrieve.class);
 
+            if (data.getStatus() == 200) {
+                mEdit1.putString("token", data.getData().getToken());
+                mEdit1.putString("username", data.getData().getUsername());
+                mEdit1.putString("email", data.getData().getEmail());
+                mEdit1.putString("displayName", data.getData().getDisplayName());
+                mEdit1.putString("displayPictureURL", data.getData().getDisplayPictureURL());
+                mEdit1.putString("displayPicturePath", data.getData().getDisplayPicturePath());
+                mEdit1.commit();
+                Toast.makeText(this, data.getMessage(), Toast.LENGTH_SHORT).show();
+                circularProgressButton.setProgress(100);
+
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        // Do something after 5s = 5000ms
+                        startActivity(new Intent(Login.this, MainActivity.class));
+                        overridePendingTransition(R.anim.enter, R.anim.exit);
+                        finish();
+                    }
+                }, 1000);
+            } else {
+                Toast.makeText(this, data.getMessage(), Toast.LENGTH_SHORT).show();
+                circularProgressButton.setProgress(-1);
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        // Do something after 5s = 5000ms
+                        circularProgressButton.setProgress(0);
+                    }
+                }, 1000);
+
+            }
         }
     }
 
@@ -189,6 +211,8 @@ public class Login extends AppCompatActivity implements jsonBack{
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                     finishAffinity();
                     System.exit(0);
+                    int pid = android.os.Process.myPid();
+                    android.os.Process.killProcess(pid);
                 }
             }
         });

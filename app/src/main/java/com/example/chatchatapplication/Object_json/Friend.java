@@ -9,7 +9,7 @@ public class Friend {
     private String friendUsername;
     private String friendStatus;
     private Boolean isFavorite;
-    private Double chatroomUID;
+    private Integer chatroomUID;
 
     public String getOwnerUsername() {
         return ownerUsername;
@@ -43,11 +43,11 @@ public class Friend {
         isFavorite = favorite;
     }
 
-    public Double getChatroomUID() {
+    public Integer getChatroomUID() {
         return chatroomUID;
     }
 
-    public void setChatroomUID(Double chatroomUID) {
+    public void setChatroomUID(Integer chatroomUID) {
         this.chatroomUID = chatroomUID;
     }
 }

@@ -7,7 +7,7 @@
     android:padding="36dp"
     android:orientation="vertical"
     android:background="@color/main_background"
-    tools:context="com.example.chatchatapplication.FP_EnterEmail">
+    tools:context="com.example.chatchatapplication.Activity.FP_EnterEmail">
 
     <LinearLayout
         android:layout_width="match_parent"

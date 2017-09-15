@@ -1,4 +1,4 @@
-package com.example.chatchatapplication;
+package com.example.chatchatapplication.Fragment;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -12,10 +12,14 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.chatchatapplication.Adapter.friendAdapter;
+import com.example.chatchatapplication.Activity.FriendChatroom;
+import com.example.chatchatapplication.Not_Activity.SimpleHttpTask;
+import com.example.chatchatapplication.Not_Activity.jsonBack;
 import com.example.chatchatapplication.Object_json.Friend;
 import com.example.chatchatapplication.Object_json.User;
 import com.example.chatchatapplication.Object_json.friendListRetrieve;
 import com.example.chatchatapplication.Object_json.registerSend;
+import com.example.chatchatapplication.R;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;

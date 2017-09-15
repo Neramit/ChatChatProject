@@ -1,4 +1,4 @@
-package com.example.chatchatapplication;
+package com.example.chatchatapplication.Activity;
 
 
 import android.content.Context;
@@ -16,6 +16,10 @@ import android.view.Window;
 import android.widget.TabHost;
 
 import com.example.chatchatapplication.Adapter.PagerAdapter;
+import com.example.chatchatapplication.Fragment.friendFragment;
+import com.example.chatchatapplication.Fragment.groupFragment;
+import com.example.chatchatapplication.Fragment.settingFragment;
+import com.example.chatchatapplication.R;
 
 import java.util.HashMap;
 import java.util.List;

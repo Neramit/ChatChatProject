@@ -1,4 +1,4 @@
-package com.example.chatchatapplication;
+package com.example.chatchatapplication.Not_Activity;
 
 import android.annotation.TargetApi;
 import android.os.AsyncTask;
@@ -25,7 +25,7 @@ public class SimpleHttpTask extends AsyncTask<String, Void, String> {
     public jsonBack delegate = null;
     private HttpURLConnection conn;
 
-    public SimpleHttpTask(jsonBack delegate){
+    public SimpleHttpTask(jsonBack delegate) {
         this.delegate = delegate;
     }
 
@@ -40,9 +40,9 @@ public class SimpleHttpTask extends AsyncTask<String, Void, String> {
 
         try {
             //HttpURLconnection methods
-//            URL url = new URL(" http://172.20.10.5/Application-Real/CentralController.php");
+            URL url = new URL(" http://172.20.10.5/Application-Real/CentralController.php");
 //            URL url = new URL("http://192.168.43.54/Application-Real/CentralController.php");
-            URL url = new URL("http://192.168.43.143/Application-Real/CentralController.php");
+//            URL url = new URL("http://192.168.43.143/Application-Real/CentralController.php");
 //            URL url = new URL("http://192.168.1.38/Application-Real/CentralController.php");
 
             conn = (HttpURLConnection) url.openConnection();
@@ -64,15 +64,23 @@ public class SimpleHttpTask extends AsyncTask<String, Void, String> {
 
             conn.connect();
 
-            InputStream in = new BufferedInputStream(conn.getInputStream());
-            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+            int status_code = conn.getResponseCode();
+            if (status_code == HttpURLConnection.HTTP_OK) {
 
-            String line;
-            while ((line = reader.readLine()) != null) {
+                InputStream in = new BufferedInputStream(conn.getInputStream());
+                BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    result.append(line);
+                }
+            } else {
+                String line;
+                line = String.valueOf(status_code);
                 result.append(line);
             }
-
         } catch (Exception e) {
+
             e.printStackTrace();
         } finally {
             conn.disconnect();

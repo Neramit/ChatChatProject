@@ -1,4 +1,4 @@
-package com.example.chatchatapplication;
+package com.example.chatchatapplication.Activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -18,9 +18,12 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.dd.CircularProgressButton;
+import com.example.chatchatapplication.Not_Activity.SimpleHttpTask;
+import com.example.chatchatapplication.Not_Activity.jsonBack;
 import com.example.chatchatapplication.Object_json.User;
 import com.example.chatchatapplication.Object_json.registerSend;
 import com.example.chatchatapplication.Object_json.searchRetrieve;
+import com.example.chatchatapplication.R;
 import com.google.gson.Gson;
 
 import java.util.Objects;

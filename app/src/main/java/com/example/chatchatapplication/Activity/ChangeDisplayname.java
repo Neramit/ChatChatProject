@@ -1,4 +1,4 @@
-package com.example.chatchatapplication;
+package com.example.chatchatapplication.Activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -6,15 +6,18 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
 import android.view.View;
-import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dd.CircularProgressButton;
+import com.example.chatchatapplication.Not_Activity.SimpleHttpTask;
+import com.example.chatchatapplication.Not_Activity.jsonBack;
 import com.example.chatchatapplication.Object_json.User;
 import com.example.chatchatapplication.Object_json.registerSend;
 import com.example.chatchatapplication.Object_json.searchRetrieve;
+import com.example.chatchatapplication.R;
 import com.google.gson.Gson;
 
 public class ChangeDisplayname extends AppCompatActivity implements jsonBack {
@@ -31,7 +34,7 @@ public class ChangeDisplayname extends AppCompatActivity implements jsonBack {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().setTitle(R.string.title_profile);
+        getSupportActionBar().setTitle(R.string.title_dislayname);
         setContentView(R.layout.activity_change_displayname);
 
         sp = PreferenceManager.getDefaultSharedPreferences(this);
@@ -43,6 +46,13 @@ public class ChangeDisplayname extends AppCompatActivity implements jsonBack {
 
         button.setProgress(0);
         button.setIndeterminateProgressMode(true);
+
+//        ImageView searchViewIcon = (ImageView)displayName.findViewById(android.support.v7.appcompat.R.id.search_mag_icon);
+//
+//        ViewGroup linearLayoutSearchView =(ViewGroup) searchViewIcon.getParent();
+//        linearLayoutSearchView.removeView(searchViewIcon);
+
+        displayName.setQuery(displayname, false);
 
         displayName.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,14 +83,17 @@ public class ChangeDisplayname extends AppCompatActivity implements jsonBack {
             @Override
             public void onClick(View view) {
                 displayname = displayName.getQuery().toString();
-                Gson sendJson = new Gson();
-                button.setProgress(50);
-                User data = new User();
-                data.setDisplayName(displayname);
-                token = sp.getString("token", null);
-                registerSend send = new registerSend("Other", "profileAccountDisplayName", token, data);
-                String sendJson2 = sendJson.toJson(send);
-                new SimpleHttpTask(ChangeDisplayname.this).execute(sendJson2);
+                if (displayname.length() == 0) {
+                } else {
+                    Gson sendJson = new Gson();
+                    button.setProgress(50);
+                    User data = new User();
+                    data.setDisplayName(displayname);
+                    token = sp.getString("token", null);
+                    registerSend send = new registerSend("Other", "profileAccountDisplayName", token, data);
+                    String sendJson2 = sendJson.toJson(send);
+                    new SimpleHttpTask(ChangeDisplayname.this).execute(sendJson2);
+                }
             }
         });
     }
@@ -92,7 +105,7 @@ public class ChangeDisplayname extends AppCompatActivity implements jsonBack {
 
         if (data.getStatus() == 200) {
             button.setProgress(100);
-            mEdit1.putString("displayName",displayname);
+            mEdit1.putString("displayName", displayname);
             mEdit1.commit();
             Toast.makeText(this, data.getMessage(), Toast.LENGTH_SHORT).show();
             final Handler handler = new Handler();
@@ -116,8 +129,9 @@ public class ChangeDisplayname extends AppCompatActivity implements jsonBack {
             }, 700);
         }
     }
+
     @Override
-    public void onBackPressed(){
+    public void onBackPressed() {
         finish();
     }
 }

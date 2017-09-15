@@ -4,40 +4,44 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.chatchatapplication.FriendChatroom">
+    tools:context="com.example.chatchatapplication.Activity.FriendChatroom">
 
-
-    <EditText
-        android:id="@+id/t1"
+    <RelativeLayout
+        android:id="@+id/type_message"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="5dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="60dp" />
+        android:padding="5dp"
+        android:orientation="horizontal">
 
-    <ToggleButton
-        android:id="@+id/send_bt"
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginBottom="10dp"
-        android:layout_marginRight="15dp"
-        android:background="@drawable/sound"
-        android:padding="0dp"
-        android:scaleType="fitCenter"
-        android:textOff=""
-        android:textOn="" />
+        <EditText
+            android:id="@+id/editText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="60dp" />
+
+        <ToggleButton
+            android:id="@+id/send_bt"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/sound"
+            android:scaleType="fitCenter"
+            android:textOff=""
+            android:textOn="" />
+    </RelativeLayout>
 
     <ListView
         android:id="@+id/list_chat"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/t1"
+        android:layout_above="@id/type_message"
         android:stackFromBottom="true"
-        android:transcriptMode="alwaysScroll">
-    </ListView>
+        android:footerDividersEnabled="false"
+        android:headerDividersEnabled="false"
+        android:transcriptMode="alwaysScroll"/>
 </RelativeLayout>

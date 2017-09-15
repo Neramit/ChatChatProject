@@ -1,4 +1,4 @@
-package com.example.chatchatapplication;
+package com.example.chatchatapplication.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +10,9 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 
 import com.example.chatchatapplication.Adapter.GridAdapter;
+import com.example.chatchatapplication.Activity.ProfileAccount;
+import com.example.chatchatapplication.R;
+import com.example.chatchatapplication.Activity.Setting;
 
 public class settingFragment extends Fragment {
     GridView gridview;
