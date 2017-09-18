@@ -1,9 +1,6 @@
 package com.example.chatchatapplication.Activity;
 
-import android.annotation.TargetApi;
 import android.content.Intent;
-import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -13,30 +10,17 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.dd.CircularProgressButton;
+import com.example.chatchatapplication.Not_Activity.SimpleHttpTask;
+import com.example.chatchatapplication.Not_Activity.jsonBack;
 import com.example.chatchatapplication.Object_json.User;
 import com.example.chatchatapplication.Object_json.registerSend;
 import com.example.chatchatapplication.Object_json.simpleRetrieve;
 import com.example.chatchatapplication.R;
 import com.google.gson.Gson;
 
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
-
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.List;
 
-public class FP_CheckEmail extends AppCompatActivity {
+public class FP_CheckEmail extends AppCompatActivity implements jsonBack {
 
     private CircularProgressButton circularProgressButton;
     private HttpURLConnection conn;
@@ -83,108 +67,25 @@ public class FP_CheckEmail extends AppCompatActivity {
                     // form field with an error.
                     focusView.requestFocus();
                 } else {
-                    new SimpleTask().execute();
+                    Gson sendJson = new Gson();
+
+                    User data = new User();
+                    data.setEmail(email);
+                    data.setGenNum(genNum);
+                    registerSend send = new registerSend("Forgot password", "checkEmail", data);
+                    String sendJson2 = sendJson.toJson(send);
+                    circularProgressButton.setProgress(50);
+                    new SimpleHttpTask(FP_CheckEmail.this).execute();
                 }
             }
         });
     }
 
-    private class SimpleTask extends AsyncTask<String, Void, String> {
-//        ProgressBar progressBar;
-
-        @Override
-        protected void onPreExecute() {
-            // Create Show ProgressBar
-//            linearLayoutAll.setGravity(Gravity.CENTER);
-//            Toast.makeText(RegisterActivity.this, "Loading ...", Toast.LENGTH_SHORT).show();
-//            progressBar = new ProgressBar(Register.this);
-//            progressBar.setLayoutParams(new LinearLayout.LayoutParams(ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.WRAP_CONTENT));
-//            progressBar.getIndeterminateDrawable().setColorFilter(Color.parseColor("#1f3f99"), PorterDuff.Mode.MULTIPLY);
-//            linearLayoutAll.addView(progressBar);
-            circularProgressButton.setProgress(50);
-        }
-
-        @TargetApi(Build.VERSION_CODES.KITKAT)
-        protected String doInBackground(String... urls) {
-            StringBuilder result = new StringBuilder();
-
-            try {
-                Gson sendJson = new Gson();
-
-                User data = new User();
-                data.setEmail(email);
-                data.setGenNum(genNum);
-                registerSend send = new registerSend("Forgot password", "checkEmail", data);
-                String sendJson2 = sendJson.toJson(send);
-                //HttpURLconnection methods
-                URL url = new URL(getString(R.string.URL));
-                conn = (HttpURLConnection) url.openConnection();
-                conn.setReadTimeout(10000);
-                conn.setConnectTimeout(15000);
-                conn.setRequestMethod("POST");
-                conn.setDoInput(true);
-                conn.setDoOutput(true);
-
-                List<NameValuePair> params = new ArrayList<NameValuePair>();
-                params.add(new BasicNameValuePair("json", sendJson2));
-
-                OutputStream os = conn.getOutputStream();
-                BufferedWriter writer = new BufferedWriter(
-                        new OutputStreamWriter(os, "UTF-8"));
-                writer.write(getQuery(params));
-                writer.flush();
-                writer.close();
-                os.close();
-
-                conn.connect();
-
-                InputStream in = new BufferedInputStream(conn.getInputStream());
-                BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    result.append(line);
-                }
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            } finally {
-                conn.disconnect();
-            }
-            return result.toString();
-        }
-
-        protected void onPostExecute(final String jsonString) {
-            // Dismiss ProgressBar
-//            linearLayoutAll.setGravity(Gravity.NO_GRAVITY);
-//            linearLayoutAll.removeView(progressBar);
-            showData(jsonString);
-        }
-    }
-
-    private String getQuery(List<NameValuePair> params) throws UnsupportedEncodingException {
-        StringBuilder result = new StringBuilder();
-        boolean first = true;
-
-        for (NameValuePair pair : params) {
-            if (first)
-                first = false;
-            else
-                result.append("&");
-
-            result.append(URLEncoder.encode(pair.getName(), "UTF-8"));
-            result.append("=");
-            result.append(URLEncoder.encode(pair.getValue(), "UTF-8"));
-        }
-
-        return result.toString();
-    }
-
-    private void showData(String jsonString) {
-
+    @Override
+    public void processFinish(String output) {
         Gson gson = new Gson();
-        final simpleRetrieve data = gson.fromJson(jsonString, simpleRetrieve.class);
-        if (data.getStatus()==200) {
+        final simpleRetrieve data = gson.fromJson(output, simpleRetrieve.class);
+        if (data.getStatus() == 200) {
             Toast.makeText(this, data.getMessage(), Toast.LENGTH_SHORT).show();
             circularProgressButton.setProgress(100);
             final Handler handler = new Handler();
@@ -199,7 +100,7 @@ public class FP_CheckEmail extends AppCompatActivity {
                     finish();
                 }
             }, 1000);
-        } else if (data.getStatus()==500) {
+        } else if (data.getStatus() == 500) {
             Toast.makeText(this, data.getMessage(), Toast.LENGTH_SHORT).show();
             circularProgressButton.setProgress(-1);
             final Handler handler = new Handler();
@@ -225,7 +126,6 @@ public class FP_CheckEmail extends AppCompatActivity {
                     circularProgressButton.setProgress(0);
                 }
             }, 1000);
-
         }
     }
 
@@ -233,4 +133,6 @@ public class FP_CheckEmail extends AppCompatActivity {
         //TODO: Replace this with your own logic
         return genNum.length() >= 6;
     }
+
+
 }

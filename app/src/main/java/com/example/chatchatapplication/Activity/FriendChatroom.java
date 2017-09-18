@@ -90,15 +90,14 @@ public class FriendChatroom extends AppCompatActivity {
         send_bt = (ToggleButton) findViewById(R.id.send_bt);
 
 //        User = getIntent().getExtras().getString("user_name", "Anonymous");
-//        User = sp.getString("displayName", null);
-//        if(User==null)
-//            User = sp.getString("username", null);
+        User = sp.getString("displayName", null);
+        if(User==null)
+            User = sp.getString("username", null);
         send_bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mMessagesRef.setValue(listMessage);
-                if (text.getText().toString().trim().isEmpty()) {
-                } else {
+                if (!text.getText().toString().trim().isEmpty()) {
                     sendNewMessage(text.getText().toString(), User);
                     text.setText("");                      //Clear input edittext panel
                     scrollMyListViewToBottom();

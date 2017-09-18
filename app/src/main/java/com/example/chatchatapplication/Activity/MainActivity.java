@@ -30,7 +30,6 @@ public class MainActivity extends AppCompatActivity implements TabHost.OnTabChan
     private TabHost mTabHost;
     private ViewPager mViewPager;
     private HashMap<String, TabInfo> mapTabInfo = new HashMap<String, MainActivity.TabInfo>();
-    private PagerAdapter mPagerAdapter;
     private int Position;
 
     private Menu menu;
@@ -57,14 +56,14 @@ public class MainActivity extends AppCompatActivity implements TabHost.OnTabChan
      *
      * @author mwho
      */
-    class TabFactory implements TabHost.TabContentFactory {
+    private class TabFactory implements TabHost.TabContentFactory {
 
         private final Context mContext;
 
         /**
          * @param context
          */
-        public TabFactory(Context context) {
+        TabFactory(Context context) {
             mContext = context;
         }
 
@@ -115,10 +114,10 @@ public class MainActivity extends AppCompatActivity implements TabHost.OnTabChan
         fragments.add(Fragment.instantiate(this, friendFragment.class.getName()));
         fragments.add(Fragment.instantiate(this, groupFragment.class.getName()));
         fragments.add(Fragment.instantiate(this, settingFragment.class.getName()));
-        this.mPagerAdapter = new PagerAdapter(super.getSupportFragmentManager(), fragments);
+        PagerAdapter mPagerAdapter = new PagerAdapter(super.getSupportFragmentManager(), fragments);
         //
         this.mViewPager = (ViewPager) super.findViewById(R.id.viewpager);
-        this.mViewPager.setAdapter(this.mPagerAdapter);
+        this.mViewPager.setAdapter(mPagerAdapter);
         this.mViewPager.setOnPageChangeListener(this);
     }
 
@@ -142,14 +141,6 @@ public class MainActivity extends AppCompatActivity implements TabHost.OnTabChan
         mTabHost.setOnTabChangedListener(this);
     }
 
-    //    /**
-//     * Add Tab content to the Tabhost
-//     * @param activity
-//     * @param tabHost
-//     * @param tabSpec
-//     * @param clss
-//     * @param args
-//     */
     private static void AddTab(MainActivity activity, TabHost tabHost, TabHost.TabSpec tabSpec, TabInfo tabInfo) {
         // Attach a Tab view factory to the spec
         tabSpec.setContent(activity.new TabFactory(activity));
@@ -222,34 +213,21 @@ public class MainActivity extends AppCompatActivity implements TabHost.OnTabChan
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_add_friend) {
-            startActivity(new Intent(this,AddFriend.class));
+            startActivity(new Intent(this, AddFriend.class));
             return true;
-        }
-        else if (id == R.id.action_filter_friend) {
-
+        } else if (id == R.id.action_filter_friend) {
             return true;
-        }
-        else if (id == R.id.action_block) {
-
+        } else if (id == R.id.action_block) {
             return true;
-        }else if (id == R.id.action_sort) {
-
+        } else if (id == R.id.action_sort) {
             return true;
-        }
-        else if (id == R.id.action_create_group) {
-
+        } else if (id == R.id.action_create_group) {
             return true;
-        }
-        else if (id == R.id.action_filter_group) {
-
+        } else if (id == R.id.action_filter_group) {
             return true;
-        }
-        else if (id == R.id.action_sort2) {
-
+        } else if (id == R.id.action_sort2) {
             return true;
-        }
-        else if (id == R.id.action_manage_category) {
-
+        } else if (id == R.id.action_manage_category) {
             return true;
         }
         return super.onOptionsItemSelected(item);

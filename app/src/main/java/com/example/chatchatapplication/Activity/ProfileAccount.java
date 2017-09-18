@@ -19,10 +19,30 @@ public class ProfileAccount extends AppCompatActivity {
     LinearLayout topLinear;
     LinearLayout.LayoutParams p;
     String displayname, username, email;
+    CircleImageView userImage;
 
     // Shared preferrence
     SharedPreferences sp;
     SharedPreferences.Editor mEdit1;
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        sp = PreferenceManager.getDefaultSharedPreferences(this);
+        mEdit1 = sp.edit();
+
+        displayname = sp.getString("displayName", null);
+        username = sp.getString("username",null);
+        email = sp.getString("email",null);
+
+        if (displayName != null) {
+            displayName.setText(displayname);
+        }else{
+            displayName.setText(username);
+        }
+        userName.setText(username);
+        Email.setText(email);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,34 +51,18 @@ public class ProfileAccount extends AppCompatActivity {
         getSupportActionBar().setTitle(R.string.title_profile);
         setContentView(R.layout.activity_profile_account);
 
-        sp = PreferenceManager.getDefaultSharedPreferences(this);
-        mEdit1 = sp.edit();
-
+        userImage = (CircleImageView) findViewById(R.id.user_image);
         topLinear = (LinearLayout) findViewById(R.id.topLinear);
         displayName = (TextView) findViewById(R.id.displayname);
         userName = (TextView) findViewById(R.id.user_name);
         Email = (TextView) findViewById(R.id.Email);
-
-        displayname = sp.getString("displayName", null);
-        username = sp.getString("username",null);
-        email = sp.getString("email",null);
-        if (displayName != null) {
-            displayName.setText(displayname);
-        }else{
-            displayName.setText(username);
-        }
-        userName.setText(username);
-        Email.setText(email);
-
-        CircleImageView circleImageView = new CircleImageView(this);
-        p = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT);
-//        circleImageView.setAdjustViewBounds(true);
-        circleImageView.setImageResource(R.drawable.default_user);
-        circleImageView.setLayoutParams(p);
-        topLinear.addView(circleImageView);
     }
 
     public void changeDisplayname(View v) {
+        startActivity(new Intent(this, ChangeDisplayname.class));
+    }
+
+    public void changeUserPicture(View v) {
         startActivity(new Intent(this, ChangeDisplayname.class));
     }
 }

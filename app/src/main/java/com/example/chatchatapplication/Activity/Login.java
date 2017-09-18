@@ -29,6 +29,7 @@ import com.google.gson.Gson;
 import com.kosalgeek.android.md5simply.MD5;
 
 import java.net.HttpURLConnection;
+import java.util.Objects;
 
 public class Login extends AppCompatActivity implements jsonBack {
 
@@ -116,7 +117,6 @@ public class Login extends AppCompatActivity implements jsonBack {
                     // form field with an error.
                     focusView.requestFocus();
                 } else {
-
                     connect();
                 }
             }
@@ -135,7 +135,7 @@ public class Login extends AppCompatActivity implements jsonBack {
 
     @Override
     public void processFinish(String output) {
-        if (output == "") {
+        if (Objects.equals(output, "")) {
             circularProgressButton.setProgress(0);
             circularProgressButton.setText("No connection");
             Snackbar snackbar = Snackbar.make(getWindow().getDecorView().getRootView(), "No connection\nplease connect the internet for use", Snackbar.LENGTH_INDEFINITE).setAction("Retry", new View.OnClickListener() {

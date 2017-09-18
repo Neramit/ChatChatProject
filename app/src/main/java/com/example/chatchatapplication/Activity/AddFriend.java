@@ -74,37 +74,50 @@ public class AddFriend extends AppCompatActivity implements jsonBack {
         button.setIndeterminateProgressMode(true);
         button.setProgress(0);
 
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                //Log.e("onQueryTextChange", "called");
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                userName = searchView.getQuery().toString();
+//                    searchView.setError(null);
+                View focusView = null;
+                boolean cancel = false;
+                if (TextUtils.isEmpty(userName)) {
+                    focusView = searchView;
+                    cancel = true;
+                } else if (!isUserNameValid(userName)) {
+                    focusView = searchView;
+                    cancel = true;
+                }
+                if (cancel) {
+                    // There was an error; don't attempt login and focus the first
+                    // form field with an error.
+                    focusView.requestFocus();
+                } else {
+                    Gson sendJson = new Gson();
+                    button.setProgress(50);
+                    User data = new User();
+                    data.setUsername(userName);
+                    token = sp.getString("token", null);
+                    registerSend send = new registerSend("Friend", "addFriendSearchButton", token, data);
+                    String sendJson2 = sendJson.toJson(send);
+                    target = "search";
+                    new SimpleHttpTask(AddFriend.this).execute(sendJson2);
+                }
+                return false;
+            }
+
+        });
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Reset errors.
-                if (button.getProgress() == 0) {
-                    userName = searchView.getQuery().toString();
-//                    searchView.setError(null);
-                    View focusView = null;
-                    boolean cancel = false;
-                    if (TextUtils.isEmpty(userName)) {
-                        focusView = searchView;
-                        cancel = true;
-                    } else if (!isUserNameValid(userName)) {
-                        focusView = searchView;
-                        cancel = true;
-                    }
-                    if (cancel) {
-                        // There was an error; don't attempt login and focus the first
-                        // form field with an error.
-                        focusView.requestFocus();
-                    } else {
-                        Gson sendJson = new Gson();
-                        button.setProgress(50);
-                        User data = new User();
-                        data.setUsername(userName);
-                        token = sp.getString("token", null);
-                        registerSend send = new registerSend("Friend", "addFriendSearchButton", token, data);
-                        String sendJson2 = sendJson.toJson(send);
-                        new SimpleHttpTask(AddFriend.this).execute(sendJson2);
-                    }
-                } else if (button.getProgress() == 100) {
                     Gson sendJson = new Gson();
                     button.setProgress(50);
                     User data = new User();
@@ -114,7 +127,6 @@ public class AddFriend extends AppCompatActivity implements jsonBack {
                     String sendJson2 = sendJson.toJson(send);
                     target = "add";
                     new SimpleHttpTask(AddFriend.this).execute(sendJson2);
-                }
             }
         });
     }

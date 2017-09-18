@@ -1,6 +1,5 @@
 package com.example.chatchatapplication.Activity;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
@@ -47,22 +46,12 @@ public class ChangeDisplayname extends AppCompatActivity implements jsonBack {
         button.setProgress(0);
         button.setIndeterminateProgressMode(true);
 
-//        ImageView searchViewIcon = (ImageView)displayName.findViewById(android.support.v7.appcompat.R.id.search_mag_icon);
-//
-//        ViewGroup linearLayoutSearchView =(ViewGroup) searchViewIcon.getParent();
-//        linearLayoutSearchView.removeView(searchViewIcon);
-
         displayName.setQuery(displayname, false);
 
         displayName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 displayName.setIconified(false);
-//                if (extendView.getChildCount() > 0) {
-//                    extendView.setVisibility(View.INVISIBLE);
-////                    extendView.removeAllViews();
-//                    button.setProgress(0);
-//                }
             }
         });
 
@@ -83,8 +72,7 @@ public class ChangeDisplayname extends AppCompatActivity implements jsonBack {
             @Override
             public void onClick(View view) {
                 displayname = displayName.getQuery().toString();
-                if (displayname.length() == 0) {
-                } else {
+                if (displayname.trim().length() > 3 && displayname.trim().length() < 21) {
                     Gson sendJson = new Gson();
                     button.setProgress(50);
                     User data = new User();
@@ -93,6 +81,8 @@ public class ChangeDisplayname extends AppCompatActivity implements jsonBack {
                     registerSend send = new registerSend("Other", "profileAccountDisplayName", token, data);
                     String sendJson2 = sendJson.toJson(send);
                     new SimpleHttpTask(ChangeDisplayname.this).execute(sendJson2);
+                } else {
+                    Toast.makeText(ChangeDisplayname.this, R.string.toast_displayname_minimum, Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -112,7 +102,6 @@ public class ChangeDisplayname extends AppCompatActivity implements jsonBack {
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    startActivity(new Intent(ChangeDisplayname.this, ProfileAccount.class));
                     finish();
                 }
             }, 700);
