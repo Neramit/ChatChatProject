@@ -71,6 +71,13 @@
     <string name="action_add">Add</string>
     <string name="action_wrong">Wrong username</string>
 
+    <!-- TODO: String related to create group -->
+    <string name="message_warning">*You can only invite up to 200 people per chat
+Friend you add here will be sent an invitation to the group.</string>
+    <string name="button_save">Save</string>
+    <string name="title_create_group">Create Group</string>
+
+
     <!-- TODO: String related to Profile account -->
     <string name="title_profile">Profile</string>
     <string name="title_account">Account</string>

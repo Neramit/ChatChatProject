@@ -63,51 +63,13 @@ public class friendFragment extends Fragment implements jsonBack {
                 // TODO Auto-generated method stub
                 Intent intent = new Intent(getActivity(),FriendChatroom.class);
                 intent.putExtra("chatroomUid",friend_list.get(position).getChatroomUID());
+                intent.putExtra("friendUsername",friend_list.get(position).getFriendUsername());
+                intent.putExtra("friendStatus",friend_list.get(position).getFriendStatus());
+                intent.putExtra("friendDisplayName",friend_list.get(position).getDisplayName());
+                intent.putExtra("frindDisplayPictureURL",friend_list.get(position).getDisplayPictureURL());
                 startActivity(intent);
-//                switch (((HospitalNames)list.getAdapter().getItem(position)).getHospitalName()) {
-////                switch (hospitalNameList[position])
-//                    case "โรงพยาบาลราษฎร์บูรณะ":
-//                        intent = new Intent(Find.this, Hospital_1.class);
-//                        break;
-//                    case "โรงพยาบาลสุขสวัสดิ์":
-//                        intent = new Intent(Find.this, Hospital_2.class);
-//                        break;
-//                    case "โรงพยาบาลประชาพัฒน์":
-//                        intent = new Intent(Find.this, Hospital_3.class);
-//                        break;
-//                    case "โรงพยาบาลบางปะกอก":
-//                        intent = new Intent(Find.this, Hospital_4.class);
-//                        break;
-//                    case "โรงพยาบาลบางปะกอก 3":
-//                        intent = new Intent(Find.this, Hospital_6.class);
-//                        break;
-//                    case "โรงพยาบาลบางปะกอก 9":
-//                        intent = new Intent(Find.this, Hospital_7.class);
-//                        break;
-//                    case "โรงพยาบาลเจริญกรุง":
-//                        intent = new Intent(Find.this, Hospital_5.class);
-//                        break;
-//                    case "โรงพยาบาลสมิติเวช":
-//                        intent = new Intent(Find.this, Hospital_8.class);
-//                        break;
-//                    case "โรงพยาบาลบํารุงราษฎร์":
-//                        intent = new Intent(Find.this, Hospital_9.class);
-//                        break;
-//                    case "โรงพยาบาลศิริราช":
-//                        intent = new Intent(Find.this, Hospital_10.class);
-//                        break;
-//                    default:
-//                        intent = new Intent(Find.this, Hospital_11.class);
-//                        break;
-//                }
-//                if (intent != null) {
-//                    startActivity(intent);
-//                    overridePendingTransition(R.anim.enter, R.anim.exit);
-//                    finish();
-//                }
             }
         });
-
         return view;
     }
 

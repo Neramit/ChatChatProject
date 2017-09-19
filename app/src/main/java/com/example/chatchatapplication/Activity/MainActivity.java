@@ -2,12 +2,14 @@ package com.example.chatchatapplication.Activity;
 
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -222,6 +224,7 @@ public class MainActivity extends AppCompatActivity implements TabHost.OnTabChan
         } else if (id == R.id.action_sort) {
             return true;
         } else if (id == R.id.action_create_group) {
+            startActivity(new Intent(this, CreateGroup.class));
             return true;
         } else if (id == R.id.action_filter_group) {
             return true;
@@ -240,5 +243,32 @@ public class MainActivity extends AppCompatActivity implements TabHost.OnTabChan
     public void onPageScrollStateChanged(int state) {
         // TODO Auto-generated method stub
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.title_exit);
+        builder.setIcon(R.drawable.logo2);
+        builder.setMessage(R.string.message_exit);
+
+        builder.setPositiveButton(R.string.Yes_exit, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                    finishAffinity();
+                    System.exit(0);
+                    int pid = android.os.Process.myPid();
+                    android.os.Process.killProcess(pid);
+                }
+            }
+        });
+        builder.setNegativeButton(R.string.No_exit, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        builder.show();
     }
 }

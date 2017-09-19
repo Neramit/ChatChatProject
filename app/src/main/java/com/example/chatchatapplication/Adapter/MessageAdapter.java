@@ -44,7 +44,7 @@ public class MessageAdapter extends ArrayAdapter<messages>{
             LayoutInflater vi = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             v = vi.inflate(R.layout.other_message_list, null);
             CircleImageView otherImage = (CircleImageView) v.findViewById(R.id.other_image);
-
+//            if(items.get(position).get)
         }
         messages o = items.get(position);
         if (o != null) {
@@ -63,7 +63,7 @@ public class MessageAdapter extends ArrayAdapter<messages>{
 //            un.setText(items.get(position).getMessageUser());
             ms.setText(String.valueOf(decrypted));
 //            dt.setText(String.valueOf(DateFormat.format("HH:mm",items.get(position).getMessageTime())));
-            dt.setText(String.valueOf(DateFormat.format("HH:mm",items.get(position).getMessageTime())));
+            dt.setText(String.valueOf(DateFormat.format("dd/MM/yy\nHH:mm",items.get(position).getMessageTime())));
         }
         return v;
     }

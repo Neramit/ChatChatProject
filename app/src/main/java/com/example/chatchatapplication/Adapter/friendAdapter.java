@@ -7,11 +7,14 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.chatchatapplication.Object_json.Friend;
 import com.example.chatchatapplication.R;
 
 import java.util.ArrayList;
 import java.util.TreeSet;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by Neramit777 on 9/13/2017.
@@ -78,7 +81,18 @@ public class friendAdapter extends BaseAdapter {
                 case TYPE_ITEM:
                     convertView = mInflater.inflate(R.layout.friend_listview, null);
                     holder.textView = (TextView) convertView.findViewById(R.id.friendname);
-                    holder.textView.setText(mData.get(position).getFriendUsername());
+                    String friendDisplayName = mData.get(position).getDisplayName();
+                    if (friendDisplayName != null)
+                        holder.textView.setText(friendDisplayName);
+                    else holder.textView.setText(mData.get(position).getFriendUsername());
+
+                    String friendDisplayPictureURL = mData.get(position).getDisplayPictureURL();
+                    if (friendDisplayPictureURL != null) {
+                        holder.circleImageView = (CircleImageView) convertView.findViewById(R.id.image_user);
+                        Glide.with(convertView)
+                                .load(mData.get(position).getDisplayPictureURL())  //Test
+                                .into(holder.circleImageView);
+                    }
                     break;
                 case TYPE_SEPARATOR:
                     convertView = mInflater.inflate(R.layout.section_listview, null);
@@ -94,7 +108,8 @@ public class friendAdapter extends BaseAdapter {
         return convertView;
     }
 
-    public static class ViewHolder {
-        public TextView textView;
+    private static class ViewHolder {
+        TextView textView;
+        CircleImageView circleImageView;
     }
 }

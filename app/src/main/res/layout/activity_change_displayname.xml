@@ -38,6 +38,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:cpb_textIdle="@string/button_OK"
+        app:cpb_iconComplete="@drawable/ic_action_accept"
+        app:cpb_iconError="@drawable/ic_action_cancel"
         android:textColor="@color/white_text"
         app:cpb_cornerRadius="10dp"
         app:cpb_selectorIdle="@color/cpb_green" />

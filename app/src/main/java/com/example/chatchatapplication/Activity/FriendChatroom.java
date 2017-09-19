@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.example.chatchatapplication.Adapter.MessageAdapter;
@@ -32,8 +33,8 @@ public class FriendChatroom extends AppCompatActivity {
     public static ArrayList<messages> listMessage;
 
     EditText text;
-
-    String User;
+    int chatroomUid;
+    String friendUsername,friendDisplayName;
     ArrayAdapter<messages> adapter;
 
     // Shared preferrence
@@ -42,7 +43,7 @@ public class FriendChatroom extends AppCompatActivity {
 
     @Override
     protected void onStart() {
-        getSupportActionBar().setTitle(User);
+        getSupportActionBar().setTitle(friendUsername);
         super.onStart();
 
         mMessagesRef.addValueEventListener(new ValueEventListener() {
@@ -52,7 +53,7 @@ public class FriendChatroom extends AppCompatActivity {
                 for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
                     messages user = userSnapshot.getValue(messages.class);
                     listMessage.add(user);
-                    adapter = new MessageAdapter(FriendChatroom.this, R.layout.user_message_list, listMessage, User);
+                    adapter = new MessageAdapter(FriendChatroom.this, R.layout.user_message_list, listMessage, friendUsername);
                 }
                 listview.setAdapter(adapter);
             }
@@ -72,35 +73,30 @@ public class FriendChatroom extends AppCompatActivity {
         sp = PreferenceManager.getDefaultSharedPreferences(this);
         mEdit1 = sp.edit();
 
-        User = sp.getString("displayName", null);
-        if (User == null)
-            User = sp.getString("username", null);
-
-        int chatroomUid = getIntent().getExtras().getInt("chatroomUid");
-
-//        sp = PreferenceManager.getDefaultSharedPreferences(this);
-//        mEdit1 = sp.edit();
+        chatroomUid = getIntent().getExtras().getInt("chatroomUid");
+        friendUsername = getIntent().getExtras().getString("friendUsername");
+        friendDisplayName = getIntent().getExtras().getString("friendDisplayName");
 
         DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
-        mMessagesRef = mRootRef.child(String.valueOf(chatroomUid));
+        mMessagesRef = mRootRef.child("Private Chat").child(String.valueOf(chatroomUid));
 
         listMessage = new ArrayList<messages>();
         listview = (ListView) findViewById(R.id.list_chat);
         text = (EditText) findViewById(R.id.editText);
         send_bt = (ToggleButton) findViewById(R.id.send_bt);
 
-//        User = getIntent().getExtras().getString("user_name", "Anonymous");
-        User = sp.getString("displayName", null);
-        if(User==null)
-            User = sp.getString("username", null);
+        if(friendDisplayName==null)
+            friendDisplayName = friendUsername;
         send_bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mMessagesRef.setValue(listMessage);
                 if (!text.getText().toString().trim().isEmpty()) {
-                    sendNewMessage(text.getText().toString(), User);
+                    sendNewMessage(text.getText().toString(), friendUsername);
                     text.setText("");                      //Clear input edittext panel
                     scrollMyListViewToBottom();
+                }else {
+                    Toast.makeText(FriendChatroom.this,"Must type any character first",Toast.LENGTH_SHORT).show();
                 }
             }
         });

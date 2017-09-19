@@ -5,7 +5,7 @@
     android:padding="5dp"
     android:orientation="horizontal">
 
-    <android.support.v4.widget.CircleImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/other_image"
         android:layout_width="40dp"
         android:layout_height="40dp"
@@ -31,10 +31,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
-        android:layout_marginTop="7dp"
         android:layout_toEndOf="@+id/message"
         android:layout_alignBottom="@id/message"
-        android:padding="5dp"
+        android:textSize="12sp"
         android:text="Date"
         android:textAlignment="textStart" />
 

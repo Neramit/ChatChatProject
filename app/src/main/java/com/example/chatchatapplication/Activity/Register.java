@@ -121,7 +121,7 @@ public class Register extends AppCompatActivity implements jsonBack {
                     focusView.requestFocus();
                 } else {
                     Gson sendJson = new Gson();
-
+                    circularProgressButton.setProgress(50);
                     String pw = MD5.encrypt(MD5.encrypt(password) + salt);
                     User data = new User(userName, pw, email);
                     registerSend send = new registerSend("Authentication", "register", data);

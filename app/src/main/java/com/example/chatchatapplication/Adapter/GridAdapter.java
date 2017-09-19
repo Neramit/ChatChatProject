@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 
+import com.bumptech.glide.Glide;
 import com.example.chatchatapplication.R;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -17,14 +18,16 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class GridAdapter extends BaseAdapter {
     private Context mContext;
     private View view;
+    private String imageUrl;
 
-    public GridAdapter(Context c) {
+    public GridAdapter(Context c, String imageURL) {
         mContext = c;
+        imageUrl = imageURL;
     }
 
-    public GridAdapter(View view) {
-        this.view = view;
-    }
+//    public GridAdapter(View view) {
+//        this.view = view;
+//    }
 
     public int getCount() {
         return 2;
@@ -48,12 +51,20 @@ public class GridAdapter extends BaseAdapter {
 //            circleImageView.setAdjustViewBounds(true);
             circleImageView.setPadding(8, 8, 8, 8);
         } else {
-            circleImageView = (CircleImageView) convertView;
+            circleImageView = new CircleImageView(mContext);
+            circleImageView.setLayoutParams(new GridView.LayoutParams(GridView.LayoutParams.MATCH_PARENT, GridView.LayoutParams.WRAP_CONTENT));
+//            circleImageView.setAdjustViewBounds(true);
+            circleImageView.setPadding(8, 8, 8, 8);
         }
 
-        if(position==0){
-            circleImageView.setImageResource(R.drawable.default_user);
-        }else{
+        if (position == 0) {
+            if (imageUrl != null) {
+                Glide.with(mContext)
+                        .load(imageUrl)
+                        .into(circleImageView);
+            } else
+                circleImageView.setImageResource(R.drawable.default_user);
+        } else {
             circleImageView.setImageResource(R.drawable.setting_icon);
         }
         return circleImageView;

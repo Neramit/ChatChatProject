@@ -15,12 +15,21 @@
         android:weightSum="1"
         android:padding="30dp">
 
+        <ProgressBar
+            android:id="@+id/progress_bar_user_image"
+            android:layout_width="0dp"
+            android:layout_weight="0.3"
+            android:padding="15dp"
+            android:visibility="gone"
+            android:layout_height="match_parent" />
+
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/user_image"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.3"
             android:src="@drawable/default_user"
+            android:visibility="visible"
             android:clickable="true"
             android:onClick="changeUserPicture"/>
 
@@ -38,15 +47,30 @@
                 android:text="@string/title_dislayname"
                 android:textColor="@color/dark_text" />
 
-            <TextView
-                android:id="@+id/displayname"
+            <LinearLayout
+                android:id="@+id/displaynameButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="2dp"
                 android:clickable="true"
                 android:onClick="changeDisplayname"
-                android:text="@string/title_dislayname"
-                android:textColor="@color/colorAccent" />
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/displayname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="2dp"
+                    android:text="@string/title_dislayname"
+                    android:textColor="@color/colorAccent" />
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_marginLeft="5dp"
+                    android:src="@drawable/pen">
+                </ImageView>
+            </LinearLayout>
+
 
             <TextView
                 android:layout_width="wrap_content"

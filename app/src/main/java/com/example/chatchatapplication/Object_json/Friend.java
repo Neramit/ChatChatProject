@@ -10,6 +10,24 @@ public class Friend {
     private String friendStatus;
     private Boolean isFavorite;
     private Integer chatroomUID;
+    private String displayName;
+    private String displayPictureURL;
+
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
+    }
+
+    public String getDisplayPictureURL() {
+        return displayPictureURL;
+    }
+
+    public void setDisplayPictureURL(String displayPictureURL) {
+        this.displayPictureURL = displayPictureURL;
+    }
 
     public String getOwnerUsername() {
         return ownerUsername;

@@ -155,7 +155,6 @@ public class Login extends AppCompatActivity implements jsonBack {
                 mEdit1.putString("email", data.getData().getEmail());
                 mEdit1.putString("displayName", data.getData().getDisplayName());
                 mEdit1.putString("displayPictureURL", data.getData().getDisplayPictureURL());
-                mEdit1.putString("displayPicturePath", data.getData().getDisplayPicturePath());
                 mEdit1.commit();
                 Toast.makeText(this, data.getMessage(), Toast.LENGTH_SHORT).show();
                 circularProgressButton.setProgress(100);

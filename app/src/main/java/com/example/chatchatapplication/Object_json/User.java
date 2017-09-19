@@ -12,7 +12,6 @@ public class User {
     private int genNum;
     private String displayName;
     private String displayPictureURL;
-    private String displayPicturePath;
 
     public String getToken() {
         return token;
@@ -36,14 +35,6 @@ public class User {
 
     public void setDisplayPictureURL(String displayPictureURL) {
         this.displayPictureURL = displayPictureURL;
-    }
-
-    public String getDisplayPicturePath() {
-        return displayPicturePath;
-    }
-
-    public void setDisplayPicturePath(String displayPicturePath) {
-        this.displayPicturePath = displayPicturePath;
     }
 
     public User() {

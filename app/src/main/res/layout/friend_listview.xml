@@ -4,53 +4,45 @@
     android:layout_height="70dp"
     android:orientation="horizontal">
 
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/image_user"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:padding="10dp"
+        android:src="@drawable/default_user" />
+
     <LinearLayout
-        android:id="@+id/mix"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@id/image_user"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
 
-        <!--<android.support.v4.widget.CircleImageView-->
-            <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
-            <!--android:id="@+id/image_user"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:adjustViewBounds="true"-->
-            <!--android:padding="10dp"-->
-            <!--android:src="@drawable/default_user" />-->
-
-        <LinearLayout
+        <TextView
+            android:id="@+id/friendname"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:layout_marginLeft="5dp"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:text="Test user"
+            android:textColor="@color/dark_text"
+            android:textSize="20sp" />
 
-            <TextView
-                android:id="@+id/friendname"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:maxLines="1"
-                android:text="Test user"
-                android:textColor="@color/dark_text"
-                android:textSize="20sp" />
-
-            <TextView
-                android:id="@+id/last_message_friend"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:maxLines="2"
-                android:text="Test user\nmessage"
-                android:textColor="@color/black_overlay" />
-        </LinearLayout>
+        <TextView
+            android:id="@+id/last_message_friend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="2"
+            android:text="Test user\nmessage"
+            android:textColor="@color/black_overlay" />
     </LinearLayout>
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="70dp"
-        android:adjustViewBounds="true"
         android:layout_alignParentEnd="true"
-        android:src="@drawable/theme"
-        android:padding="10dp"/>
+        android:adjustViewBounds="true"
+        android:padding="10dp"
+        android:src="@drawable/theme" />
 
 </RelativeLayout>
