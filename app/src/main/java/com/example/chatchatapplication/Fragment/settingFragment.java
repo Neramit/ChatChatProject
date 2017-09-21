@@ -23,17 +23,15 @@ public class settingFragment extends Fragment {
     SharedPreferences sp;
     SharedPreferences.Editor mEdit1;
 
+
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = null;
         view = inflater.inflate(R.layout.fragment_setting, container, false);
-        sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        final String displayPictureURL = sp.getString("displayPictureURL",null);
 
         gridview = (GridView) view.findViewById(R.id.grid_view);
-        gridview.setAdapter(new GridAdapter(getActivity(),displayPictureURL));
-
+//        gridview.setAdapter(new GridAdapter(getActivity(),displayPictureURL));
 
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v,
@@ -49,4 +47,11 @@ public class settingFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onStart() {
+        sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        final String displayPictureURL = sp.getString("displayPictureURL",null);
+        gridview.setAdapter(new GridAdapter(getActivity(),displayPictureURL));
+        super.onStart();
+    }
 }

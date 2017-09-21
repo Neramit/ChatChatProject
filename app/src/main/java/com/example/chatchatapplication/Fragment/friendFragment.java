@@ -9,8 +9,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
+import com.example.chatchatapplication.Activity.AddFriend;
 import com.example.chatchatapplication.Adapter.friendAdapter;
 import com.example.chatchatapplication.Activity.FriendChatroom;
 import com.example.chatchatapplication.Not_Activity.SimpleHttpTask;
@@ -30,6 +33,8 @@ public class friendFragment extends Fragment implements jsonBack {
     private friendAdapter mAdapter;
     private String token;
     private ArrayList<Friend> friend_list = new ArrayList<Friend>();
+    TextView addFriend;
+    LinearLayout noFriend;
 
     friendListRetrieve data;
 
@@ -44,6 +49,8 @@ public class friendFragment extends Fragment implements jsonBack {
         View view = null;
         view = inflater.inflate(R.layout.fragment_friend, container, false);
         friendList = (ListView) view.findViewById(R.id.friendListview);
+        addFriend = (TextView) view.findViewById(R.id.add_friend);
+        noFriend = (LinearLayout) view.findViewById(R.id.no_friend);
 
         sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
         mEdit1 = sp.edit();
@@ -57,6 +64,13 @@ public class friendFragment extends Fragment implements jsonBack {
         String sendJson2 = sendJson.toJson(send);
         new SimpleHttpTask(this).execute(sendJson2);
 
+        addFriend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(),AddFriend.class));
+            }
+        });
+
         friendList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -66,7 +80,7 @@ public class friendFragment extends Fragment implements jsonBack {
                 intent.putExtra("friendUsername",friend_list.get(position).getFriendUsername());
                 intent.putExtra("friendStatus",friend_list.get(position).getFriendStatus());
                 intent.putExtra("friendDisplayName",friend_list.get(position).getDisplayName());
-                intent.putExtra("frindDisplayPictureURL",friend_list.get(position).getDisplayPictureURL());
+                intent.putExtra("friendDisplayPictureURL",friend_list.get(position).getDisplayPictureURL());
                 startActivity(intent);
             }
         });
@@ -88,7 +102,9 @@ public class friendFragment extends Fragment implements jsonBack {
                 i++;
             }
             friendList.setAdapter(mAdapter);
+        }else{
+            friendList.setVisibility(View.GONE);
+            noFriend.setVisibility(View.VISIBLE);
         }
-
     }
 }

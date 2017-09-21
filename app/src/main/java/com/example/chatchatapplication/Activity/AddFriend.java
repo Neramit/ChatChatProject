@@ -12,6 +12,7 @@ import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,13 +36,16 @@ public class AddFriend extends AppCompatActivity implements jsonBack {
     SearchView searchView;
     LinearLayout extendView;
     CircularProgressButton button;
+    LinearLayout.LayoutParams p;
+    ProgressBar progressBarAdd;
+
     String userName, token, displayName, target;
 
     // Shared preferrence
     SharedPreferences sp;
     SharedPreferences.Editor mEdit1;
 
-    LinearLayout.LayoutParams p;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,13 +62,14 @@ public class AddFriend extends AppCompatActivity implements jsonBack {
         extendView = (LinearLayout) findViewById(R.id.extend_view);
 //        mUserNameView = (EditText) findViewById(R.id.friend_search);
         button = (CircularProgressButton) findViewById(R.id.search_button);
+        progressBarAdd = (ProgressBar) findViewById(R.id.progress_bar_add);
 
         searchView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 searchView.setIconified(false);
                 if (extendView.getChildCount() > 0) {
-                    extendView.setVisibility(View.INVISIBLE);
+//                    extendView.setVisibility(View.GONE);
 //                    extendView.removeAllViews();
                     button.setProgress(0);
                 }
@@ -73,19 +78,17 @@ public class AddFriend extends AppCompatActivity implements jsonBack {
 
         button.setIndeterminateProgressMode(true);
         button.setProgress(0);
+        progressBarAdd.setVisibility(View.GONE);
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-
             @Override
             public boolean onQueryTextChange(String newText) {
-                //Log.e("onQueryTextChange", "called");
                 return false;
             }
 
             @Override
             public boolean onQueryTextSubmit(String query) {
                 userName = searchView.getQuery().toString();
-//                    searchView.setError(null);
                 View focusView = null;
                 boolean cancel = false;
                 if (TextUtils.isEmpty(userName)) {
@@ -101,7 +104,8 @@ public class AddFriend extends AppCompatActivity implements jsonBack {
                     focusView.requestFocus();
                 } else {
                     Gson sendJson = new Gson();
-                    button.setProgress(50);
+//                    button.setProgress(50);
+                    progressBarAdd.setVisibility(View.VISIBLE);
                     User data = new User();
                     data.setUsername(userName);
                     token = sp.getString("token", null);
@@ -112,7 +116,6 @@ public class AddFriend extends AppCompatActivity implements jsonBack {
                 }
                 return false;
             }
-
         });
 
         button.setOnClickListener(new View.OnClickListener() {
@@ -137,8 +140,9 @@ public class AddFriend extends AppCompatActivity implements jsonBack {
         final searchRetrieve data = gson.fromJson(output, searchRetrieve.class);
 
         if (Objects.equals(target, "add")) {
-            button.setProgress(0);
-            if (data.getStatus() == 200) {
+            progressBarAdd.setVisibility(View.GONE);
+            if (data.getStatus() == 200||data.getStatus() == 203) {
+                button.setProgress(100);
                 Toast.makeText(this, data.getMessage(), Toast.LENGTH_SHORT).show();
                 final Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
@@ -149,83 +153,66 @@ public class AddFriend extends AppCompatActivity implements jsonBack {
                         finish();
                     }
                 }, 700);
-            } else if (data.getStatus() == 201) {
-                button.setProgress(0);
+            } else {
+                button.setProgress(-1);
                 Toast.makeText(this, data.getMessage(), Toast.LENGTH_SHORT).show();
             }
         } else {
             extendView.setPadding(10, 10, 10, 10);
             p = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0);
-            p.weight = 0.4f;
+            p.weight = 0.7f;
             p.gravity = Gravity.CENTER_HORIZONTAL;
             extendView.setLayoutParams(p);
-            extendView.setWeightSum(100);
+            extendView.setWeightSum(1);
 
-            CircleImageView circleImageView = new CircleImageView(AddFriend.this);
-            p = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0);
-            p.weight = 76;
-            p.gravity = Gravity.CENTER_HORIZONTAL;
-            if (data.getData().getDisplayPictureURL() == null) {
-                circleImageView.setImageResource(R.drawable.default_user);
-            } else {
-                Glide.with(AddFriend.this)
-                        .load(data.getData().getDisplayPictureURL())
-                        .into(circleImageView);
-            }
-            circleImageView.setLayoutParams(p);
-            extendView.addView(circleImageView);
+            progressBarAdd.setVisibility(View.GONE);
 
             if (data.getStatus() == 200) {
-                button.setProgress(100);
+                getCircleImage(data);
                 searchNormal(data);
             } else if (data.getStatus() == 201) {
-                button.setProgress(0);
-                searchYouAlready(data);
+                getCircleImage(data);
+                searchNormal(data);
             } else if (data.getStatus() == 202) {
-                button.setProgress(100);
+                getCircleImage(data);
                 searchUserAlready(data);
             } else if (data.getStatus() == 203) {
-                button.setProgress(0);
-                searchYouAlready(data);
+                getCircleImage(data);
+                searchYouAdd(data);
             } else if (data.getStatus() == 204) {
-                button.setProgress(100);
+                getCircleImage(data);
+                searchYouAdd(data);
+            } else if (data.getStatus() == 401) {
+                getCircleImage(data);
                 searchNormal(data);
             } else {
                 Toast.makeText(this, data.getMessage(), Toast.LENGTH_SHORT).show();
-                button.setProgress(-1);
-                final Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        // Do something after 5s = 5000ms
-//                    mUserNameView.setText("");
-                        button.setProgress(0);
-                    }
-                }, 700);
             }
         }
+    }
+
+    private void getCircleImage (searchRetrieve data){
+        CircleImageView circleImageView = new CircleImageView(AddFriend.this);
+        p = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0);
+        p.weight = 0.7f;
+        p.gravity = Gravity.CENTER;
+        String targetDisplayPictureURL = data.getData().getDisplayPictureURL();
+        if (targetDisplayPictureURL == null) {
+            circleImageView.setImageResource(R.drawable.default_user);
+        } else {
+            Glide.with(AddFriend.this)
+                    .load(targetDisplayPictureURL)
+                    .into(circleImageView);
+        }
+        circleImageView.setLayoutParams(p);
+        extendView.addView(circleImageView);
     }
 
     private void searchNormal(searchRetrieve data) {
         TextView name = new TextView(AddFriend.this);
         p = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-//        p.weight = 50;
-        p.gravity = Gravity.CENTER_HORIZONTAL;
-        name.setLayoutParams(p);
-        displayName = data.getData().getDisplayName();
-        name.setText(displayName);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            name.setTextColor(getColor(R.color.dark_text));
-        }
-        name.setTextSize(16);
-        extendView.addView(name);
-    }
-
-    private void searchYouAlready(searchRetrieve data) {
-        TextView name = new TextView(AddFriend.this);
-        p = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        p.weight = 14;
-        p.gravity = Gravity.CENTER_HORIZONTAL;
+        p.gravity = Gravity.CENTER;
+        p.weight = 0.1f;
         name.setLayoutParams(p);
         displayName = data.getData().getDisplayName();
         name.setText(displayName);
@@ -236,8 +223,8 @@ public class AddFriend extends AppCompatActivity implements jsonBack {
         extendView.addView(name);
         TextView message = new TextView(AddFriend.this);
         p = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        p.weight = 10;
-        p.gravity = Gravity.CENTER_HORIZONTAL;
+        p.weight = 0.2f;
+        p.gravity = Gravity.CENTER;
         message.setLayoutParams(p);
         message.setText(data.getMessage());
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -245,16 +232,29 @@ public class AddFriend extends AppCompatActivity implements jsonBack {
         }
         message.setTextSize(16);
         extendView.addView(message);
-        LinearLayout buttonView = (LinearLayout) findViewById(R.id.button_view);
-        LinearLayout bigView = (LinearLayout) findViewById(R.id.big_view);
-        bigView.removeView(buttonView);
+    }
+
+    private void searchYouAdd(searchRetrieve data) {
+        TextView name = new TextView(AddFriend.this);
+        p = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        p.weight = 0.3f;
+        p.gravity = Gravity.CENTER;
+        name.setLayoutParams(p);
+        displayName = data.getData().getDisplayName();
+        name.setText(displayName);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            name.setTextColor(getColor(R.color.dark_text));
+        }
+        name.setTextSize(16);
+        extendView.addView(name);
+        button.setVisibility(View.VISIBLE);
     }
 
     private void searchUserAlready(searchRetrieve data) {
         TextView name = new TextView(AddFriend.this);
         p = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        p.weight = 14;
-        p.gravity = Gravity.CENTER_HORIZONTAL;
+        p.weight = 0.1f;
+        p.gravity = Gravity.CENTER;
         name.setLayoutParams(p);
         displayName = data.getData().getDisplayName();
         name.setText(data.getData().getDisplayName());
@@ -265,15 +265,16 @@ public class AddFriend extends AppCompatActivity implements jsonBack {
         extendView.addView(name);
         TextView message = new TextView(AddFriend.this);
         p = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        p.weight = 10;
-        p.gravity = Gravity.CENTER_HORIZONTAL;
+        p.weight = 0.2f;
+        p.gravity = Gravity.CENTER;
         message.setLayoutParams(p);
         message.setText(data.getMessage());
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             name.setTextColor(getColor(R.color.dark_text));
         }
-        name.setTextSize(16);
-        extendView.addView(name);
+        message.setTextSize(16);
+        extendView.addView(message);
+        button.setVisibility(View.VISIBLE);
     }
 
     private boolean isUserNameValid(String userName) {

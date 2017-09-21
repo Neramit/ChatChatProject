@@ -42,6 +42,12 @@
             android:gravity="center_horizontal"
             android:orientation="vertical">
 
+            <ProgressBar
+                android:id="@+id/progress_bar_add"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="visible"/>
+
             <com.dd.CircularProgressButton
                 android:id="@+id/search_button"
                 style="?android:textAppearanceSmall"
@@ -50,20 +56,14 @@
                 android:textAllCaps="false"
                 android:textColor="@color/white_text"
                 android:textStyle="bold"
+                android:visibility="gone"
                 app:cpb_cornerRadius="10dp"
                 app:cpb_selectorIdle="@drawable/idle_state_selector_g"
-                app:cpb_textComplete="@string/action_add"
-                app:cpb_textError=""
-                app:cpb_textIdle="@string/action_search" />
+                app:cpb_textComplete="@string/action_successful"
+                app:cpb_textError="@string/action_wrong"
+                app:cpb_textIdle="@string/action_add" />
 
         </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/empty_view"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.3"
-            android:orientation="vertical" />
     </LinearLayout>
 
 </LinearLayout>

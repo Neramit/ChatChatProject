@@ -17,7 +17,7 @@ import java.util.TreeSet;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
- * Created by Neramit777 on 9/13/2017.
+ * Created by Neramit777 on 9/13/2017 at 11:01 AM.
  */
 
 public class friendAdapter extends BaseAdapter {
@@ -25,7 +25,6 @@ public class friendAdapter extends BaseAdapter {
     private static final int TYPE_ITEM = 0;
     private static final int TYPE_SEPARATOR = 1;
 
-    //    private ArrayList<String> mData = new ArrayList<String>();
     private ArrayList<Friend> mData = new ArrayList<Friend>();
     private TreeSet<Integer> sectionHeader = new TreeSet<Integer>();
 
@@ -72,7 +71,7 @@ public class friendAdapter extends BaseAdapter {
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder holder = null;
+        ViewHolder holder;
         int rowType = getItemViewType(position);
 
         if (convertView == null) {
@@ -108,7 +107,7 @@ public class friendAdapter extends BaseAdapter {
         return convertView;
     }
 
-    private static class ViewHolder {
+    private class ViewHolder {
         TextView textView;
         CircleImageView circleImageView;
     }

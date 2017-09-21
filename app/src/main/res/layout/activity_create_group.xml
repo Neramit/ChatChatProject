@@ -15,10 +15,33 @@
         android:orientation="horizontal"
         android:padding="20dp">
 
-        <de.hdodenhof.circleimageview.CircleImageView
+        <ProgressBar
+            android:id="@+id/progress_image"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:src="@drawable/default_user" />
+            android:visibility="gone"
+            android:padding="10dp"/>
+
+        <RelativeLayout
+            android:id="@+id/group_picture"
+            android:layout_width="100dp"
+            android:layout_height="100dp">
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/group_circle"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:visibility="visible"
+                android:scaleType="centerCrop"
+                android:clickable="true"
+                android:onClick="setGroupPicture"
+                android:src="@drawable/default_group" />
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/camera_icon"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"/>
+        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -40,9 +63,17 @@
                 app:iconifiedByDefault="false"
                 android:maxLength="20"
                 android:maxLines="1"
+                app:queryHint="@string/hint_group_name"
                 android:inputType="text"
                 app:searchIcon="@null"
                 tools:targetApi="lollipop"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="@string/text_owner_group"
+                android:textSize="12sp"/>
 
         </LinearLayout>
     </LinearLayout>
@@ -79,6 +110,8 @@
                 android:layout_height="wrap_content"
                 android:padding="10dp"
                 android:layout_marginLeft="15dp"
+                android:hint="@string/hint_group_password"
+                android:textColorHint="@color/hint_white_text"
                 android:background="@drawable/rounded_border_edittext_white"
                 android:maxLength="12"
                 android:maxLines="1"
@@ -91,7 +124,7 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:padding="20dp"
         android:background="@color/black_overlay_2">
 
@@ -99,6 +132,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
+            <pl.droidsonroids.gif.GifImageView
+                android:id="@+id/imageView4"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/test" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -120,7 +160,6 @@
                 android:text="@string/message_warning"/>
 
         </LinearLayout>
-
 
     </ScrollView>
 </LinearLayout>

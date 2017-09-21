@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.chatchatapplication.R;
 import com.example.chatchatapplication.Object_json.messages;
 
@@ -21,17 +22,18 @@ import ru.bullyboo.encoder.methods.AES;
  * Created by Neramit777 on 9/14/2017.
  */
 
-public class MessageAdapter extends ArrayAdapter<messages>{
+public class MessageAdapter extends ArrayAdapter<messages> {
     private Context mContext;
     private ArrayList<messages> items;
-    private String user;
+    private String user, friendDisplayPictureURL;
 
-    public MessageAdapter(Context context, int textViewResourceId, ArrayList<messages> items,String user) {
+    public MessageAdapter(Context context, int textViewResourceId, ArrayList<messages> items, String user, String friendDisplayPictureURL) {
         super(context, textViewResourceId, items);
 
         this.user = user;
-        mContext = context;
+        this.mContext = context;
         this.items = items;
+        this.friendDisplayPictureURL = friendDisplayPictureURL;
     }
 
     @Override
@@ -40,15 +42,19 @@ public class MessageAdapter extends ArrayAdapter<messages>{
         if (items.get(position).getMessageUser().equals(user)) {
             LayoutInflater vi = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             v = vi.inflate(R.layout.user_message_list, null);
-        }else{
+        } else {
             LayoutInflater vi = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             v = vi.inflate(R.layout.other_message_list, null);
-            CircleImageView otherImage = (CircleImageView) v.findViewById(R.id.other_image);
-//            if(items.get(position).get)
+
+            if (friendDisplayPictureURL != null){
+                CircleImageView otherImage = (CircleImageView) v.findViewById(R.id.other_image);
+                Glide.with(mContext)
+                        .load(friendDisplayPictureURL)  //Test
+                        .into(otherImage);
+            }
         }
         messages o = items.get(position);
         if (o != null) {
-            TextView un = (TextView) v.findViewById(R.id.user_name);
             TextView ms = (TextView) v.findViewById(R.id.message);
             TextView dt = (TextView) v.findViewById(R.id.date);
 
@@ -63,7 +69,7 @@ public class MessageAdapter extends ArrayAdapter<messages>{
 //            un.setText(items.get(position).getMessageUser());
             ms.setText(String.valueOf(decrypted));
 //            dt.setText(String.valueOf(DateFormat.format("HH:mm",items.get(position).getMessageTime())));
-            dt.setText(String.valueOf(DateFormat.format("dd/MM/yy\nHH:mm",items.get(position).getMessageTime())));
+            dt.setText(String.valueOf(DateFormat.format("dd/MM/yy\nHH:mm", items.get(position).getMessageTime())));
         }
         return v;
     }

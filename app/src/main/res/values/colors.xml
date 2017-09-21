@@ -17,6 +17,7 @@
     <color name="pressed_button_B">#A76260</color>
 
     <!-- Background theme colors. -->
+    <color name="hint_white_text">#99FAFAFA</color>
     <color name="white_text">#FAFAFA</color>
     <color name="dark_text">#010101</color>
 

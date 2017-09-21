@@ -16,7 +16,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.developers.imagezipper.ImageZipper;
 import com.example.chatchatapplication.Not_Activity.SimpleHttpTask;
 import com.example.chatchatapplication.Not_Activity.jsonBack;
 import com.example.chatchatapplication.Object_json.User;
@@ -33,8 +32,6 @@ import com.google.gson.Gson;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -112,6 +109,7 @@ public class ProfileAccount extends AppCompatActivity implements jsonBack {
                 .setCropShape(CropImageView.CropShape.OVAL)
                 .setInitialCropWindowPaddingRatio(0)
                 .setAspectRatio(1, 1)
+                .setRequestedSize(350,350)
                 .start(this);
     }
 
@@ -121,28 +119,27 @@ public class ProfileAccount extends AppCompatActivity implements jsonBack {
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
             if (resultCode == RESULT_OK) {
-                Uri resultUri = result.getUri();
-
-                File file = new File(resultUri.toString().replace("file://", "" ));
-
-                Bitmap b = null;
-                try {
-                    b = new ImageZipper(this)
-                            .setQuality(100)
-                            .setMaxWidth(200)
-                            .setMaxHeight(200)
-                            .compressToBitmap(file);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-                b.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-                String path = MediaStore.Images.Media.insertImage(this.getContentResolver(), b, "Title", null);
-                Uri resultURI = Uri.parse(path);
-
+                final Uri resultUri = result.getUri();
+//                userImage.setVisibility(View.GONE);
+//                File file = new File(resultUri.toString().replace("file://", "" ));
+//
+//                Bitmap b = null;
+//                try {
+//                    b = new ImageZipper(this)
+//                            .setQuality(100)
+//                            .setMaxWidth(200)
+//                            .setMaxHeight(200)
+//                            .compressToBitmap(file);
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//
+//                ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+//                b.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+//                String path = MediaStore.Images.Media.insertImage(this.getContentResolver(), b, "Title", null);
+//                resultUri = Uri.parse(path);
                 StorageReference imagesRef = storageRef.child("ProfileImage/" + username + ".jpg");
-                imagesRef.putFile(resultURI).addOnFailureListener(new OnFailureListener() {
+                imagesRef.putFile(resultUri).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception exception) {
                         userImage.setVisibility(View.VISIBLE);
@@ -152,17 +149,21 @@ public class ProfileAccount extends AppCompatActivity implements jsonBack {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                         String pictureURL = taskSnapshot.getDownloadUrl().toString();
-                        Glide.with(ProfileAccount.this)
-                                .load(pictureURL)
-                                .into(userImage);
                         Gson sendJson = new Gson();
                         User data = new User();
                         data.setDisplayPictureURL(pictureURL);
                         token = sp.getString("token", null);
+                        mEdit1.putString("displayPictureURL",pictureURL);
+                        mEdit1.commit();
                         registerSend send = new registerSend("Other", "profileAccountDisplayPicture", token, data);
                         String sendJson2 = sendJson.toJson(send);
                         new SimpleHttpTask(ProfileAccount.this).execute(sendJson2);
-
+                        try {
+                            Bitmap bitmap = MediaStore.Images.Media.getBitmap(ProfileAccount.this.getContentResolver(), resultUri);
+                            userImage.setImageBitmap(bitmap);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                         userImage.setVisibility(View.VISIBLE);
                         progressBar.setVisibility(View.GONE);
                     }

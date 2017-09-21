@@ -35,10 +35,23 @@
             android:textOn="" />
     </RelativeLayout>
 
+    <LinearLayout
+        android:id="@+id/progress_bar_message"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible"
+        android:gravity="center">
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+
     <ListView
         android:id="@+id/list_chat"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         android:layout_above="@id/type_message"
         android:stackFromBottom="true"
         android:footerDividersEnabled="false"

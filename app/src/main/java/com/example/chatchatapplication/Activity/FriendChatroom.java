@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -27,14 +28,16 @@ import ru.bullyboo.encoder.methods.AES;
 
 public class FriendChatroom extends AppCompatActivity {
 
-    DatabaseReference mMessagesRef;
+
     ToggleButton send_bt;
     private ListView listview;
-    public static ArrayList<messages> listMessage;
-
+    LinearLayout progress_message;
     EditText text;
+
+    public static ArrayList<messages> listMessage;
+    DatabaseReference mMessagesRef;
     int chatroomUid;
-    String friendUsername,friendDisplayName;
+    String friendUsername,friendDisplayName,username,friendDisplayPictureURL;
     ArrayAdapter<messages> adapter;
 
     // Shared preferrence
@@ -43,24 +46,27 @@ public class FriendChatroom extends AppCompatActivity {
 
     @Override
     protected void onStart() {
-        getSupportActionBar().setTitle(friendUsername);
+        getSupportActionBar().setTitle(friendDisplayName);
         super.onStart();
 
         mMessagesRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 listMessage.clear();
+
                 for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
                     messages user = userSnapshot.getValue(messages.class);
                     listMessage.add(user);
-                    adapter = new MessageAdapter(FriendChatroom.this, R.layout.user_message_list, listMessage, friendUsername);
+                    adapter = new MessageAdapter(FriendChatroom.this, R.layout.user_message_list, listMessage, username,friendDisplayPictureURL);
                 }
                 listview.setAdapter(adapter);
+
+                progress_message.setVisibility(View.GONE);
+                listview.setVisibility(View.VISIBLE);
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
             }
         });
     }
@@ -73,26 +79,29 @@ public class FriendChatroom extends AppCompatActivity {
         sp = PreferenceManager.getDefaultSharedPreferences(this);
         mEdit1 = sp.edit();
 
+        username = sp.getString("username",null);
         chatroomUid = getIntent().getExtras().getInt("chatroomUid");
         friendUsername = getIntent().getExtras().getString("friendUsername");
         friendDisplayName = getIntent().getExtras().getString("friendDisplayName");
+        friendDisplayPictureURL = getIntent().getExtras().getString("friendDisplayPictureURL");
 
         DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
         mMessagesRef = mRootRef.child("Private Chat").child(String.valueOf(chatroomUid));
 
+        progress_message = (LinearLayout) findViewById(R.id.progress_bar_message);
         listMessage = new ArrayList<messages>();
         listview = (ListView) findViewById(R.id.list_chat);
         text = (EditText) findViewById(R.id.editText);
         send_bt = (ToggleButton) findViewById(R.id.send_bt);
 
-        if(friendDisplayName==null)
-            friendDisplayName = friendUsername;
+//        if(friendUsername==null)
+//            friendDisplayName = friendUsername;
         send_bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mMessagesRef.setValue(listMessage);
                 if (!text.getText().toString().trim().isEmpty()) {
-                    sendNewMessage(text.getText().toString(), friendUsername);
+                    sendNewMessage(text.getText().toString(), username);
                     text.setText("");                      //Clear input edittext panel
                     scrollMyListViewToBottom();
                 }else {
@@ -103,6 +112,7 @@ public class FriendChatroom extends AppCompatActivity {
     }
 
     private void sendNewMessage(String message, String userName) {
+//        String id = mMessagesRef.push().getKey();
         String id = mMessagesRef.push().getKey();
         String encrypt = Encoder.BuilderAES()
                 .message(message)

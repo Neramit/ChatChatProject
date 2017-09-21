@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SimpleHttpTask extends AsyncTask<String, Void, String> {
-    public jsonBack delegate = null;
+    private jsonBack delegate = null;
     private HttpURLConnection conn;
 
     public SimpleHttpTask(jsonBack delegate) {
