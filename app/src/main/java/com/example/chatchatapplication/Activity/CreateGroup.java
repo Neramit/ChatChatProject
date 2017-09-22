@@ -10,11 +10,12 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.GridView;
+import android.widget.AdapterView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
 import com.example.chatchatapplication.Adapter.InviteAdapter;
+import com.example.chatchatapplication.Not_Activity.ExpandedGridView;
 import com.example.chatchatapplication.Object_json.Member;
 import com.example.chatchatapplication.R;
 import com.google.firebase.storage.FirebaseStorage;
@@ -31,13 +32,14 @@ public class CreateGroup extends AppCompatActivity {
 
     StorageReference storageRef;
 
-    GridView gridView;
+    ExpandedGridView gridView;
     InviteAdapter iAdapter;
     RelativeLayout groupImage;
     ProgressBar progrssImage;
     CircleImageView circleImageGroup;
 
-    ArrayList<Member> memberList;
+    Uri resultUri;
+    ArrayList<Member> memberList = new ArrayList<Member>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,8 +52,22 @@ public class CreateGroup extends AppCompatActivity {
         circleImageGroup = (CircleImageView) findViewById(R.id.group_circle);
         groupImage = (RelativeLayout) findViewById(R.id.group_picture);
         progrssImage = (ProgressBar) findViewById(R.id.progress_image);
-        gridView = (GridView) findViewById(R.id.grid_view);
+        gridView = (ExpandedGridView) findViewById(R.id.ex_grid_view);
 
+        Member add = new Member("Add Button",4);
+        memberList.add(add);
+        iAdapter = new InviteAdapter(this,memberList);
+        gridView.setAdapter(iAdapter);
+
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // TODO Auto-generated method stub
+                if(position==0){
+                    startActivity(new Intent(CreateGroup.this,Invite_to_group.class));
+                }
+            }
+        });
     }
 
     public void setGroupPicture(View v) {
@@ -70,7 +86,7 @@ public class CreateGroup extends AppCompatActivity {
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
             if (resultCode == RESULT_OK) {
-                Uri resultUri = result.getUri();
+                resultUri = result.getUri();
                 try {
                     Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), resultUri);
                     circleImageGroup.setImageBitmap(bitmap);
@@ -146,6 +162,7 @@ public class CreateGroup extends AppCompatActivity {
 //                }
 //            });
             startActivity(new Intent(this, MainActivity.class));
+            finish();
             return true;
         }
         return super.onOptionsItemSelected(item);

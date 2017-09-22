@@ -78,6 +78,8 @@
     <string name="text_owner_group">You are owner of this group.</string>
     <string name="hint_group_password">Group password</string>
     <string name="hint_group_name">Group name</string>
+    <string name="text_add">Add</string>
+    <string name="text_invite">Invite</string>
 
     <!-- TODO: String related to Profile account -->
     <string name="title_profile">Profile</string>

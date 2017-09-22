@@ -10,6 +10,8 @@
         android:id="@+id/friendListview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:headerDividersEnabled="false"
+        android:footerDividersEnabled="false"
         android:visibility="visible">
     </ListView>
 

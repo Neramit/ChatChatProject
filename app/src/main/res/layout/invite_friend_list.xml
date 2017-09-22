@@ -1,33 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/All"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="120dp">
 
-    <RelativeLayout
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/picture_invite"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="100dp"
+        android:padding="10dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/default_user" />
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/picture_invite"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/default_user" />
-        <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@drawable/x"
-            android:layout_alignEnd="@id/picture_invite"/>
-        <TextView
-            android:id="@+id/name_invite"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_below="@id/picture_invite"
-            android:text="Test name"
-            android:textColor="@color/dark_text" />
-    </RelativeLayout>
+    <ImageView
+        android:id="@+id/x"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignEnd="@id/picture_invite"
+        android:src="@drawable/x" />
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/name_invite"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/picture_invite"
+        android:gravity="center"
+        android:text="Test name"
+        android:textColor="@color/dark_text" />
+</RelativeLayout>

@@ -88,6 +88,12 @@ public class friendFragment extends Fragment implements jsonBack {
     }
 
     @Override
+    public void onStart() {
+        getActivity().setTitle(R.string.friend_tab + " (" + friend_list.size() + ")");
+        super.onStart();
+    }
+
+    @Override
     public void processFinish(String output) {
         Gson gson = new Gson();
         data = gson.fromJson(output, friendListRetrieve.class);
@@ -102,6 +108,9 @@ public class friendFragment extends Fragment implements jsonBack {
                 i++;
             }
             friendList.setAdapter(mAdapter);
+            String json = gson.toJson(data.getData());
+            mEdit1.putString("friendList", json);
+            mEdit1.commit();
         }else{
             friendList.setVisibility(View.GONE);
             noFriend.setVisibility(View.VISIBLE);

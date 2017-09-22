@@ -129,16 +129,10 @@
         android:background="@color/black_overlay_2">
 
         <LinearLayout
+            android:id="@+id/invite_friend"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
-            <pl.droidsonroids.gif.GifImageView
-                android:id="@+id/imageView4"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:scaleType="fitCenter"
-                android:src="@drawable/test" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -146,13 +140,11 @@
                 android:text="Member 0"
                 android:textSize="16sp"/>
 
-            <GridView
-                android:id="@+id/grid_view"
+            <com.example.chatchatapplication.Not_Activity.ExpandedGridView
+                android:id="@+id/ex_grid_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:numColumns="3">
-
-            </GridView>
+                android:numColumns="3" />
 
             <TextView
                 android:layout_width="match_parent"

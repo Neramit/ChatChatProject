@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.chatchatapplication.Activity.Invite_to_group"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.SearchView
+        android:id="@+id/search_invite"
+        android:layout_margin="10dp"
+        app:iconifiedByDefault="false"
+        app:queryHint="search by displayname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <Button
+        android:id="@+id/ok_button_invite"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/white_text"
+        android:textSize="18sp"
+        android:textAllCaps="false"
+        android:text="Invite (0)"/>
+    <ListView
+        android:id="@+id/friendListInvite"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/search_invite"
+        android:layout_above="@id/ok_button_invite"/>
+
+
+</RelativeLayout>

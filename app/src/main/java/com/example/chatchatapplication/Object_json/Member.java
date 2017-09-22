@@ -5,15 +5,20 @@ package com.example.chatchatapplication.Object_json;
  */
 
 public class Member {
-    private String memberUsernme;
+    private String memberUsername;
     private int memberStatus;
 
-    public String getMemberUsernme() {
-        return memberUsernme;
+    public Member(String memberUsername, int memberStatus) {
+        this.memberUsername = memberUsername;
+        this.memberStatus = memberStatus;
     }
 
-    public void setMemberUsernme(String memberUsernme) {
-        this.memberUsernme = memberUsernme;
+    public String getMemberUsername() {
+        return memberUsername;
+    }
+
+    public void setMemberUsername(String memberUsername) {
+        this.memberUsername = memberUsername;
     }
 
     public int getMemberStatus() {
