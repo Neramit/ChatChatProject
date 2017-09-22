@@ -117,7 +117,7 @@ public class FriendChatroom extends AppCompatActivity {
         String encrypt = Encoder.BuilderAES()
                 .message(message)
                 .method(AES.Method.AES_CBC_PKCS5PADDING)
-                .key("mit&24737")
+                .key("mit24737")
                 .keySize(AES.Key.SIZE_128)
                 .iVector(userName)
                 .encrypt();

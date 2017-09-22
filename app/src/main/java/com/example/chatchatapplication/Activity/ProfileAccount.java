@@ -120,24 +120,7 @@ public class ProfileAccount extends AppCompatActivity implements jsonBack {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
             if (resultCode == RESULT_OK) {
                 final Uri resultUri = result.getUri();
-//                userImage.setVisibility(View.GONE);
-//                File file = new File(resultUri.toString().replace("file://", "" ));
-//
-//                Bitmap b = null;
-//                try {
-//                    b = new ImageZipper(this)
-//                            .setQuality(100)
-//                            .setMaxWidth(200)
-//                            .setMaxHeight(200)
-//                            .compressToBitmap(file);
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//
-//                ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-//                b.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-//                String path = MediaStore.Images.Media.insertImage(this.getContentResolver(), b, "Title", null);
-//                resultUri = Uri.parse(path);
+
                 StorageReference imagesRef = storageRef.child("ProfileImage/" + username + ".jpg");
                 imagesRef.putFile(resultUri).addOnFailureListener(new OnFailureListener() {
                     @Override
@@ -164,6 +147,7 @@ public class ProfileAccount extends AppCompatActivity implements jsonBack {
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
+
                         userImage.setVisibility(View.VISIBLE);
                         progressBar.setVisibility(View.GONE);
                     }

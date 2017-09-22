@@ -45,13 +45,11 @@ public class AddFriend extends AppCompatActivity implements jsonBack {
     SharedPreferences sp;
     SharedPreferences.Editor mEdit1;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(R.string.add_friends);
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_friend);
 
         searchView = (SearchView) findViewById(R.id.friend_search);

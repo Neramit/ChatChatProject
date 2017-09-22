@@ -185,7 +185,7 @@ public class MainActivity extends AppCompatActivity implements TabHost.OnTabChan
         Position = position;
         this.mTabHost.setCurrentTab(position);
         if (position == 0) {
-            getSupportActionBar().setTitle(R.string.friend_tab);
+//            getSupportActionBar().setTitle(R.string.friend_tab);
         } else if (position == 1) {
             getSupportActionBar().setTitle(R.string.group_tab);
         } else if (position == 2) {

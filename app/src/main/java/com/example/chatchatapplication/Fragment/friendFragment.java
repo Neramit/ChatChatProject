@@ -14,6 +14,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.chatchatapplication.Activity.AddFriend;
+import com.example.chatchatapplication.Activity.MainActivity;
 import com.example.chatchatapplication.Adapter.friendAdapter;
 import com.example.chatchatapplication.Activity.FriendChatroom;
 import com.example.chatchatapplication.Not_Activity.SimpleHttpTask;
@@ -89,7 +90,7 @@ public class friendFragment extends Fragment implements jsonBack {
 
     @Override
     public void onStart() {
-        getActivity().setTitle(R.string.friend_tab + " (" + friend_list.size() + ")");
+        ((MainActivity)getActivity()).getSupportActionBar().setTitle(getActivity().getString(R.string.friend_tab) + " (" + friend_list.size() + ")");
         super.onStart();
     }
 

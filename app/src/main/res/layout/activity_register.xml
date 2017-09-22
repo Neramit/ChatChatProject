@@ -36,9 +36,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/user_name"
+            android:imeOptions="actionNext"
             android:inputType="textAutoComplete"
             android:maxLength="20"
-            android:maxLines="1" />
+            android:maxLines="1"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -53,6 +54,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/prompt_email"
+            android:imeOptions="actionNext"
             android:inputType="textEmailAddress"
             android:maxLines="1" />
 
@@ -69,6 +71,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/your_password"
+            android:imeOptions="actionNext"
             android:inputType="textPassword"
             android:maxLength="20"
             android:maxLines="1" />
@@ -86,9 +89,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/retype_password"
+            android:imeOptions="actionDone"
             android:inputType="textPassword"
-            android:maxLines="1"
-            android:maxLength="20"/>
+            android:maxLength="20"
+            android:maxLines="1" />
 
     </LinearLayout>
 

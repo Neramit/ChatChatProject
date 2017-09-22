@@ -41,20 +41,22 @@
         android:layout_height="match_parent"
         android:visibility="visible"
         android:gravity="center">
-        <ProgressBar
+        <pl.droidsonroids.gif.GifImageView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:scaleType="centerCrop"
+            android:src="@drawable/load_red"/>
     </LinearLayout>
-
 
     <ListView
         android:id="@+id/list_chat"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="3dp"
         android:visibility="gone"
         android:layout_above="@id/type_message"
         android:stackFromBottom="true"
-        android:footerDividersEnabled="false"
-        android:headerDividersEnabled="false"
+        android:divider="@null"
+        android:dividerHeight="0dp"
         android:transcriptMode="alwaysScroll"/>
 </RelativeLayout>
