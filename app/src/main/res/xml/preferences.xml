@@ -1,55 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceCategory
-        android:title="@string/pref_notification_title"
-        android:key="pref_key_notification_settings">
+        android:key="pref_key_notification_settings"
+        android:title="@string/pref_notification_title">
         <SwitchPreference
-            android:key="pref_key_notification_enable"
-            android:title="@string/pref_title_notification"
+            android:defaultValue="true"
             android:icon="@drawable/notification"
-            android:defaultValue="true"/>
+            android:key="pref_key_notification_enable"
+            android:title="@string/pref_title_notification" />
         <CheckBoxPreference
-            android:key="pref_key_sound"
+            android:defaultValue="true"
             android:dependency="pref_key_notification_enable"
-            android:title="@string/pref_title_sound"
             android:icon="@drawable/sound"
-            android:defaultValue="true" />
+            android:key="pref_key_sound"
+            android:title="@string/pref_title_sound" />
         <CheckBoxPreference
-            android:key="pref_key_vibration"
+            android:defaultValue="false"
             android:dependency="pref_key_notification_enable"
-            android:title="@string/pref_title_vibration"
             android:icon="@drawable/vibration"
-            android:defaultValue="false" />
+            android:key="pref_key_vibration"
+            android:title="@string/pref_title_vibration" />
         <ListPreference
-            android:key="pref_key_music"
             android:dependency="pref_key_sound"
             android:icon="@drawable/music"
-            android:title="@string/pref_title_music"/>
+            android:key="pref_key_music"
+            android:title="@string/pref_title_music" />
     </PreferenceCategory>
     <PreferenceCategory
-        android:title="@string/pref_theme_title"
-        android:key="pref_key_theme_settings">
+        android:key="pref_key_theme_settings"
+        android:title="@string/pref_theme_title">
         <ListPreference
-            android:key="pref_key_theme"
-            android:title="@string/pref_title_theme"
             android:defaultValue="1"
             android:entries="@array/colors"
+            android:entryValues="@array/colors_values"
             android:icon="@drawable/theme"
-            android:entryValues="@array/colors_values"/>
+            android:key="pref_key_theme"
+            android:title="@string/pref_title_theme" />
     </PreferenceCategory>
     <PreferenceCategory
-        android:title="@string/pref_privacy_title"
-        android:key="pref_key_privacy_settings">
+        android:key="pref_key_privacy_settings"
+        android:title="@string/pref_privacy_title">
         <CheckBoxPreference
-            android:key="pref_key_passcode_enable"
-            android:title="@string/pref_title_passcode"
+            android:defaultValue="false"
             android:icon="@drawable/passcode"
-            android:defaultValue="false"/>
+            android:key="pref_key_passcode_enable"
+            android:title="@string/pref_title_passcode" />
         <Preference
-            android:key="pref_key_sound"
             android:dependency="pref_key_passcode_enable"
-            android:title="@string/pref_title_change_passcode"
             android:icon="@drawable/change_pass"
-            android:defaultValue="true" />
+            android:key="pref_key_change_passcode"
+            android:title="@string/pref_title_change_passcode">
+            <intent
+                android:action="android.intent.action.MAIN"
+                android:targetClass="com.example.chatchatapplication.Activity.EnterPasscode"
+                android:targetPackage="com.example.chatchatapplication" />
+        </Preference>
     </PreferenceCategory>
 </PreferenceScreen>

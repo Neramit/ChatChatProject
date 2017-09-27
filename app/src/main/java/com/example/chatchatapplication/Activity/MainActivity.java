@@ -4,8 +4,10 @@ package com.example.chatchatapplication.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -33,6 +35,10 @@ public class MainActivity extends AppCompatActivity implements TabHost.OnTabChan
     private ViewPager mViewPager;
     private HashMap<String, TabInfo> mapTabInfo = new HashMap<String, MainActivity.TabInfo>();
     private int Position;
+
+    // Shared preferrence
+    SharedPreferences sp;
+    SharedPreferences.Editor mEdit1;
 
     private Menu menu;
 
@@ -87,12 +93,18 @@ public class MainActivity extends AppCompatActivity implements TabHost.OnTabChan
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
-        getSupportActionBar().setElevation(0);
-        getSupportActionBar().setTitle(R.string.friend_tab);
+
         // Inflate the layout
+        sp = PreferenceManager.getDefaultSharedPreferences(this);
+        mEdit1 = sp.edit();
+        int theme = sp.getInt("Theme", 0);
+        if (theme != 0) {
+            setTheme(theme);
+        }getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
         setContentView(R.layout.activity_main);
 
+        getSupportActionBar().setElevation(0);
+        getSupportActionBar().setTitle(R.string.friend_tab);
         // Initialise the TabHost
         this.initialiseTabHost(savedInstanceState);
         if (savedInstanceState != null) {

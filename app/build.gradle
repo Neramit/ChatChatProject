@@ -18,6 +18,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    dexOptions {
+        preDexLibraries true
+        maxProcessCount 8
+    }
+
     sourceSets { main { res.srcDirs = ['src/main/res', 'src/main/res/layout/listview_layout'] } }
 }
 

@@ -5,7 +5,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -22,17 +24,19 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * Created by Neramit777 on 9/22/2017 at 10:26 AM.
  */
 
-public class InviteAdapter2 extends BaseAdapter{
+public class InviteAdapter2 extends BaseAdapter {
 
     private LayoutInflater inflater;
     private Context mContext;
     private List<Friend> inviteList;
     private ArrayList<Friend> arraylist = new ArrayList<Friend>();
+    private Button inviteButton;
 
-    public InviteAdapter2(Context mContext, List<Friend> inviteList) {
+    public InviteAdapter2(Context mContext, List<Friend> inviteList, Button inviteButton) {
         this.mContext = mContext;
         this.inviteList = inviteList;
         this.inflater = LayoutInflater.from(mContext);
+        this.inviteButton = inviteButton;
 
         this.arraylist.addAll(inviteList);
     }
@@ -59,7 +63,7 @@ public class InviteAdapter2 extends BaseAdapter{
     }
 
     @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
+    public View getView(final int i, View view, ViewGroup viewGroup) {
         ViewHolder holder;
         if (view == null) {
             holder = new ViewHolder();
@@ -73,12 +77,38 @@ public class InviteAdapter2 extends BaseAdapter{
             holder = (ViewHolder) view.getTag();
         }
 
-        Glide.with(view)
-                .load(inviteList.get(i).getDisplayPictureURL())  //Test
-                .into(holder.circleImageView);
+        String pictureURL = inviteList.get(i).getDisplayPictureURL();
+        if (pictureURL != null) {
+            Glide.with(view)
+                    .load(pictureURL)  //Test
+                    .into(holder.circleImageView);
+        } else
+            holder.circleImageView.setImageResource(R.drawable.default_user);
         holder.name.setText(inviteList.get(i).getDisplayName());
+        if (inviteList.get(i).getCheckInvite()!=null)
+            holder.chk.setChecked(true);
+        else
+            holder.chk.setChecked(false);
+        holder.chk.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b)
+                    inviteList.get(i).setCheckInvite(true);
+                else
+                    inviteList.get(i).setCheckInvite(false);
+                int countCheck = 0;
+                for (int j = 0; j < getCount(); j++) {
+                    if (inviteList.get(j).getCheckInvite()!=null)
+                        countCheck++;
+                    else{}
+                }
+                inviteButton.setText(mContext.getString(R.string.text_invite) +" (" +String.valueOf(countCheck) + ")");
+            }
+        });
         return view;
     }
+
+
     // Filter Class
     public void filter(String charText) {
         charText = charText.toLowerCase(Locale.getDefault());

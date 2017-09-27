@@ -1,9 +1,11 @@
 package com.example.chatchatapplication.Activity;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Build;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
@@ -14,6 +16,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,9 +40,10 @@ public class Login extends AppCompatActivity implements jsonBack {
 
     private AutoCompleteTextView mUserNameView;
     private EditText mPasswordView;
-
     private CircularProgressButton circularProgressButton;
-    String userName, password;
+    private CheckBox remember;
+
+    String userName, password, rememberUsername, rememberPassword;
     String salt = "a059a744729dfc7a4b4845109f591029";
 
     // Shared preferrence
@@ -49,17 +53,22 @@ public class Login extends AppCompatActivity implements jsonBack {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        sp = PreferenceManager.getDefaultSharedPreferences(this);
+        int theme = sp.getInt("theme", 0);
+        if (theme != 0) {
+            setTheme(theme);
+        }
         setContentView(R.layout.activity_login);
 
-        sp = PreferenceManager.getDefaultSharedPreferences(this);
         mEdit1 = sp.edit();
 
-        circularProgressButton = (CircularProgressButton) findViewById(R.id.login_button);
-        mUserNameView = (AutoCompleteTextView) findViewById(R.id.username);
-        mPasswordView = (EditText) findViewById(R.id.password);
+        circularProgressButton = findViewById(R.id.login_button);
+        mUserNameView = findViewById(R.id.username);
+        mPasswordView = findViewById(R.id.password);
+        remember = findViewById(R.id.remember);
 
-        Button buttonRegister = (Button) findViewById(R.id.register_button);
-        TextView buttonForgot = (TextView) findViewById(R.id.forgot_button);
+        Button buttonRegister = findViewById(R.id.register_button);
+        TextView buttonForgot = findViewById(R.id.forgot_button);
 
         buttonRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,6 +85,17 @@ public class Login extends AppCompatActivity implements jsonBack {
                 overridePendingTransition(R.anim.enter, R.anim.exit);
             }
         });
+
+        rememberUsername = sp.getString("remember_username", "");
+        rememberPassword = sp.getString("remember_password", "");
+        if (!Objects.equals(rememberPassword, "") && !Objects.equals(rememberUsername, "")) {
+//            userName = rememberUsername;
+//            password = rememberPassword;
+//            connect();
+            mUserNameView.setText(rememberUsername);
+            mPasswordView.setText(rememberPassword);
+            remember.setChecked(true);
+        }
 
         circularProgressButton.setIndeterminateProgressMode(true);
         circularProgressButton.setProgress(0);
@@ -117,13 +137,35 @@ public class Login extends AppCompatActivity implements jsonBack {
                     // form field with an error.
                     focusView.requestFocus();
                 } else {
-                    connect();
+                    Snackbar snackbar = Snackbar.make(getWindow().getDecorView().getRootView(), "No internet connection\nplease connect the internet.", Snackbar.LENGTH_INDEFINITE).setAction("X", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                        }
+                    });
+                    if (checkOnlineState()) {
+                        if (snackbar.isShown())
+                            snackbar.dismiss();
+                        connect();
+                    } else {
+                        snackbar.show();
+                    }
+                }
+            }
+        });
+
+        remember.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!remember.isChecked()) {
+                    mEdit1.remove("remember_username");
+                    mEdit1.remove("remember_password");
+                    mEdit1.apply();
                 }
             }
         });
     }
 
-    public void connect (){
+    public void connect() {
         Gson sendJson = new Gson();
         String pw = MD5.encrypt(salt + MD5.encrypt(MD5.encrypt(password) + salt));
         User user = new User(userName, pw);
@@ -133,12 +175,18 @@ public class Login extends AppCompatActivity implements jsonBack {
         new SimpleHttpTask(Login.this).execute(sendJson2);
     }
 
+    public boolean checkOnlineState() {
+        ConnectivityManager CManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo NInfo = CManager.getActiveNetworkInfo();
+        return NInfo != null && NInfo.isConnectedOrConnecting();
+    }
+
     @Override
     public void processFinish(String output) {
         if (Objects.equals(output, "")) {
             circularProgressButton.setProgress(0);
-            circularProgressButton.setText("No connection");
-            Snackbar snackbar = Snackbar.make(getWindow().getDecorView().getRootView(), "No connection\nplease connect the internet for use", Snackbar.LENGTH_INDEFINITE).setAction("Retry", new View.OnClickListener() {
+            circularProgressButton.setText("Can't connect server");
+            Snackbar snackbar = Snackbar.make(getWindow().getDecorView().getRootView(), "Server maintenance or server down\nplease login later", Snackbar.LENGTH_INDEFINITE).setAction("Retry", new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     connect();
@@ -158,6 +206,12 @@ public class Login extends AppCompatActivity implements jsonBack {
                 mEdit1.commit();
                 Toast.makeText(this, data.getMessage(), Toast.LENGTH_SHORT).show();
                 circularProgressButton.setProgress(100);
+
+                if (remember.isChecked()) {
+                    mEdit1.putString("remember_username", userName);
+                    mEdit1.putString("remember_password", password);
+                    mEdit1.commit();
+                }
 
                 final Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
@@ -194,7 +248,7 @@ public class Login extends AppCompatActivity implements jsonBack {
 
     private boolean isPasswordValid(String password) {
         //TODO: Replace this with your own logic
-        return password.length() >= 6;
+        return password.length() >= 6 && password.length() <= 20;
     }
 
     @Override
@@ -207,12 +261,10 @@ public class Login extends AppCompatActivity implements jsonBack {
         builder.setPositiveButton(R.string.Yes_exit, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                    finishAffinity();
-                    System.exit(0);
-                    int pid = android.os.Process.myPid();
-                    android.os.Process.killProcess(pid);
-                }
+                finishAffinity();
+                System.exit(0);
+                int pid = android.os.Process.myPid();
+                android.os.Process.killProcess(pid);
             }
         });
         builder.setNegativeButton(R.string.No_exit, new DialogInterface.OnClickListener() {

@@ -1,9 +1,11 @@
 package com.example.chatchatapplication.Activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
@@ -34,6 +36,11 @@ public class FP_ResetPassword extends AppCompatActivity implements jsonBack {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+        int theme = sp.getInt("theme", 0);
+        if (theme != 0) {
+            setTheme(theme);
+        }
         setContentView(R.layout.activity_fp__reset_password);
 
         circularProgressButton = (CircularProgressButton) findViewById(R.id.ok_button);

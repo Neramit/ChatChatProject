@@ -23,7 +23,7 @@ public class Invite_to_group extends AppCompatActivity implements android.suppor
 
     ListView friendInviteList;
     android.support.v7.widget.SearchView searchInvite;
-    Button ok;
+    Button InviteButton;
 
     // Shared preferrence
     SharedPreferences sp;
@@ -32,17 +32,20 @@ public class Invite_to_group extends AppCompatActivity implements android.suppor
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(R.string.text_invite);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_invite_to_group);
-
-        friendInviteList = (ListView) findViewById(R.id.friendListInvite);
-        searchInvite = (android.support.v7.widget.SearchView) findViewById(R.id.search_invite);
-        ok = (Button) findViewById(R.id.ok_button_invite);
-
         sp = PreferenceManager.getDefaultSharedPreferences(this);
         mEdit1 = sp.edit();
+        int theme = sp.getInt("Theme", 0);
+        if (theme != 0) {
+            setTheme(theme);
+        }
+        setContentView(R.layout.activity_invite_to_group);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(R.string.text_invite);
+        friendInviteList = (ListView) findViewById(R.id.friendListInvite);
+        searchInvite = (android.support.v7.widget.SearchView) findViewById(R.id.search_invite);
+        InviteButton = (Button) findViewById(R.id.ok_button_invite);
 
         Gson gson = new Gson();
         String json = sp.getString("friendList", null);
@@ -50,11 +53,11 @@ public class Invite_to_group extends AppCompatActivity implements android.suppor
         Type type = new TypeToken<List<Friend>>() {}.getType();
         ArrayList<Friend> friendList = gson.fromJson(json, type);
 
-        iAdapter2 = new InviteAdapter2(this,friendList);
+        iAdapter2 = new InviteAdapter2(this,friendList,InviteButton);
         friendInviteList.setAdapter(iAdapter2);
         searchInvite.setOnQueryTextListener(Invite_to_group.this);
 
-        ok.setOnClickListener(new View.OnClickListener() {
+        InviteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 

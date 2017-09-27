@@ -84,10 +84,17 @@ public class ProfileAccount extends AppCompatActivity implements jsonBack {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().setIcon(R.drawable.profile_icon);
-        getSupportActionBar().setTitle(R.string.title_profile);
+
+        sp = PreferenceManager.getDefaultSharedPreferences(this);
+        mEdit1 = sp.edit();
+        int theme = sp.getInt("Theme", 0);
+        if (theme != 0) {
+            setTheme(theme);
+        }
         setContentView(R.layout.activity_profile_account);
 
+        getSupportActionBar().setIcon(R.drawable.profile_icon);
+        getSupportActionBar().setTitle(R.string.title_profile);
         storageRef = FirebaseStorage.getInstance().getReference();
 
         progressBar = (ProgressBar) findViewById(R.id.progress_bar_user_image);
@@ -132,6 +139,7 @@ public class ProfileAccount extends AppCompatActivity implements jsonBack {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                         String pictureURL = taskSnapshot.getDownloadUrl().toString();
+
                         Gson sendJson = new Gson();
                         User data = new User();
                         data.setDisplayPictureURL(pictureURL);
@@ -141,6 +149,7 @@ public class ProfileAccount extends AppCompatActivity implements jsonBack {
                         registerSend send = new registerSend("Other", "profileAccountDisplayPicture", token, data);
                         String sendJson2 = sendJson.toJson(send);
                         new SimpleHttpTask(ProfileAccount.this).execute(sendJson2);
+
                         try {
                             Bitmap bitmap = MediaStore.Images.Media.getBitmap(ProfileAccount.this.getContentResolver(), resultUri);
                             userImage.setImageBitmap(bitmap);

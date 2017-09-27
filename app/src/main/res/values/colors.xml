@@ -2,19 +2,29 @@
 <resources>
     <!-- Base application theme colors. -->
     <color name="colorPrimary">#4caf50</color>
-    <color name="colorPrimaryDark">#4caf50</color>
+    <color name="colorPrimaryDark">#4C834F</color>
     <color name="colorAccent">#4CAF50</color>
+    <color name="main_background_green">#f0fff0</color>
+
+    <!-- Base application theme colors. -->
+    <color name="colorPrimary_blue">@color/cpb_blue</color>
+    <color name="colorPrimaryDark_blue">@color/cpb_blue_dark</color>
+    <color name="colorAccent_blue">@color/cpb_blue</color>
+    <color name="main_background_blue">#f0f4ff</color>
+
+    <color name="colorPrimary_pink">#ff6fd8</color>
+    <color name="colorPrimaryDark_pink">#cf3eaa</color>
+    <color name="colorAccent_pink">#ff6fd8</color>
+    <color name="main_background_pink">#fff6fc</color>
+
+    <color name="colorPrimary_orange">#f0aa40</color>
+    <color name="colorPrimaryDark_orange">#cf8e3e</color>
+    <color name="colorAccent_orange">#f0aa40</color>
+    <color name="main_background_orange">#fff9f1</color>
 
     <!-- Background theme colors. -->
     <color name="black_overlay">#66000000</color>
     <color name="black_overlay_2">#1A000000</color>
-    <color name="main_background">#f0f6ff</color>
-
-    <!-- Button theme colors. -->
-    <color name="normal_button_G">#4CAF50</color>
-    <color name="pressed_button_G">#4C834F</color>
-    <color name="normal_button_B">#DE6461</color>
-    <color name="pressed_button_B">#A76260</color>
 
     <!-- Background theme colors. -->
     <color name="hint_white_text">#99FAFAFA</color>

@@ -1,9 +1,11 @@
 package com.example.chatchatapplication.Activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
@@ -37,9 +39,19 @@ public class Register extends AppCompatActivity implements jsonBack {
     String userName, email, password;
     String salt = "a059a744729dfc7a4b4845109f591029";
 
+    // Shared preferrence
+    SharedPreferences sp;
+    SharedPreferences.Editor mEdit1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        sp = PreferenceManager.getDefaultSharedPreferences(this);
+        mEdit1 = sp.edit();
+        int theme = sp.getInt("theme", 0);
+        if (theme != 0) {
+            setTheme(theme);
+        }
         setContentView(R.layout.activity_register);
 
 //        linearLayoutAll = (LinearLayout) findViewById(R.id.email_login_form);
@@ -195,10 +207,10 @@ public class Register extends AppCompatActivity implements jsonBack {
                 @Override
                 public void run() {
                     // Do something after 5s = 5000ms
-                    mUserNameView.setText("");
-                    mEmailView.setText("");
-                    mPasswordView.setText("");
-                    mRePasswordView.setText("");
+//                    mUserNameView.setText("");
+//                    mEmailView.setText("");
+//                    mPasswordView.setText("");
+//                    mRePasswordView.setText("");
                     circularProgressButton.setProgress(0);
                 }
             }, 1000);

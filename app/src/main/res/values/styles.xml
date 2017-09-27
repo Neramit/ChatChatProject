@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
     <!-- Base application theme. -->
@@ -6,7 +7,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:colorBackground">@color/main_background</item>
+        <item name="android:colorBackground">@color/main_background_green</item>
     </style>
 
     <style name="AppTheme.NoActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -14,14 +15,56 @@
         <item name="windowNoTitle">true</item>
         <item name="colorAccent">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="android:colorBackground">@color/main_background</item>
+        <item name="colorPrimary">@color/colorAccent</item>
+        <item name="android:colorBackground">@color/main_background_green</item>
     </style>
 
     <style name="Blue" parent="AppTheme" >
-        <item name="colorPrimary">@color/cpb_blue</item>
-        <item name="colorPrimaryDark">@color/cpb_blue_dark</item>
-        <item name="colorAccent">@color/cpb_blue</item>
+        <item name="colorPrimary">@color/colorPrimary_blue</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark_blue</item>
+        <item name="colorAccent">@color/colorAccent_blue</item>
+        <item name="android:colorBackground">@color/main_background_blue</item>
+    </style>
+
+    <style name="Blue.NoActionBar" parent="AppTheme">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="colorPrimary">@color/colorPrimary_blue</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark_blue</item>
+        <item name="colorAccent">@color/colorAccent_blue</item>
+        <item name="android:colorBackground">@color/main_background_blue</item>
+    </style>
+
+    <style name="Pink" parent="AppTheme" >
+        <item name="colorPrimary">@color/colorPrimary_pink</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark_pink</item>
+        <item name="colorAccent">@color/colorAccent_pink</item>
+        <item name="android:colorBackground">@color/main_background_pink</item>
+    </style>
+
+    <style name="Pink.NoActionBar" parent="AppTheme">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="colorPrimary">@color/colorPrimary_pink</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark_pink</item>
+        <item name="colorAccent">@color/colorPrimary_pink</item>
+        <item name="android:colorBackground">@color/main_background_pink</item>
+    </style>
+
+    <style name="Orange" parent="AppTheme" >
+        <item name="colorPrimary">@color/colorPrimary_orange</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark_orange</item>
+        <item name="colorAccent">@color/colorAccent_orange</item>
+        <item name="android:colorBackground">@color/main_background_orange</item>
+    </style>
+
+    <style name="Orange.NoActionBar" parent="AppTheme">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="colorPrimary">@color/colorPrimary_orange</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark_orange</item>
+        <item name="colorAccent">@color/colorPrimary_orange</item>
+        <item name="android:colorBackground">@color/main_background_orange</item>
     </style>
 
 </resources>

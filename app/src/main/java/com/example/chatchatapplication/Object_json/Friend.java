@@ -13,6 +13,16 @@ public class Friend {
     private String displayName;
     private String displayPictureURL;
 
+    private Boolean checkInvite;
+
+    public Boolean getCheckInvite() {
+        return checkInvite;
+    }
+
+    public void setCheckInvite(Boolean checkInvite) {
+        this.checkInvite = checkInvite;
+    }
+
     public String getDisplayName() {
         return displayName;
     }

@@ -102,6 +102,17 @@
     <string name="pref_title_change_passcode">Change passcode</string>
     <string name="pref_theme_title">Theme</string>
     <string name="pref_title_theme">Select theme</string>
+    <!-- Passcode -->
+    <string name="enter_passcode">Enter passcode</string>
+    <string name="enter_old_passcode">Enter old passcode</string>
+    <string name="enter_old_passcode_below">Enter passcode below</string>
+    <string name="set_passcode">Set passcode</string>
+    <string name="enter_new_passcode">Enter new passcode below</string>
+    <string name="enter_passcode_below">Enter passcode below</string>
+    <string name="confirm_passcode">Confirm passcode</string>
+    <string name="again_passcode">Enter the passcode again</string>
+    <string name="wrong_passcode">Wrong passcode\ntry again</string>
+    <string name="not_match_passcode">Not match passcode\ntry again</string>
 
     <!-- TODO: Strings related to Friend -->
     <string name="title_no_friends">You do not have any friend</string>

@@ -1,11 +1,14 @@
 package com.example.chatchatapplication.Activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -44,6 +47,12 @@ public class CreateGroup extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+        int theme = sp.getInt("Theme", 0);
+        if (theme != 0) {
+            Log.d("Test",Integer.toString(theme));
+            setTheme(theme);
+        }
         getSupportActionBar().setTitle(R.string.title_create_group);
         setContentView(R.layout.activity_create_group);
 

@@ -14,25 +14,31 @@
         android:padding="5dp"
         android:orientation="horizontal">
 
-        <EditText
-            android:id="@+id/editText"
+            <EditText
+                android:id="@+id/editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="60dp" />
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginRight="60dp" />
+            android:layout_toEndOf="@id/editText"
+            android:padding="5dp"
+            android:layout_marginLeft="-60dp"
+            android:background="@drawable/button_prim_color"
+            android:gravity="center">
+            <ToggleButton
+                android:id="@+id/send_bt"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/toggle_send_button"
+                android:scaleType="fitCenter"
+                android:textOff=""
+                android:textOn="" />
+        </LinearLayout>
 
-        <ToggleButton
-            android:id="@+id/send_bt"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginBottom="10dp"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/sound"
-            android:scaleType="fitCenter"
-            android:textOff=""
-            android:textOn="" />
     </RelativeLayout>
 
     <LinearLayout
@@ -41,11 +47,10 @@
         android:layout_height="match_parent"
         android:visibility="visible"
         android:gravity="center">
-        <pl.droidsonroids.gif.GifImageView
+        <ProgressBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:scaleType="centerCrop"
-            android:src="@drawable/load_red"/>
+            android:scaleType="centerCrop" />
     </LinearLayout>
 
     <ListView

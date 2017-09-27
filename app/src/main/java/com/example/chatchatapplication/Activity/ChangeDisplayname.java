@@ -33,9 +33,15 @@ public class ChangeDisplayname extends AppCompatActivity implements jsonBack {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().setTitle(R.string.title_dislayname);
+
+        sp = PreferenceManager.getDefaultSharedPreferences(this);
+        int theme = sp.getInt("Theme", 0);
+        if (theme != 0) {
+            setTheme(theme);
+        }
         setContentView(R.layout.activity_change_displayname);
 
+        getSupportActionBar().setTitle(R.string.title_dislayname);
         sp = PreferenceManager.getDefaultSharedPreferences(this);
         mEdit1 = sp.edit();
 

@@ -20,6 +20,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Map;
 
+import ru.bullyboo.encoder.Encoder;
+import ru.bullyboo.encoder.methods.AES;
+
 /**
  * Created by Neramit777 on 9/22/2017 at 3:15 PM.
  */
@@ -57,9 +60,17 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
 
+        String decrypted = Encoder.BuilderAES()
+                .message(notification.getBody())
+                .method(AES.Method.AES_CBC_PKCS5PADDING)
+                .key("mit&24737")
+                .keySize(AES.Key.SIZE_128)
+                .iVector(notification.getTitle())
+                .decrypt();
+
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
                 .setContentTitle(notification.getTitle())
-                .setContentText(notification.getBody())
+                .setContentText(decrypted)
                 .setAutoCancel(true)
                 .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
                 .setContentIntent(pendingIntent)
