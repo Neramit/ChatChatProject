@@ -9,10 +9,12 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.example.chatchatapplication.Object_json.Member;
+import com.bumptech.glide.Glide;
+import com.example.chatchatapplication.Object_json.Friend;
 import com.example.chatchatapplication.R;
 
 import java.util.List;
+import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -20,13 +22,13 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * Created by Neramit777 on 9/21/2017 at 4:35 PM.
  */
 
-public class InviteAdapter extends BaseAdapter{
+public class InviteAdapter extends BaseAdapter {
 
     private LayoutInflater inflater;
     private Context mContext;
-    private List<Member> membersList;
+    private List<Friend> membersList;
 
-    public InviteAdapter(Context mContext, List<Member> membersList) {
+    public InviteAdapter(Context mContext, List<Friend> membersList) {
         this.mContext = mContext;
         this.membersList = membersList;
         this.inflater = LayoutInflater.from(mContext);
@@ -38,7 +40,7 @@ public class InviteAdapter extends BaseAdapter{
     }
 
     @Override
-    public Member getItem(int i) {
+    public Friend getItem(int i) {
         return membersList.get(i);
     }
 
@@ -70,13 +72,24 @@ public class InviteAdapter extends BaseAdapter{
             holder = (ViewHolder) view.getTag();
         }
 
-        if (membersList.get(i).getMemberStatus()==4){
+        if (Objects.equals(membersList.get(i).getDisplayName(), "AddButton271137")) {
             holder.name.setText(R.string.text_add);
             holder.circleImageView.setImageResource(R.drawable.add_invite);
             holder.all.removeView(holder.x);
+        } else {
+            // Set the results into TextViews
+            String displayPictureURL = membersList.get(i).getDisplayPictureURL();
+            if (displayPictureURL != null) {
+                Glide.with(mContext)
+                        .load(membersList.get(i).getDisplayPictureURL())  //Test
+                        .into(holder.circleImageView);
+                holder.name.setText(membersList.get(i).getDisplayName());
+            }else{
+                holder.circleImageView.setImageResource(R.drawable.default_user);
+                holder.name.setText(membersList.get(i).getDisplayName());
+            }
+
         }
-        // Set the results into TextViews
-//        holder.name.setText();
         return view;
     }
 

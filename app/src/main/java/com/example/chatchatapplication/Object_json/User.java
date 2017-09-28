@@ -12,6 +12,7 @@ public class User {
     private int genNum;
     private String displayName;
     private String displayPictureURL;
+    private String registrationID;
 
     public String getToken() {
         return token;
@@ -81,6 +82,14 @@ public class User {
 
     public void setGenNum(int genNum) {
         this.genNum = genNum;
+    }
+
+    public String getRegistrationID() {
+        return registrationID;
+    }
+
+    public void setRegistrationID(String registrationID) {
+        this.registrationID = registrationID;
     }
 }
 

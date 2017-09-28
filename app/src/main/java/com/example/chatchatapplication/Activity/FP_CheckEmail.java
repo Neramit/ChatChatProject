@@ -75,14 +75,13 @@ public class FP_CheckEmail extends AppCompatActivity implements jsonBack {
                     focusView.requestFocus();
                 } else {
                     Gson sendJson = new Gson();
-
                     User data = new User();
                     data.setEmail(email);
                     data.setGenNum(genNum);
                     registerSend send = new registerSend("Forgot password", "checkEmail", data);
                     String sendJson2 = sendJson.toJson(send);
                     circularProgressButton.setProgress(50);
-                    new SimpleHttpTask(FP_CheckEmail.this).execute();
+                    new SimpleHttpTask(FP_CheckEmail.this).execute(sendJson2);
                 }
             }
         });

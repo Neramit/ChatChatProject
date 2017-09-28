@@ -34,34 +34,30 @@ public class Setting extends PreferenceActivity implements SharedPreferences.OnS
 //            Preference connectionPref = findPreference(key);
             // Set summary to be the user-description for the selected value
             Boolean m = sharedPreferences.getBoolean(key, false);
-            if (m){
-                Intent intent = new Intent(this,SetPasscode_1.class);
-                intent.putExtra("isChangePasscode",false);
+            if (m) {
+                Intent intent = new Intent(this, SetPasscode_1.class);
+                intent.putExtra("isChangePasscode", false);
                 startActivity(intent);
-            }else{
-                mEdit1.putInt("Passcode",0);
+            } else {
+                mEdit1.putInt("Passcode", 0);
                 mEdit1.apply();
             }
-        }else if (key.equals("pref_key_theme")) {
-            String m = sharedPreferences.getString(key,null);
-            if (Objects.equals(m, "1")){
-                mEdit1.putInt("Theme",R.style.AppTheme);
-                mEdit1.putInt("theme",R.style.AppTheme_NoActionBar);
-                mEdit1.commit();
-            }else if (Objects.equals(m, "2")){
-                mEdit1.putInt("Theme",R.style.Blue);
-                mEdit1.putInt("theme",R.style.Blue_NoActionBar);
-                mEdit1.commit();
-                getApplication().setTheme(R.style.Blue);
-            }else if (Objects.equals(m, "3")){
-                mEdit1.putInt("Theme",R.style.Pink);
-                mEdit1.putInt("theme",R.style.Pink_NoActionBar);
-                mEdit1.commit();
-            }else if (Objects.equals(m, "4")){
-                mEdit1.putInt("Theme",R.style.Orange);
-                mEdit1.putInt("theme",R.style.Orange_NoActionBar);
-                mEdit1.commit();
+        } else if (key.equals("pref_key_theme")) {
+            String m = sharedPreferences.getString(key, null);
+            if (Objects.equals(m, "1")) {
+                mEdit1.putInt("Theme", R.style.AppTheme);
+                mEdit1.putInt("theme", R.style.AppTheme_NoActionBar);
+            } else if (Objects.equals(m, "2")) {
+                mEdit1.putInt("Theme", R.style.Blue);
+                mEdit1.putInt("theme", R.style.Blue_NoActionBar);
+            } else if (Objects.equals(m, "3")) {
+                mEdit1.putInt("Theme", R.style.Pink);
+                mEdit1.putInt("theme", R.style.Pink_NoActionBar);
+            } else if (Objects.equals(m, "4")) {
+                mEdit1.putInt("Theme", R.style.Orange);
+                mEdit1.putInt("theme", R.style.Orange_NoActionBar);
             }
+            mEdit1.commit();
         }
     }
 

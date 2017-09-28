@@ -28,6 +28,7 @@ import com.example.chatchatapplication.Object_json.User;
 import com.example.chatchatapplication.Object_json.registerSend;
 import com.example.chatchatapplication.Object_json.searchRetrieve;
 import com.example.chatchatapplication.R;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
 import com.kosalgeek.android.md5simply.MD5;
 
@@ -169,6 +170,7 @@ public class Login extends AppCompatActivity implements jsonBack {
         Gson sendJson = new Gson();
         String pw = MD5.encrypt(salt + MD5.encrypt(MD5.encrypt(password) + salt));
         User user = new User(userName, pw);
+        user.setRegistrationID(FirebaseInstanceId.getInstance().getToken());
         registerSend send = new registerSend("Authentication", "login", user);
         String sendJson2 = sendJson.toJson(send);
         circularProgressButton.setProgress(50);

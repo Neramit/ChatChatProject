@@ -24,6 +24,7 @@
 
     <!-- Background theme colors. -->
     <color name="black_overlay">#66000000</color>
+    <color name="black_overlay_1">#4D000000</color>
     <color name="black_overlay_2">#1A000000</color>
 
     <!-- Background theme colors. -->

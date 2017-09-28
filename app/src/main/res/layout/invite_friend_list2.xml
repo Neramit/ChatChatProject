@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="70dp"
-    android:orientation="vertical">
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/image_user2"
@@ -12,33 +13,27 @@
         android:scaleType="centerCrop"
         android:src="@drawable/default_user" />
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/invite_name2"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="5dp"
-        android:layout_toEndOf="@id/image_user2"
-        android:gravity="center_vertical"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:maxLength="20"
+        android:maxLines="1"
+        android:text="Test user"
+        android:textColor="@color/dark_text"
+        android:textSize="20sp" />
 
-        <TextView
-            android:id="@+id/invite_name2"
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <CheckBox
+            android:id="@+id/checkbox"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:maxLines="1"
-            android:maxLength="20"
-            android:text="Test user"
-            android:textColor="@color/dark_text"
-            android:textSize="20sp" />
+            android:layout_height="70dp"
+            android:layout_alignParentEnd="true"
+            android:checked="false"
+            android:padding="10dp"
+            android:src="@drawable/theme" />
+    </RelativeLayout>
 
-    </LinearLayout>
-
-    <CheckBox
-        android:id="@+id/checkbox"
-        android:checked="false"
-        android:layout_width="wrap_content"
-        android:layout_height="70dp"
-        android:layout_alignParentEnd="true"
-        android:padding="10dp"
-        android:src="@drawable/theme" />
-
-</RelativeLayout>
+</LinearLayout>

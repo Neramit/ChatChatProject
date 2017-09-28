@@ -78,7 +78,7 @@ public class ChangeDisplayname extends AppCompatActivity implements jsonBack {
             @Override
             public void onClick(View view) {
                 displayname = displayName.getQuery().toString();
-                if (displayname.trim().length() > 3 && displayname.trim().length() < 21) {
+                if (displayname.trim().length() > 2 && displayname.trim().length() < 21) {
                     Gson sendJson = new Gson();
                     button.setProgress(50);
                     User data = new User();

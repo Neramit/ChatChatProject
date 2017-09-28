@@ -31,6 +31,7 @@ public class InviteAdapter2 extends BaseAdapter {
     private List<Friend> inviteList;
     private ArrayList<Friend> arraylist = new ArrayList<Friend>();
     private Button inviteButton;
+    private int countCheck;
 
     public InviteAdapter2(Context mContext, List<Friend> inviteList, Button inviteButton) {
         this.mContext = mContext;
@@ -85,29 +86,37 @@ public class InviteAdapter2 extends BaseAdapter {
         } else
             holder.circleImageView.setImageResource(R.drawable.default_user);
         holder.name.setText(inviteList.get(i).getDisplayName());
-        if (inviteList.get(i).getCheckInvite()!=null)
+        if (inviteList.get(i).getCheckInvite() != null)
             holder.chk.setChecked(true);
         else
             holder.chk.setChecked(false);
         holder.chk.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (b)
+                if (b) {
                     inviteList.get(i).setCheckInvite(true);
-                else
+//                    countCheck++;
+                } else {
                     inviteList.get(i).setCheckInvite(false);
-                int countCheck = 0;
-                for (int j = 0; j < getCount(); j++) {
-                    if (inviteList.get(j).getCheckInvite()!=null)
-                        countCheck++;
-                    else{}
+//                    countCheck--;
                 }
-                inviteButton.setText(mContext.getString(R.string.text_invite) +" (" +String.valueOf(countCheck) + ")");
+                countCheck = 0;
+//                inviteButton.setText(mContext.getString(R.string.text_invite) + " (" + String.valueOf(countCheck) + ")");
+                for (int j = 0; j < getCount(); j++) {
+                    if (inviteList.get(j).getCheckInvite() != null) {
+                        if (inviteList.get(j).getCheckInvite()) countCheck++;
+                    } else {
+                    }
+                }
+                inviteButton.setText(mContext.getString(R.string.text_invite) + " (" + String.valueOf(countCheck) + ")");
             }
         });
         return view;
     }
 
+    public List<Friend> getInviteList () {
+        return inviteList;
+    }
 
     // Filter Class
     public void filter(String charText) {

@@ -14,9 +14,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.chatchatapplication.Activity.AddFriend;
-import com.example.chatchatapplication.Activity.MainActivity;
-import com.example.chatchatapplication.Adapter.friendAdapter;
 import com.example.chatchatapplication.Activity.FriendChatroom;
+import com.example.chatchatapplication.Adapter.friendAdapter;
 import com.example.chatchatapplication.Not_Activity.SimpleHttpTask;
 import com.example.chatchatapplication.Not_Activity.jsonBack;
 import com.example.chatchatapplication.Object_json.Friend;
@@ -77,11 +76,13 @@ public class friendFragment extends Fragment implements jsonBack {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // TODO Auto-generated method stub
                 Intent intent = new Intent(getActivity(),FriendChatroom.class);
-                intent.putExtra("chatroomUid",friend_list.get(position).getChatroomUID());
-                intent.putExtra("friendUsername",friend_list.get(position).getFriendUsername());
-                intent.putExtra("friendStatus",friend_list.get(position).getFriendStatus());
-                intent.putExtra("friendDisplayName",friend_list.get(position).getDisplayName());
-                intent.putExtra("friendDisplayPictureURL",friend_list.get(position).getDisplayPictureURL());
+                mEdit1.putInt("chatroomUid",friend_list.get(position).getChatroomUID());
+                mEdit1.putString("friendUsername",friend_list.get(position).getFriendUsername());
+                mEdit1.putString("friendStatus",friend_list.get(position).getFriendStatus());
+                mEdit1.putString("friendDisplayName",friend_list.get(position).getDisplayName());
+                mEdit1.putString("friendDisplayPictureURL",friend_list.get(position).getDisplayPictureURL());
+                mEdit1.putString("friendRegistrationID",friend_list.get(position).getFriendRegistrationID());
+                mEdit1.commit();
                 startActivity(intent);
             }
         });
@@ -90,7 +91,7 @@ public class friendFragment extends Fragment implements jsonBack {
 
     @Override
     public void onStart() {
-        ((MainActivity)getActivity()).getSupportActionBar().setTitle(getActivity().getString(R.string.friend_tab) + " (" + friend_list.size() + ")");
+//        ((MainActivity)getActivity()).getSupportActionBar().setTitle(getActivity().getString(R.string.friend_tab) + " (" + friend_list.size() + ")");
         super.onStart();
     }
 

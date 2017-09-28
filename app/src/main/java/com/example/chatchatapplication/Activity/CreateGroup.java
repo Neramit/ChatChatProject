@@ -19,15 +19,19 @@ import android.widget.RelativeLayout;
 
 import com.example.chatchatapplication.Adapter.InviteAdapter;
 import com.example.chatchatapplication.Not_Activity.ExpandedGridView;
-import com.example.chatchatapplication.Object_json.Member;
+import com.example.chatchatapplication.Object_json.Friend;
 import com.example.chatchatapplication.R;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -42,7 +46,7 @@ public class CreateGroup extends AppCompatActivity {
     CircleImageView circleImageGroup;
 
     Uri resultUri;
-    ArrayList<Member> memberList = new ArrayList<Member>();
+    ArrayList<Friend> memberList = new ArrayList<Friend>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,10 +67,25 @@ public class CreateGroup extends AppCompatActivity {
         progrssImage = (ProgressBar) findViewById(R.id.progress_image);
         gridView = (ExpandedGridView) findViewById(R.id.ex_grid_view);
 
-        Member add = new Member("Add Button",4);
+        Gson gson = new Gson();
+        String json = sp.getString("inviteFriendList", null);
+//        friendListRetrieve friendList = gson.fromJson(json, friendListRetrieve.class);
+        Type type = new TypeToken<List<Friend>>() {}.getType();
+        List<Friend> inviteFriendList = gson.fromJson(json, type);
+
+        Friend add = new Friend();
+        add.setDisplayName("AddButton271137");
         memberList.add(add);
+
+        if(inviteFriendList!=null){
+            for (Friend wp : inviteFriendList) {
+                    memberList.add(wp);
+            }
+        }
+
         iAdapter = new InviteAdapter(this,memberList);
         gridView.setAdapter(iAdapter);
+        gridView.setExpanded(true);
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -77,6 +96,14 @@ public class CreateGroup extends AppCompatActivity {
                 }
             }
         });
+
+//        List<Friend> sendFriendList = iAdapter2.getInviteList();
+//        Gson sendJson = new Gson();
+//        inviteSend data = new inviteSend();
+//        data = ;
+//        inviteSend2 send = new inviteSend2("Forgot password", "enterEmail", data);
+//        String sendJson2 = sendJson.toJson(send);
+//        new SimpleHttpTask(Invite_to_group.this).execute(sendJson2);
     }
 
     public void setGroupPicture(View v) {
@@ -102,23 +129,6 @@ public class CreateGroup extends AppCompatActivity {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-//                File file = new File(resultUri.toString().replace("file://", "" ));
-//
-//                Bitmap b = null;
-//                try {
-//                    b = new ImageZipper(this)
-//                            .setQuality(100)
-//                            .setMaxWidth(200)
-//                            .setMaxHeight(200)
-//                            .compressToBitmap(file);
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//
-//                ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-//                b.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-//                String path = MediaStore.Images.Media.insertImage(this.getContentResolver(), b, "Title", null);
-//                resultUri = Uri.parse(path);
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                 Exception error = result.getError();
             }
@@ -170,7 +180,7 @@ public class CreateGroup extends AppCompatActivity {
 //                    progressBar.setVisibility(View.VISIBLE);
 //                }
 //            });
-            startActivity(new Intent(this, MainActivity.class));
+//            startActivity(new Intent(this, MainActivity.class));
             finish();
             return true;
         }

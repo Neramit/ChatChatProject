@@ -100,7 +100,8 @@ public class MainActivity extends AppCompatActivity implements TabHost.OnTabChan
         int theme = sp.getInt("Theme", 0);
         if (theme != 0) {
             setTheme(theme);
-        }getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
+        }
+        getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
         setContentView(R.layout.activity_main);
 
         getSupportActionBar().setElevation(0);
@@ -197,7 +198,7 @@ public class MainActivity extends AppCompatActivity implements TabHost.OnTabChan
         Position = position;
         this.mTabHost.setCurrentTab(position);
         if (position == 0) {
-//            getSupportActionBar().setTitle(R.string.friend_tab);
+            getSupportActionBar().setTitle(R.string.friend_tab);
         } else if (position == 1) {
             getSupportActionBar().setTitle(R.string.group_tab);
         } else if (position == 2) {

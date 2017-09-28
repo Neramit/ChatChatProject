@@ -76,7 +76,6 @@ public class AddFriend extends AppCompatActivity implements jsonBack {
                 searchView.setIconified(false);
                 if (extendView.getChildCount() > 0) {
 //                    extendView.setVisibility(View.GONE);
-//                    extendView.removeAllViews();
                     button.setProgress(0);
                 }
             }
@@ -98,9 +97,11 @@ public class AddFriend extends AppCompatActivity implements jsonBack {
                 View focusView = null;
                 boolean cancel = false;
                 if (TextUtils.isEmpty(userName)) {
+                    Toast.makeText(AddFriend.this, "Please type username.", Toast.LENGTH_SHORT).show();
                     focusView = searchView;
                     cancel = true;
                 } else if (!isUserNameValid(userName)) {
+                    Toast.makeText(AddFriend.this, "Must have more than 3 letters", Toast.LENGTH_SHORT).show();
                     focusView = searchView;
                     cancel = true;
                 }
@@ -111,6 +112,7 @@ public class AddFriend extends AppCompatActivity implements jsonBack {
                 } else {
                     Gson sendJson = new Gson();
 //                    button.setProgress(50);
+                    extendView.removeAllViews();
                     progressBarAdd.setVisibility(View.VISIBLE);
                     User data = new User();
                     data.setUsername(userName);
@@ -238,6 +240,7 @@ public class AddFriend extends AppCompatActivity implements jsonBack {
         }
         message.setTextSize(16);
         extendView.addView(message);
+        button.setVisibility(View.INVISIBLE);
     }
 
     private void searchYouAdd(searchRetrieve data) {
@@ -285,7 +288,7 @@ public class AddFriend extends AppCompatActivity implements jsonBack {
 
     private boolean isUserNameValid(String userName) {
         //TODO: Replace this with your own logic
-        return userName.length() >= 4 && userName.length() <= 20;
+        return userName.length() >= 3 && userName.length() <= 20;
     }
 
     @Override

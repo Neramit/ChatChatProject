@@ -9,7 +9,16 @@ import java.util.Date;
 public class messages {
     private String messageText;
     private String messageUser;
+    private String messageDisplayName;
     private long messageTime;
+
+    public String getMessageDisplayName() {
+        return messageDisplayName;
+    }
+
+    public void setMessageDisplayName(String messageDisplayName) {
+        this.messageDisplayName = messageDisplayName;
+    }
 
     public String getMessageText() {
         return messageText;
@@ -40,6 +49,14 @@ public class messages {
     public messages(String messageText, String messageUser) {
         this.messageText = messageText;
         this.messageUser = messageUser;
+        // Initialize to current time
+        this.messageTime = new Date().getTime();
+    }
+
+    public messages(String messageText, String messageUser, String messageDisplayName) {
+        this.messageText = messageText;
+        this.messageUser = messageUser;
+        this.messageDisplayName = messageDisplayName;
         // Initialize to current time
         this.messageTime = new Date().getTime();
     }

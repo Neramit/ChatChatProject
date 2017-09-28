@@ -15,9 +15,12 @@ import android.widget.Toast;
 import com.dd.CircularProgressButton;
 import com.example.chatchatapplication.Not_Activity.SimpleHttpTask;
 import com.example.chatchatapplication.Not_Activity.jsonBack;
+import com.example.chatchatapplication.Object_json.User;
+import com.example.chatchatapplication.Object_json.registerSend;
 import com.example.chatchatapplication.Object_json.simpleRetrieve;
 import com.example.chatchatapplication.R;
 import com.google.gson.Gson;
+import com.kosalgeek.android.md5simply.MD5;
 
 import java.net.HttpURLConnection;
 import java.util.Objects;
@@ -94,7 +97,15 @@ public class FP_ResetPassword extends AppCompatActivity implements jsonBack {
                     focusView.requestFocus();
                 } else {
                     circularProgressButton.setProgress(50);
-                    new SimpleHttpTask(FP_ResetPassword.this).execute();
+                    Gson sendJson = new Gson();
+                    User data = new User();
+                    data.setEmail(email);
+                    String pw = MD5.encrypt(MD5.encrypt(password) + salt);
+                    data.setPassword(pw);
+                    registerSend send = new registerSend("Forgot password", "resetPassword", data);
+                    String sendJson2 = sendJson.toJson(send);
+                    circularProgressButton.setProgress(50);
+                    new SimpleHttpTask(FP_ResetPassword.this).execute(sendJson2);
                 }
             }
         });
@@ -136,7 +147,7 @@ public class FP_ResetPassword extends AppCompatActivity implements jsonBack {
 
     private boolean isPasswordValid(String password) {
         //TODO: Replace this with your own logic
-        return password.length() >= 6 && password.length() <= 4;
+        return password.length() >= 6 && password.length() <= 20;
     }
 
     @Override

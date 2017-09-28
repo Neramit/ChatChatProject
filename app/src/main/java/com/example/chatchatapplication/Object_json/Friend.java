@@ -13,6 +13,16 @@ public class Friend {
     private String displayName;
     private String displayPictureURL;
 
+    public String getFriendRegistrationID() {
+        return friendRegistrationID;
+    }
+
+    public void setFriendRegistrationID(String friendRegistrationID) {
+        this.friendRegistrationID = friendRegistrationID;
+    }
+
+    private String friendRegistrationID;
+
     private Boolean checkInvite;
 
     public Boolean getCheckInvite() {

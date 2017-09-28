@@ -89,7 +89,7 @@
     <string name="title_email">Email</string>
     <string name="title_delete_account">Delete account</string>
     <string name="title_activity_settings">Settings</string>
-    <string name="toast_displayname_minimum">DisplayName must have more than 4 characters\nand not have space only</string>
+    <string name="toast_displayname_minimum">DisplayName must have more than 3 characters\nand not have space only</string>
 
     <!-- TODO: Strings related to Settings -->
     <string name="pref_notification_title">Notification</string>

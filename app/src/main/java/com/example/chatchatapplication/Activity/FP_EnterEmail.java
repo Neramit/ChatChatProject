@@ -77,7 +77,7 @@ public class FP_EnterEmail extends AppCompatActivity implements jsonBack {
                     registerSend send = new registerSend("Forgot password", "enterEmail", data);
                     String sendJson2 = sendJson.toJson(send);
                     circularProgressButton.setProgress(50);
-                    new SimpleHttpTask(FP_EnterEmail.this).execute();
+                    new SimpleHttpTask(FP_EnterEmail.this).execute(sendJson2);
                 }
             }
         });

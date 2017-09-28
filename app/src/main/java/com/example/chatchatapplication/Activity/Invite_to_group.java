@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import com.example.chatchatapplication.Adapter.InviteAdapter2;
+import com.example.chatchatapplication.Not_Activity.jsonBack;
 import com.example.chatchatapplication.Object_json.Friend;
 import com.example.chatchatapplication.R;
 import com.google.gson.Gson;
@@ -19,7 +20,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Invite_to_group extends AppCompatActivity implements android.support.v7.widget.SearchView.OnQueryTextListener {
+public class Invite_to_group extends AppCompatActivity implements android.support.v7.widget.SearchView.OnQueryTextListener,jsonBack {
 
     ListView friendInviteList;
     android.support.v7.widget.SearchView searchInvite;
@@ -60,7 +61,13 @@ public class Invite_to_group extends AppCompatActivity implements android.suppor
         InviteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Gson gson = new Gson();
+                List<Friend> sendFriendList = iAdapter2.getInviteList();
+                String json = gson.toJson(sendFriendList);
+                mEdit1.putString("inviteFriendList", json);
+                mEdit1.commit();
+//                startActivity(new Intent(Invite_to_group.this,CreateGroup.class));
+                finish();
             }
         });
     }
@@ -90,5 +97,10 @@ public class Invite_to_group extends AppCompatActivity implements android.suppor
     @Override
     public void onBackPressed() {
         finish();
+    }
+
+    @Override
+    public void processFinish(String output) {
+
     }
 }

@@ -20,7 +20,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.iid.FirebaseInstanceId;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -47,7 +46,7 @@ public class FriendChatroom extends AppCompatActivity {
     public static ArrayList<messages> listMessage;
     DatabaseReference mMessagesRef;
     int chatroomUid;
-    String friendUsername, friendDisplayName, username, friendDisplayPictureURL;
+    String friendUsername, friendDisplayName, username, friendDisplayPictureURL,friendRegistrationID,displayName;
     ArrayAdapter<messages> adapter;
 
     // Shared preferrence
@@ -91,14 +90,15 @@ public class FriendChatroom extends AppCompatActivity {
         }
         setContentView(R.layout.activity_friend_chatroom);
 
-        sp = PreferenceManager.getDefaultSharedPreferences(this);
         mEdit1 = sp.edit();
 
         username = sp.getString("username", null);
-        chatroomUid = getIntent().getExtras().getInt("chatroomUid");
-        friendUsername = getIntent().getExtras().getString("friendUsername");
-        friendDisplayName = getIntent().getExtras().getString("friendDisplayName");
-        friendDisplayPictureURL = getIntent().getExtras().getString("friendDisplayPictureURL");
+        displayName = sp.getString("displayName",null);
+        chatroomUid = sp.getInt("chatroomUid",0);
+        friendUsername = sp.getString("friendUsername",null);
+        friendDisplayName = sp.getString("friendDisplayName",null);
+        friendDisplayPictureURL = sp.getString("friendDisplayPictureURL",null);
+        friendRegistrationID = sp.getString("friendRegistrationID", null);
 
         DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
         mMessagesRef = mRootRef.child("Private Chat").child(String.valueOf(chatroomUid));
@@ -137,7 +137,8 @@ public class FriendChatroom extends AppCompatActivity {
                 .iVector(userName)
                 .encrypt();
         messages messages = new messages(encrypt, userName);
-        sendWithOtherThread(messages);
+        messages messages2 = new messages(encrypt, userName, displayName);
+        sendWithOtherThread(messages2);
         mMessagesRef.child(id).setValue(messages);
     }
 
@@ -155,14 +156,14 @@ public class FriendChatroom extends AppCompatActivity {
         JSONObject jNotification = new JSONObject();
         JSONObject jData = new JSONObject();
         try {
-            jNotification.put("title", type.getMessageUser());
+            jNotification.put("title", type.getMessageDisplayName());
             jNotification.put("body", type.getMessageText());
             jNotification.put("sound", "default");
             jNotification.put("badge", "1");
             jNotification.put("click_action", "OPEN_ACTIVITY_1");
             jNotification.put("icon", "ic_launcher");
 
-//            jData.put("picture_url", "http://opsbug.com/static/google-io.jpg");
+//            jData.put("picture_url", "http://cdn.collider.com/wp-content/uploads/2017/04/my-little-pony-friendship-is-magic-season-7-image-5.png");
 
 //            switch(type) {
 //                case "tokens":
@@ -178,7 +179,7 @@ public class FriendChatroom extends AppCompatActivity {
 //                    jPayload.put("condition", "'sport' in topics || 'news' in topics");
 ////                    break;
 //                default:
-            jPayload.put("to", FirebaseInstanceId.getInstance().getToken());
+            jPayload.put("to", friendRegistrationID);
 //            }
 
             jPayload.put("priority", "high");
