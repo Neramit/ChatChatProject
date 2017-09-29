@@ -141,8 +141,26 @@ public class MainActivity extends AppCompatActivity implements TabHost.OnTabChan
      */
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void initialiseTabHost(Bundle args) {
+//        TabWidget tabWidget = (TabWidget) findViewById(R.id.tabs);
         mTabHost = (TabHost) findViewById(R.id.tabHost);
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+        int theme = sp.getInt("Theme", 0);
+        if (theme != 0) {
+            setTheme(theme);
+        }
+
         mTabHost.setup();
+        switch (theme) {
+            case R.style.Blue_NoActionBar:
+                mTabHost.getTabWidget().setBackgroundColor(getResources().getColor(R.color.colorPrimary_blue, null));
+            case R.style.Pink_NoActionBar:
+                mTabHost.getTabWidget().setBackgroundColor(getResources().getColor(R.color.colorPrimary_pink, null));
+            case R.style.Orange_NoActionBar:
+                mTabHost.getTabWidget().setBackgroundColor(getResources().getColor(R.color.colorPrimary_orange, null));
+            case R.style.AppTheme_NoActionBar:
+                mTabHost.getTabWidget().setBackgroundColor(getResources().getColor(R.color.colorPrimary, null));
+        }
+
         TabInfo tabInfo = null;
         MainActivity.AddTab(this, this.mTabHost, this.mTabHost.newTabSpec("Tab1").setIndicator("", getDrawable(R.drawable.tab1_selector)), (tabInfo = new TabInfo("Tab1", friendFragment.class, args)));
         this.mapTabInfo.put(tabInfo.tag, tabInfo);
@@ -269,7 +287,8 @@ public class MainActivity extends AppCompatActivity implements TabHost.OnTabChan
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                    finishAffinity();
+                    finishAndRemoveTask();
+//                    finishAffinity();
                     System.exit(0);
                     int pid = android.os.Process.myPid();
                     android.os.Process.killProcess(pid);

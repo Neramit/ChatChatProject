@@ -33,7 +33,8 @@
             android:layout_alignParentEnd="true"
             android:checked="false"
             android:padding="10dp"
-            android:src="@drawable/theme" />
+            android:src="@drawable/theme"
+            android:focusable="false"/>
     </RelativeLayout>
 
 </LinearLayout>

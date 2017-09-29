@@ -15,14 +15,17 @@
             android:key="pref_key_sound"
             android:title="@string/pref_title_sound" />
         <CheckBoxPreference
-            android:defaultValue="false"
+            android:defaultValue="true"
             android:dependency="pref_key_notification_enable"
             android:icon="@drawable/vibration"
             android:key="pref_key_vibration"
             android:title="@string/pref_title_vibration" />
         <ListPreference
             android:dependency="pref_key_sound"
+            android:defaultValue="1"
             android:icon="@drawable/music"
+            android:entries="@array/musics"
+            android:entryValues="@array/musics_values"
             android:key="pref_key_music"
             android:title="@string/pref_title_music" />
     </PreferenceCategory>

@@ -7,9 +7,9 @@ package com.example.chatchatapplication.Object_json;
 public class Friend {
     private String ownerUsername;
     private String friendUsername;
-    private String friendStatus;
-    private Boolean isFavorite;
-    private Integer chatroomUID;
+    private int friendStatus;
+    private boolean isFavorite;
+    private int chatroomUID;
     private String displayName;
     private String displayPictureURL;
 
@@ -23,9 +23,9 @@ public class Friend {
 
     private String friendRegistrationID;
 
-    private Boolean checkInvite;
+    private boolean checkInvite;
 
-    public Boolean getCheckInvite() {
+    public boolean getCheckInvite() {
         return checkInvite;
     }
 
@@ -65,19 +65,19 @@ public class Friend {
         this.friendUsername = friendUsername;
     }
 
-    public String getFriendStatus() {
+    public int getFriendStatus() {
         return friendStatus;
     }
 
-    public void setFriendStatus(String friendStatus) {
+    public void setFriendStatus(int friendStatus) {
         this.friendStatus = friendStatus;
     }
 
-    public Boolean getFavorite() {
+    public boolean getFavorite() {
         return isFavorite;
     }
 
-    public void setFavorite(Boolean favorite) {
+    public void setFavorite(boolean favorite) {
         isFavorite = favorite;
     }
 

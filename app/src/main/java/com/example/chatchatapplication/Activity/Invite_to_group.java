@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.chatchatapplication.Adapter.InviteAdapter2;
 import com.example.chatchatapplication.Not_Activity.jsonBack;
@@ -20,7 +21,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Invite_to_group extends AppCompatActivity implements android.support.v7.widget.SearchView.OnQueryTextListener,jsonBack {
+public class Invite_to_group extends AppCompatActivity implements android.support.v7.widget.SearchView.OnQueryTextListener, jsonBack {
 
     ListView friendInviteList;
     android.support.v7.widget.SearchView searchInvite;
@@ -51,23 +52,35 @@ public class Invite_to_group extends AppCompatActivity implements android.suppor
         Gson gson = new Gson();
         String json = sp.getString("friendList", null);
 //        friendListRetrieve friendList = gson.fromJson(json, friendListRetrieve.class);
-        Type type = new TypeToken<List<Friend>>() {}.getType();
-        ArrayList<Friend> friendList = gson.fromJson(json, type);
+        Type type = new TypeToken<List<Friend>>() {
+        }.getType();
+        final ArrayList<Friend> friendList = gson.fromJson(json, type);
 
-        iAdapter2 = new InviteAdapter2(this,friendList,InviteButton);
+        iAdapter2 = new InviteAdapter2(this, friendList, InviteButton);
         friendInviteList.setAdapter(iAdapter2);
         searchInvite.setOnQueryTextListener(Invite_to_group.this);
 
         InviteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Gson gson = new Gson();
-                List<Friend> sendFriendList = iAdapter2.getInviteList();
-                String json = gson.toJson(sendFriendList);
-                mEdit1.putString("inviteFriendList", json);
-                mEdit1.commit();
+                if (iAdapter2.getInviteList().size() != 0) {
+                    Gson gson = new Gson();
+                    List<Friend> sendFriendList = new ArrayList<Friend>();
+
+                    for (Friend obj: iAdapter2.getInviteList()) {
+                        if(obj.getCheckInvite())
+                            sendFriendList.add(obj);
+                    }
+
+
+
+                    String json = gson.toJson(sendFriendList);
+                    mEdit1.putString("inviteFriendList", json);
+                    mEdit1.commit();
 //                startActivity(new Intent(Invite_to_group.this,CreateGroup.class));
-                finish();
+                    finish();
+                }else
+                    Toast.makeText(Invite_to_group.this, getResources().getString(R.string.can_not_invite), Toast.LENGTH_SHORT).show();
             }
         });
     }

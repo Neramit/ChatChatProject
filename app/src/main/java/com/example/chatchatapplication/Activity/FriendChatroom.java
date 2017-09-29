@@ -1,5 +1,6 @@
 package com.example.chatchatapplication.Activity;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -226,5 +227,11 @@ public class FriendChatroom extends AppCompatActivity {
                 listview.setSelection(adapter.getCount() - 1);
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(this,MainActivity.class));
+        finishAffinity();
     }
 }

@@ -54,7 +54,7 @@ public class CreateGroup extends AppCompatActivity {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
         int theme = sp.getInt("Theme", 0);
         if (theme != 0) {
-            Log.d("Test",Integer.toString(theme));
+            Log.d("Test", Integer.toString(theme));
             setTheme(theme);
         }
         getSupportActionBar().setTitle(R.string.title_create_group);
@@ -70,20 +70,26 @@ public class CreateGroup extends AppCompatActivity {
         Gson gson = new Gson();
         String json = sp.getString("inviteFriendList", null);
 //        friendListRetrieve friendList = gson.fromJson(json, friendListRetrieve.class);
-        Type type = new TypeToken<List<Friend>>() {}.getType();
-        List<Friend> inviteFriendList = gson.fromJson(json, type);
+        Type type = new TypeToken<List<Friend>>() {
+        }.getType();
+        List<Friend> sendFriendList = gson.fromJson(json, type);
 
         Friend add = new Friend();
         add.setDisplayName("AddButton271137");
         memberList.add(add);
 
-        if(inviteFriendList!=null){
-            for (Friend wp : inviteFriendList) {
-                    memberList.add(wp);
+        if (sendFriendList != null) {
+            for (int i = 0; sendFriendList.size() > i; i++) {
+                    if (sendFriendList.get(i).getCheckInvite())
+                        memberList.add(sendFriendList.get(i));
             }
+//            for (Friend wp : sendFriendList) {
+//                if (sendFriendList.get(pos).getCheckInvite())
+//                    memberList.add(wp);
+//            }
         }
 
-        iAdapter = new InviteAdapter(this,memberList);
+        iAdapter = new InviteAdapter(this, memberList);
         gridView.setAdapter(iAdapter);
         gridView.setExpanded(true);
 
@@ -91,8 +97,8 @@ public class CreateGroup extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // TODO Auto-generated method stub
-                if(position==0){
-                    startActivity(new Intent(CreateGroup.this,Invite_to_group.class));
+                if (position == 0) {
+                    startActivity(new Intent(CreateGroup.this, Invite_to_group.class));
                 }
             }
         });
@@ -112,7 +118,7 @@ public class CreateGroup extends AppCompatActivity {
                 .setCropShape(CropImageView.CropShape.OVAL)
                 .setInitialCropWindowPaddingRatio(0)
                 .setAspectRatio(1, 1)
-                .setRequestedSize(350,350)
+                .setRequestedSize(350, 350)
                 .start(this);
     }
 
@@ -186,4 +192,10 @@ public class CreateGroup extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+//    @Override
+//    protected void onResume() {
+//
+//
+//    }
 }

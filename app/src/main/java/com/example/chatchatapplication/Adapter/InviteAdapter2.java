@@ -29,9 +29,10 @@ public class InviteAdapter2 extends BaseAdapter {
     private LayoutInflater inflater;
     private Context mContext;
     private List<Friend> inviteList;
-    private ArrayList<Friend> arraylist = new ArrayList<Friend>();
     private Button inviteButton;
     private int countCheck;
+    private ArrayList<Friend> arraylist;
+    private ArrayList<Friend> arraylist2;
 
     public InviteAdapter2(Context mContext, List<Friend> inviteList, Button inviteButton) {
         this.mContext = mContext;
@@ -39,7 +40,9 @@ public class InviteAdapter2 extends BaseAdapter {
         this.inflater = LayoutInflater.from(mContext);
         this.inviteButton = inviteButton;
 
-        this.arraylist.addAll(inviteList);
+        arraylist = new ArrayList<Friend>();
+        arraylist2 = new ArrayList<Friend>();
+        arraylist2.addAll(inviteList);
     }
 
     @Override
@@ -65,48 +68,49 @@ public class InviteAdapter2 extends BaseAdapter {
 
     @Override
     public View getView(final int i, View view, ViewGroup viewGroup) {
-        ViewHolder holder;
-        if (view == null) {
-            holder = new ViewHolder();
-            view = inflater.inflate(R.layout.invite_friend_list2, null);
-            // Locate the TextViews in listview_item.xml
-            holder.circleImageView = (CircleImageView) view.findViewById(R.id.image_user2);
-            holder.name = (TextView) view.findViewById(R.id.invite_name2);
-            holder.chk = (CheckBox) view.findViewById(R.id.checkbox);
-            view.setTag(holder);
-        } else {
-            holder = (ViewHolder) view.getTag();
-        }
+//        ViewHolder holder;
+////        if (view == null) {
+//            holder = new ViewHolder();
+        view = inflater.inflate(R.layout.invite_friend_list2, null);
+        // Locate the TextViews in listview_item.xml
+        CircleImageView circleImageView = (CircleImageView) view.findViewById(R.id.image_user2);
+        TextView name = (TextView) view.findViewById(R.id.invite_name2);
+        CheckBox chk = (CheckBox) view.findViewById(R.id.checkbox);
+//            view.setTag(holder);
+//        } else {
+//            holder = (ViewHolder) view.getTag();
+//        }
 
         String pictureURL = inviteList.get(i).getDisplayPictureURL();
         if (pictureURL != null) {
             Glide.with(view)
                     .load(pictureURL)  //Test
-                    .into(holder.circleImageView);
+                    .into(circleImageView);
         } else
-            holder.circleImageView.setImageResource(R.drawable.default_user);
-        holder.name.setText(inviteList.get(i).getDisplayName());
-        if (inviteList.get(i).getCheckInvite() != null)
-            holder.chk.setChecked(true);
-        else
-            holder.chk.setChecked(false);
-        holder.chk.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            circleImageView.setImageResource(R.drawable.default_user);
+        name.setText(inviteList.get(i).getDisplayName());
+//        if (inviteList.get(i).getCheckInvite() != null)
+//            holder.chk.setChecked(true);
+//        else
+//            holder.chk.setChecked(false);
+        chk.setChecked(inviteList.get(i).getCheckInvite());
+        chk.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (b) {
-                    inviteList.get(i).setCheckInvite(true);
-//                    countCheck++;
-                } else {
-                    inviteList.get(i).setCheckInvite(false);
-//                    countCheck--;
-                }
+
+                inviteList.get(i).setCheckInvite(b);
                 countCheck = 0;
 //                inviteButton.setText(mContext.getString(R.string.text_invite) + " (" + String.valueOf(countCheck) + ")");
                 for (int j = 0; j < getCount(); j++) {
-                    if (inviteList.get(j).getCheckInvite() != null) {
-                        if (inviteList.get(j).getCheckInvite()) countCheck++;
-                    } else {
+
+//                        arraylist.clear();
+                    if (inviteList.get(j).getCheckInvite()) {
+                        countCheck++;
+//                            for (Friend ex : arraylist)
+
+//                            arraylist.add(inviteList.get(j));
                     }
+
                 }
                 inviteButton.setText(mContext.getString(R.string.text_invite) + " (" + String.valueOf(countCheck) + ")");
             }
@@ -114,7 +118,7 @@ public class InviteAdapter2 extends BaseAdapter {
         return view;
     }
 
-    public List<Friend> getInviteList () {
+    public List<Friend> getInviteList() {
         return inviteList;
     }
 
@@ -123,14 +127,16 @@ public class InviteAdapter2 extends BaseAdapter {
         charText = charText.toLowerCase(Locale.getDefault());
         inviteList.clear();
         if (charText.length() == 0) {
-            inviteList.addAll(arraylist);
+            inviteList.addAll(arraylist2);
         } else {
-            for (Friend wp : arraylist) {
+            for (Friend wp : arraylist2) {
                 if (wp.getDisplayName().toLowerCase(Locale.getDefault()).contains(charText)) {
                     inviteList.add(wp);
+
                 }
             }
         }
+
         notifyDataSetChanged();
     }
 }

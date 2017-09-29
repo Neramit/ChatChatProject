@@ -78,7 +78,7 @@ public class friendFragment extends Fragment implements jsonBack {
                 Intent intent = new Intent(getActivity(),FriendChatroom.class);
                 mEdit1.putInt("chatroomUid",friend_list.get(position).getChatroomUID());
                 mEdit1.putString("friendUsername",friend_list.get(position).getFriendUsername());
-                mEdit1.putString("friendStatus",friend_list.get(position).getFriendStatus());
+                mEdit1.putInt("friendStatus",friend_list.get(position).getFriendStatus());
                 mEdit1.putString("friendDisplayName",friend_list.get(position).getDisplayName());
                 mEdit1.putString("friendDisplayPictureURL",friend_list.get(position).getDisplayPictureURL());
                 mEdit1.putString("friendRegistrationID",friend_list.get(position).getFriendRegistrationID());

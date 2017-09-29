@@ -263,7 +263,8 @@ public class Login extends AppCompatActivity implements jsonBack {
         builder.setPositiveButton(R.string.Yes_exit, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                finishAffinity();
+                finishAndRemoveTask();
+//                finishAffinity();
                 System.exit(0);
                 int pid = android.os.Process.myPid();
                 android.os.Process.killProcess(pid);

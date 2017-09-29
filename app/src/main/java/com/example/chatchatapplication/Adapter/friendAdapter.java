@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -80,14 +81,22 @@ public class friendAdapter extends BaseAdapter {
                 case TYPE_ITEM:
                     convertView = mInflater.inflate(R.layout.friend_listview, null);
                     holder.textView = (TextView) convertView.findViewById(R.id.friendname);
+                    holder.statusImage = (ImageView) convertView.findViewById(R.id.status_image);
+                    holder.circleImageView = (CircleImageView) convertView.findViewById(R.id.image_user);
+
                     String friendDisplayName = mData.get(position).getDisplayName();
                     if (friendDisplayName != null)
                         holder.textView.setText(friendDisplayName);
                     else holder.textView.setText(mData.get(position).getFriendUsername());
 
+                    if (mData.get(position).getFavorite()) {
+                        holder.statusImage.setImageResource(R.drawable.star);
+                    }else if (mData.get(position).getFriendStatus()==0){
+                        holder.statusImage.setImageResource(R.drawable.letter1);
+                    }
+
                     String friendDisplayPictureURL = mData.get(position).getDisplayPictureURL();
                     if (friendDisplayPictureURL != null) {
-                        holder.circleImageView = (CircleImageView) convertView.findViewById(R.id.image_user);
                         Glide.with(convertView)
                                 .load(mData.get(position).getDisplayPictureURL())  //Test
                                 .into(holder.circleImageView);
@@ -110,5 +119,6 @@ public class friendAdapter extends BaseAdapter {
     private class ViewHolder {
         TextView textView;
         CircleImageView circleImageView;
+        ImageView statusImage;
     }
 }

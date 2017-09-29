@@ -83,11 +83,10 @@ public class InviteAdapter extends BaseAdapter {
                 Glide.with(mContext)
                         .load(membersList.get(i).getDisplayPictureURL())  //Test
                         .into(holder.circleImageView);
-                holder.name.setText(membersList.get(i).getDisplayName());
             }else{
                 holder.circleImageView.setImageResource(R.drawable.default_user);
-                holder.name.setText(membersList.get(i).getDisplayName());
             }
+            holder.name.setText(membersList.get(i).getDisplayName());
 
         }
         return view;

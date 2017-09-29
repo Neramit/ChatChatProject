@@ -15,4 +15,14 @@
         <item>4</item>
     </string-array>
 
+    <string-array name="musics">
+        <item>Default</item>
+        <item>Chat Chat</item>
+    </string-array>
+
+    <string-array name="musics_values">
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
 </resources>
