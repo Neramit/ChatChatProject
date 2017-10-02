@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.chatchatapplication.Activity.Invite_to_group"
+    android:focusableInTouchMode="true"
     android:orientation="vertical">
 
     <android.support.v7.widget.SearchView
@@ -23,13 +24,12 @@
         android:textColor="@color/white_text"
         android:textSize="18sp"
         android:textAllCaps="false"
-        android:text="Invite (0)"/>
+        android:text="@string/button_invite"/>
     <ListView
         android:id="@+id/friendListInvite"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/search_invite"
         android:layout_above="@id/ok_button_invite"/>
-
 
 </RelativeLayout>

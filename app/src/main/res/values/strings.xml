@@ -81,6 +81,10 @@
     <string name="text_add">Add</string>
     <string name="text_invite">Invite</string>
     <string name="can_not_invite">Can not create group\nPlease invite 1 friend at least</string>
+    <string name="text_set_password">Set group password</string>
+    <string name="text_search_hint">search by displayname</string>
+    <string name="button_invite">Invite (0)</string>
+    <string name="text_member">Member 0</string>
 
     <!-- TODO: String related to Profile account -->
     <string name="title_profile">Profile</string>
@@ -91,6 +95,16 @@
     <string name="title_delete_account">Delete account</string>
     <string name="title_activity_settings">Settings</string>
     <string name="toast_displayname_minimum">DisplayName must have more than 3 characters\nand not have space only</string>
+    <string name="text_sure_to_delete_account">If you delete your Chat Chat account you will not be able to login with it anymore. Are you sure you want to continue ?</string>
+    <string name="but_cancel">Cancel</string>
+    <string name="but_next">Next</string>
+    <!-- Delete -->
+    <string name="text_delete_account">     Please keep in mind that delete your Chat Chat account is permanant and will delete all of your Chat history Friend listGroup chat listProfileSetting and you can not login to this account forever.</string>
+    <string name="button_delete_my_account">Delete my account</string>
+    <string name="button_delete_successful">Delete successful</string>
+    <string name="button_delete_fail">Delete failed</string>
+    <string name="checkbox_yes">Yes,I want to delete my account.</string>
+    <string name="checkbox_before">Must check I want to delete before.</string>
 
     <!-- TODO: Strings related to Settings -->
     <string name="pref_notification_title">Notification</string>

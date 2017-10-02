@@ -136,7 +136,9 @@
                 app:cpb_cornerRadius="5dp"
                 android:layout_marginTop="5dp"
                 android:textColor="@color/white_text"
-                app:cpb_selectorIdle="@color/cpb_red"/>
+                app:cpb_selectorIdle="@color/cpb_red"
+                android:clickable="true"
+                android:onClick="deleteAccount"/>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

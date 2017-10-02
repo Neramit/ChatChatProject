@@ -17,7 +17,6 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <service
             android:name=".Not_Activity.MyFirebaseMessagingService"
             android:exported="false">
@@ -25,7 +24,6 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-
         <service
             android:name=".Not_Activity.MyFirebaseInstanceIDService"
             android:exported="false">
@@ -91,6 +89,7 @@
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="OPEN_ACTIVITY_1" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
@@ -118,7 +117,6 @@
             android:name=".Activity.Invite_to_group"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
-
         <activity
             android:name=".Activity.SetPasscode_1"
             android:screenOrientation="portrait"
@@ -139,6 +137,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".Activity.Confirm_delete_account"></activity>
     </application>
 
 </manifest>

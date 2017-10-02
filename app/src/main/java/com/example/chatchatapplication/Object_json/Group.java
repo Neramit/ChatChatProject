@@ -11,7 +11,17 @@ public class Group {
     private String groupName,groupOwner;
     private String groupImageURL;
     private String groupPassword;
-    private List<Member> groupMember;
+    private List<Friend> groupMember;
+    private int groupMemberNum;
+    private int groupUID;
+
+    public int getGroupUID() {
+        return groupUID;
+    }
+
+    public void setGroupUID(int groupUID) {
+        this.groupUID = groupUID;
+    }
 
     public String getGroupName() {
         return groupName;
@@ -45,14 +55,20 @@ public class Group {
         this.groupPassword = groupPassword;
     }
 
-    public List<Member> getGroupMember() {
+    public List<Friend> getGroupMember() {
         return groupMember;
     }
 
-    public void setGroupMember(List<Member> groupMember) {
+    public void setGroupMember(List<Friend> groupMember) {
         this.groupMember = groupMember;
     }
 
 
+    public int getGroupMemberNum() {
+        return groupMemberNum;
+    }
 
+    public void setGroupMemberNum(int groupMemberNum) {
+        this.groupMemberNum = groupMemberNum;
+    }
 }

@@ -7,22 +7,37 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.chatchatapplication.Adapter.InviteAdapter;
 import com.example.chatchatapplication.Not_Activity.ExpandedGridView;
+import com.example.chatchatapplication.Not_Activity.SimpleHttpTask;
+import com.example.chatchatapplication.Not_Activity.jsonBack;
 import com.example.chatchatapplication.Object_json.Friend;
+import com.example.chatchatapplication.Object_json.Group;
+import com.example.chatchatapplication.Object_json.GroupSend;
+import com.example.chatchatapplication.Object_json.groupUidRetrieve;
+import com.example.chatchatapplication.Object_json.searchRetrieve;
 import com.example.chatchatapplication.R;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.theartofdev.edmodo.cropper.CropImage;
@@ -34,24 +49,36 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import ru.bullyboo.encoder.Encoder;
+import ru.bullyboo.encoder.methods.AES;
 
-public class CreateGroup extends AppCompatActivity {
+public class CreateGroup extends AppCompatActivity implements jsonBack {
 
     StorageReference storageRef;
 
     ExpandedGridView gridView;
     InviteAdapter iAdapter;
-    RelativeLayout groupImage;
+    List<Friend> sendFriendList;
+    String token;
+    boolean checkSend;
+
+    RelativeLayout groupImage, progress;
+    SearchView groupName;
     ProgressBar progrssImage;
     CircleImageView circleImageGroup;
+    TextView count;
+    EditText groupPassword;
 
     Uri resultUri;
     ArrayList<Friend> memberList = new ArrayList<Friend>();
 
+    SharedPreferences sp;
+    SharedPreferences.Editor mEdit;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+        sp = PreferenceManager.getDefaultSharedPreferences(this);
         int theme = sp.getInt("Theme", 0);
         if (theme != 0) {
             Log.d("Test", Integer.toString(theme));
@@ -62,32 +89,36 @@ public class CreateGroup extends AppCompatActivity {
 
         storageRef = FirebaseStorage.getInstance().getReference();
 
+        mEdit = sp.edit();
+        mEdit.putString("inviteFriendList", null);
+        mEdit.commit();
+
+        progress = (RelativeLayout) findViewById(R.id.wait_send);
+        groupPassword = (EditText) findViewById(R.id.group_password);
+        count = (TextView) findViewById(R.id.count_group_name);
+        groupName = (SearchView) findViewById(R.id.group_name);
         circleImageGroup = (CircleImageView) findViewById(R.id.group_circle);
         groupImage = (RelativeLayout) findViewById(R.id.group_picture);
         progrssImage = (ProgressBar) findViewById(R.id.progress_image);
         gridView = (ExpandedGridView) findViewById(R.id.ex_grid_view);
 
-        Gson gson = new Gson();
-        String json = sp.getString("inviteFriendList", null);
-//        friendListRetrieve friendList = gson.fromJson(json, friendListRetrieve.class);
-        Type type = new TypeToken<List<Friend>>() {
-        }.getType();
-        List<Friend> sendFriendList = gson.fromJson(json, type);
+//        Gson gson = new Gson();
+//        String json = sp.getString("inviteFriendList", null);
+////        friendListRetrieve friendList = gson.fromJson(json, friendListRetrieve.class);
+//        Type type = new TypeToken<List<Friend>>() {
+//        }.getType();
+//        List<Friend> sendFriendList = gson.fromJson(json, type);
 
-        Friend add = new Friend();
-        add.setDisplayName("AddButton271137");
-        memberList.add(add);
-
-        if (sendFriendList != null) {
-            for (int i = 0; sendFriendList.size() > i; i++) {
-                    if (sendFriendList.get(i).getCheckInvite())
-                        memberList.add(sendFriendList.get(i));
-            }
+//        if (sendFriendList != null) {
+//            for (int i = 0; sendFriendList.size() > i; i++) {
+//                    if (sendFriendList.get(i).getCheckInvite())
+//                        memberList.add(sendFriendList.get(i));
+//            }
 //            for (Friend wp : sendFriendList) {
 //                if (sendFriendList.get(pos).getCheckInvite())
 //                    memberList.add(wp);
 //            }
-        }
+//        }
 
         iAdapter = new InviteAdapter(this, memberList);
         gridView.setAdapter(iAdapter);
@@ -100,6 +131,21 @@ public class CreateGroup extends AppCompatActivity {
                 if (position == 0) {
                     startActivity(new Intent(CreateGroup.this, Invite_to_group.class));
                 }
+            }
+        });
+
+        groupName.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                count.setText(s.length() + "/20");
+                if (s.length() > 20)
+                    groupName.setQuery(s.substring(0, 20), false);
+                return false;
             }
         });
 
@@ -157,7 +203,29 @@ public class CreateGroup extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_save_group) {
-//            StorageReference imagesRef = storageRef.child("ProfileImage/" + username + ".jpg");
+            Gson sendJson = new Gson();
+            progress.setVisibility(View.VISIBLE);
+            Group data = new Group();
+            data.setGroupName(groupName.getQuery().toString());
+            data.setGroupMember(memberList);
+            data.setGroupOwner(sp.getString("username", null));
+
+            String encryptPassword = Encoder.BuilderAES()
+                    .message(groupPassword.getText().toString())
+                    .method(AES.Method.AES_CBC_PKCS5PADDING)
+                    .key("mit&24737")
+                    .keySize(AES.Key.SIZE_128)
+                    .iVector(sp.getString("userName", "m"))
+                    .encrypt();
+
+            data.setGroupPassword(encryptPassword);
+            data.setGroupMemberNum(memberList.size() - 1);
+            token = sp.getString("token", null);
+            GroupSend send = new GroupSend("Group", "getGroupUID", token, data);
+            String sendJson2 = sendJson.toJson(send);
+            checkSend = false;
+            new SimpleHttpTask(CreateGroup.this).execute(sendJson2);
+//            StorageReference imagesRef = storageRef.child("GroupImage/" + groupName.getQuery().toString() + ".jpg");
 //            imagesRef.putFile(resultUri).addOnFailureListener(new OnFailureListener() {
 //                @Override
 //                public void onFailure(@NonNull Exception exception) {
@@ -187,15 +255,116 @@ public class CreateGroup extends AppCompatActivity {
 //                }
 //            });
 //            startActivity(new Intent(this, MainActivity.class));
-            finish();
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
-//    @Override
-//    protected void onResume() {
-//
-//
-//    }
+    @Override
+    public void processFinish(String output) {
+
+        if (!checkSend) {
+            Gson gson = new Gson();
+            final groupUidRetrieve data = gson.fromJson(output, groupUidRetrieve.class);
+            if (data.getStatus() == 200) {
+                if (resultUri == null) {
+                    Gson sendJson = new Gson();
+                    Group data2 = new Group();
+                    data2.setGroupImageURL("null");
+                    data2.setGroupUID(data.getData().getGroupUID());
+                    token = sp.getString("token", null);
+                    GroupSend send = new GroupSend("Group", "createGroup", token, data2);
+                    String sendJson2 = sendJson.toJson(send);
+                    checkSend = true;
+                    new SimpleHttpTask(CreateGroup.this).execute(sendJson2);
+                } else {
+                    StorageReference imagesRef = storageRef.child("GroupImage/" + data.getData().getGroupUID() + ".jpg");
+                    imagesRef.putFile(resultUri).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception exception) {
+                            Toast.makeText(CreateGroup.this, "Failed upload group picture", Toast.LENGTH_SHORT).show();
+                        }
+                    }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            String pictureURL = taskSnapshot.getDownloadUrl().toString();
+                            Gson sendJson = new Gson();
+                            Group data2 = new Group();
+                            data2.setGroupImageURL(pictureURL);
+                            data2.setGroupUID(data.getData().getGroupUID());
+                            token = sp.getString("token", null);
+                            GroupSend send = new GroupSend("Group", "createGroup", token, data2);
+                            String sendJson2 = sendJson.toJson(send);
+                            checkSend = true;
+                            new SimpleHttpTask(CreateGroup.this).execute(sendJson2);
+                        }
+                    }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                            Toast.makeText(CreateGroup.this, "Uploading group picture ...", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+            } else
+                Toast.makeText(this, data.getMessage(), Toast.LENGTH_SHORT).show();
+        } else {
+            Gson gson = new Gson();
+            final searchRetrieve data3 = gson.fromJson(output, searchRetrieve.class);
+            if (data3.getStatus() == 200) {
+                finish();
+                Toast.makeText(this, "Create group successful", Toast.LENGTH_SHORT).show();
+            } else
+                Toast.makeText(this, "Failed to create group", Toast.LENGTH_SHORT).show();
+            progress.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        sp = PreferenceManager.getDefaultSharedPreferences(this);
+        Gson gson = new Gson();
+        String json = sp.getString("inviteFriendList", null);
+//        friendListRetrieve friendList = gson.fromJson(json, friendListRetrieve.class);
+        Type type = new TypeToken<List<Friend>>() {
+        }.getType();
+        sendFriendList = gson.fromJson(json, type);
+
+        memberList.clear();
+        Friend add = new Friend();
+        add.setDisplayName("AddButton271137");
+        memberList.add(add);
+
+        if (sendFriendList != null) {
+            for (int i = 0; sendFriendList.size() > i; i++) {
+                if (sendFriendList.get(i).getCheckInvite())
+                    memberList.add(sendFriendList.get(i));
+            }
+        }
+
+        iAdapter = new InviteAdapter(this, memberList);
+        gridView.setAdapter(iAdapter);
+//        iAdapter.notifyDataSetChanged();
+        gridView.setExpanded(true);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        sp = PreferenceManager.getDefaultSharedPreferences(this);
+        mEdit = sp.edit();
+
+        mEdit.putString("inviteFriendList", null);
+        mEdit.commit();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
+
+
 }

@@ -109,10 +109,15 @@ public class friendFragment extends Fragment implements jsonBack {
 //                data.getData().remove(i);
                 i++;
             }
-            friendList.setAdapter(mAdapter);
-            String json = gson.toJson(data.getData());
-            mEdit1.putString("friendList", json);
-            mEdit1.commit();
+            if (friend_list.size()==0){
+                friendList.setVisibility(View.GONE);
+                noFriend.setVisibility(View.VISIBLE);
+            }else{
+                friendList.setAdapter(mAdapter);
+                String json = gson.toJson(data.getData());
+                mEdit1.putString("friendList", json);
+                mEdit1.commit();
+            }
         }else{
             friendList.setVisibility(View.GONE);
             noFriend.setVisibility(View.VISIBLE);

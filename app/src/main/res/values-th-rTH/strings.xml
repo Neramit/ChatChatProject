@@ -6,31 +6,137 @@
     <string name="user_name">ชื่อผู้ใช้</string>
     <string name="prompt_email">อีเมล</string>
     <string name="prompt_password">รหัสผ่าน</string>
-    <string name="your_password">รหัสผ่าน (ต้องมีมากกว่า 6 ตัวอักษร) </string>
-    <string name="retype_password">พิมพ์รหัสผ่านอีกครั้ง</string>
     <string name="action_sign_in">ลงชื่อเข้าใช้</string>
     <string name="action_register">ลงทะเบียน</string>
     <string name="action_sign_in_short">ลงชื่อเข้าใช้</string>
     <string name="remember_password">จำรหัสผ่าน</string>
     <string name="forgot_password">ลืมรหัสผ่าน?</string>
 
-    <!-- Strings related to register -->
-    <string name="error_invalid_email">This email address is invalid</string>
-    <string name="error_user_valid">The username or password you entered is incorrect</string>
-    <string name="error_already_email">This email is already to use</string>
-    <string name="error_invalid_userName">This user name is already to use</string>
-    <string name="error_invalid_user">This user name is already to use</string>
-    <string name="error_invalid_password">This password is too short</string>
-    <string name="error_incorrect_password">This password is incorrect</string>
-    <string name="error_field_required">This field is required</string>
-    <string name="error_field_password">This field is required</string>
-    <string name="error_re_password">This password do not match</string>
-    <string name="permission_rationale">"Contacts permissions are needed for providing email completions."</string>
-
     <!-- Strings related to exit app -->
     <string name="title_exit">ปิดแอพพลิเคชั่น ? </string>
     <string name="message_exit"> คุณแน่ใจไหม ที่จะปิดแอพพลิเคชั่น Chat Chat ? </string>
     <string name="Yes_exit">ปิด</string>
     <string name="No_exit">ยกเลิก</string>
+
+    <!-- TODO:Strings related to register -->
+    <string name="your_password">รหัสผ่าน (ต้องมีมากกว่า 6 ตัวอักษร) </string>
+    <string name="retype_password">พิมพ์รหัสผ่านอีกครั้ง</string>
+    <string name="error_invalid_email">อีเมลนี้ไม่ถูกต้อง</string>
+    <string name="error_user_valid">ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง</string>
+    <string name="error_already_email">อีเมลนี้ถูกใช้ไปแล้ว</string>
+    <string name="error_invalid_userName">ชื่อผู้ใช้นี้ถูกใช้แล้ว</string>
+    <string name="error_invalid_user">ชื่อผู้ใช้นี้ถูกใช้แล้ว</string>
+    <string name="error_invalid_password">รหัสผ่านสั้นเกินไป\nต้องมี 3 ตัวขึ้นไป</string>
+    <string name="error_incorrect_password">รหัสผ่านไม่ถูกต้อง</string>
+    <string name="error_field_required">ต้องการข้อมูล</string>
+    <string name="error_field_password">ต้องการข้อมูล</string>
+    <string name="error_re_password">รหัสผ่านไม่ตรงกัน</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email completions."</string>
+
+    <!-- TODO:Strings related to Forgot password - enter email -->
+    <string name="title_enter_email">ใส่อีเมล</string>
+    <string name="title_1.3">ขั้นตอนที่ 1 จาก 3</string>
+    <string name="title_forgot">ลืมรหัสผ่าน</string>
+    <string name="message_forgot">ใส่ที่อยู่อีเมลที่คุณใช้ลงทะเบียน เพื่อส่งอีเมลไปยังอีเมลดังกล่าว</string>
+    <string name="button_OK">ตกลง</string>
+    <string name="hint_enter_email">ใส่อีเมลของคุณ</string>
+    <!-- Strings related to Forgot password - check email -->
+    <string name="title_check_email">ตรวจสอบอีเมล</string>
+    <string name="title_2.3">ขั้นตอนที่ 2 จาก 3</string>
+    <string name="title_check">Check generate number</string>
+    <string name="message_check">Enter the generate number from your e-mail in 3 minutes.</string>
+    <string name="hint_check_email">Enter your generate number</string>
+    <!-- Strings related to Forgot password - reset password -->
+    <string name="title_reset_password">ตั้งรหัสผ่านใหม่</string>
+    <string name="title_3.3">ขั้นตอนที่ 3 จาก 3</string>
+    <string name="title_reset">พิมพ์รหัสผ่านใหม่</string>
+    <string name="message_reset">ใส่รหัสผ่านใหม่ สำหรับลงชื่อเข้าใช้</string>
+    <string name="new_password">พิมพ์รหสผ่านใหม่</string>
+    <string name="retype_new_password">พิมพ์รหัสผ่านอีกครั้ง</string>
+
+    <!-- TODO: String related to main activity -->
+    <string name="friend_tab">เพื่อน</string>
+    <string name="group_tab">กลุ่ม</string>
+    <string name="setting_tab">ตั้งค่า</string>
+    <!-- String related to menu -->
+    <string name="add_friends">เพิ่มเพื่อน</string>
+    <string name="filter_friend">กรองหาเพื่อน</string>
+    <string name="create_group">สร้างกลุ่ม</string>
+    <string name="filter_group">กรองหากลุ่ม</string>
+    <string name="block_list">ผู้ใช้ที่บล็อค</string>
+    <string name="sort">เรียง</string>
+    <string name="manage_category">จัดการหมวดหมู่</string>
+
+    <!-- TODO: String related to addFriend activity -->
+    <string name="action_successful">เพิ่มเพื่อนสำเร็จ</string>
+    <string name="action_add">เพิ่ม</string>
+    <string name="action_wrong">เพิ่มเพื่อนไม่สำเร็จ</string>
+
+    <!-- TODO: String related to create group -->
+    <string name="message_warning">*คุณสามารถเชิญได้สูงสุด 200 คนต่อหนึ่งกลุ่มเท่านั้น ,เพื่อนที่คุณเชิญจะได้รับการเชิญเข้ากลุ่ม</string>
+    <string name="button_save">บันทึก</string>
+    <string name="title_create_group">สร้างกลุ่ม</string>
+    <string name="text_owner_group">คุณเป็นเจ้าของกลุ่มนี้</string>
+    <string name="hint_group_password">รหัสผ่านกลุ่ม</string>
+    <string name="hint_group_name">ชื่อกลุ่ม</string>
+    <string name="text_add">เพิ่ม</string>
+    <string name="text_invite">เชิญ</string>
+    <string name="can_not_invite">ต้องเชิญเพื่อนอย่างน้อย 1 คน</string>
+    <string name="text_set_password">กำหนดรหัสผ่านกลุ่ม</string>
+    <string name="text_search_hint">ค้นหาจากชื่อเพื่อน</string>
+    <string name="button_invite">เชิญ (0)</string>
+    <string name="text_member">สมาชิก 0</string>
+
+    <!-- TODO: String related to Profile account -->
+    <string name="title_profile">โปรไฟล์</string>
+    <string name="title_account">บัญชี</string>
+    <string name="title_dislayname">ชื่อที่ใช้แสดง</string>
+    <string name="title_username">ชื่อผู้ใช้</string>
+    <string name="title_email">อีเมล</string>
+    <string name="title_delete_account">ลบบัญชี</string>
+    <string name="title_activity_settings">ตั้งค่า</string>
+    <string name="toast_displayname_minimum">ชื่อที่ใช้แสดงต้องมีอย่างน้อย 3 ตัวอักษร</string>
+    <string name="text_sure_to_delete_account">ถ้าคุณลบบัญชีผู้ใช้ คุณจะไม่สามารถเข้าใช้บัญชีนี้อีกต่อไป คุณแน่ใจที่จะดำเนินการต่อหรือไม่ ?</string>
+    <string name="but_cancel">ยกเลิก</string>
+    <string name="but_next">ต่อไป</string>
+    <!-- Delete -->
+    <string name="text_delete_account">     Please keep in mind that delete your Chat Chat account is permanant and will delete all of your Chat history Friend listGroup chat listProfileSetting and you can not login to this account forever.</string>
+
+    <string name="button_delete_my_account">ลบบัญชีผู้ใช้ของฉัน</string>
+    <string name="button_delete_successful">ลบบัญชีสำเร็จ</string>
+    <string name="button_delete_fail">ลบบัญชีล้มเหลว</string>
+    <string name="checkbox_yes">ใช่ ฉันต้องการลบบัญชีของฉัน</string>
+    <string name="checkbox_before">ต้องกดเลือก ฉันต้องการลบบัญชีก่อน</string>
+
+    <!-- TODO: Strings related to Settings -->
+    <string name="pref_notification_title">การแจ้งเตือน</string>
+    <string name="pref_title_notification">การแจ้งเตือน</string>
+    <string name="pref_title_sound">เสียง</string>
+    <string name="pref_title_vibration">การสั่น</string>
+    <string name="pref_title_music">ดนตรี</string>
+    <string name="pref_privacy_title">ความเป็นส่วนตัว</string>
+    <string name="pref_title_passcode">รหัสผ่าน</string>
+    <string name="pref_title_change_passcode">เปลี่ยนรหัสผ่าน</string>
+    <string name="pref_theme_title">ทีม</string>
+    <string name="pref_title_theme">เลือกทีม</string>
+    <!-- Passcode -->
+    <string name="enter_passcode">ใส่รหัสผ่าน</string>
+    <string name="enter_old_passcode">ใส่รหัสผ่านปัจจุบัน</string>
+    <string name="enter_old_passcode_below">โปรดใส่รหัสผ่านที่คุณต้องการ</string>
+    <string name="set_passcode">กำหนดรหัสผ่าน</string>
+    <string name="enter_new_passcode">ใส่รหัสผ่านใหม่ ด้านล่าง</string>
+    <string name="enter_passcode_below">ใส่รหัสผ่าน ด้านล่าง</string>
+    <string name="confirm_passcode">ยืนยันรหัสผ่าน</string>
+    <string name="again_passcode">ใส่รหัสผ่านอีกครั้ง</string>
+    <string name="wrong_passcode">รหัสผิด\nลองอีดครั้ง</string>
+    <string name="not_match_passcode">รหัสไม่ตรงกัน\nลองอีกครั้ง</string>
+
+    <!-- TODO: Strings related to Friend -->
+    <string name="title_no_friends">คุณยังไม่มีเพื่อนเลย</string>
+    <string name="text_button_add_friend">เพิ่มเพื่อนตอนนี้!!</string>
+
+    <!-- TODO: Strings related to Other -->
+    <string name="title_profile_account">โปรไฟล์\nบัญชีผู้ใช้</string>
+    <string name="title_Setting">ตั้งค่า</string>
 
 </resources>

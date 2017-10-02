@@ -1,5 +1,6 @@
 package com.example.chatchatapplication.Activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -8,6 +9,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -185,5 +187,26 @@ public class ProfileAccount extends AppCompatActivity implements jsonBack {
         } else {
             Toast.makeText(this, data.getMessage(), Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public void deleteAccount(View view) {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.title_delete_account);
+        builder.setIcon(R.drawable.logo2);
+        builder.setMessage(R.string.text_sure_to_delete_account);
+
+        builder.setPositiveButton(R.string.but_next, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                startActivity(new Intent(ProfileAccount.this,Confirm_delete_account.class));
+            }
+        });
+        builder.setNegativeButton(R.string.but_cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        builder.show();
     }
 }

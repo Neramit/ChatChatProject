@@ -72,8 +72,6 @@ public class Invite_to_group extends AppCompatActivity implements android.suppor
                             sendFriendList.add(obj);
                     }
 
-
-
                     String json = gson.toJson(sendFriendList);
                     mEdit1.putString("inviteFriendList", json);
                     mEdit1.commit();
@@ -92,8 +90,7 @@ public class Invite_to_group extends AppCompatActivity implements android.suppor
 
     @Override
     public boolean onQueryTextChange(String newText) {
-        String text = newText;
-        iAdapter2.filter(text);
+        iAdapter2.filter(newText);
         return false;
     }
 

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="colors">
+        <item>เขียว</item>
+        <item>น้ำเงิน</item>
+        <item>ชมพู</item>
+        <item>ส้ม</item>
+    </string-array>
+
+    <string-array name="colors_values">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+
+    <string-array name="musics">
+        <item>พื้นฐาน</item>
+        <item>Chat Chat</item>
+    </string-array>
+
+    <string-array name="musics_values">
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
+</resources>

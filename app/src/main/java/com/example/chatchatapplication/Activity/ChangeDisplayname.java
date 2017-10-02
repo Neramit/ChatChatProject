@@ -52,8 +52,8 @@ public class ChangeDisplayname extends AppCompatActivity implements jsonBack {
         button.setProgress(0);
         button.setIndeterminateProgressMode(true);
 
-        displayName.setQuery(displayname, false);
-
+        displayname = sp.getString("displayName",null);
+        displayName.setQuery(displayname, true);
         displayName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,6 +70,8 @@ public class ChangeDisplayname extends AppCompatActivity implements jsonBack {
             @Override
             public boolean onQueryTextChange(String s) {
                 count.setText(s.length() + "/20");
+                if (s.length() > 20)
+                    displayName.setQuery(s.substring(0, 20), false);
                 return false;
             }
         });
