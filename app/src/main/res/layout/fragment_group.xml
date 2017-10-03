@@ -3,12 +3,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
+    android:orientation="vertical"
     tools:context="com.example.chatchatapplication.Fragment.groupFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
+        android:id="@+id/no_group"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/group_tab" />
+        android:text="@string/title_no_groups"
+        android:visibility="visible"/>
+
+    <ListView
+        android:id="@+id/groupList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+    </ListView>
 
 </LinearLayout>

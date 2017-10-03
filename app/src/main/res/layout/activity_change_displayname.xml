@@ -7,7 +7,6 @@
     android:padding="30dp"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    android:focusableInTouchMode="true"
     tools:context="com.example.chatchatapplication.Activity.ChangeDisplayname">
 
     <TextView

@@ -133,6 +133,9 @@
     <string name="title_no_friends">You do not have any friend</string>
     <string name="text_button_add_friend">Add friend NOW!!</string>
 
+    <!-- TODO: Strings related to Group -->
+    <string name="title_no_groups">You do not have any group</string>
+
     <!-- TODO: Strings related to Other -->
     <string name="title_profile_account">Profile\nAccount</string>
     <string name="title_Setting">Setting</string>

@@ -135,6 +135,9 @@
     <string name="title_no_friends">คุณยังไม่มีเพื่อนเลย</string>
     <string name="text_button_add_friend">เพิ่มเพื่อนตอนนี้!!</string>
 
+    <!-- TODO: Strings related to Group -->
+    <string name="title_no_groups">คุณยังไม่ได้เข้าร่วมกลุ่ม</string>
+
     <!-- TODO: Strings related to Other -->
     <string name="title_profile_account">โปรไฟล์\nบัญชีผู้ใช้</string>
     <string name="title_Setting">ตั้งค่า</string>

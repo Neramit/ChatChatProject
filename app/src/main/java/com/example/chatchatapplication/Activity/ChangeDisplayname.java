@@ -54,6 +54,7 @@ public class ChangeDisplayname extends AppCompatActivity implements jsonBack {
 
         displayname = sp.getString("displayName",null);
         displayName.setQuery(displayname, true);
+        count.setText(displayname.length() + "/20");
         displayName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

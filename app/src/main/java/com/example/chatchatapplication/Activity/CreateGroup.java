@@ -203,28 +203,38 @@ public class CreateGroup extends AppCompatActivity implements jsonBack {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_save_group) {
-            Gson sendJson = new Gson();
-            progress.setVisibility(View.VISIBLE);
-            Group data = new Group();
-            data.setGroupName(groupName.getQuery().toString());
-            data.setGroupMember(memberList);
-            data.setGroupOwner(sp.getString("username", null));
 
-            String encryptPassword = Encoder.BuilderAES()
-                    .message(groupPassword.getText().toString())
-                    .method(AES.Method.AES_CBC_PKCS5PADDING)
-                    .key("mit&24737")
-                    .keySize(AES.Key.SIZE_128)
-                    .iVector(sp.getString("userName", "m"))
-                    .encrypt();
+            if (groupName.getQuery().toString().trim().isEmpty()) {
+                Toast.makeText(this, "Not have group name\nPlease type group name", Toast.LENGTH_SHORT).show();
+            } else if (groupPassword.getText().toString().trim().isEmpty()) {
+                Toast.makeText(this, "Not have group password\nPlease type group password", Toast.LENGTH_SHORT).show();
+            } else if (sendFriendList==null) {
+                Toast.makeText(this, "Not have invitation\nPlease add one friend at less", Toast.LENGTH_SHORT).show();
+            } else {
 
-            data.setGroupPassword(encryptPassword);
-            data.setGroupMemberNum(memberList.size() - 1);
-            token = sp.getString("token", null);
-            GroupSend send = new GroupSend("Group", "getGroupUID", token, data);
-            String sendJson2 = sendJson.toJson(send);
-            checkSend = false;
-            new SimpleHttpTask(CreateGroup.this).execute(sendJson2);
+                Gson sendJson = new Gson();
+                progress.setVisibility(View.VISIBLE);
+                Group data = new Group();
+                data.setGroupName(groupName.getQuery().toString());
+                data.setGroupMember(memberList);
+                data.setGroupOwner(sp.getString("username", null));
+
+                String encryptPassword = Encoder.BuilderAES()
+                        .message(groupPassword.getText().toString())
+                        .method(AES.Method.AES_CBC_PKCS5PADDING)
+                        .key("mit&24737")
+                        .keySize(AES.Key.SIZE_128)
+                        .iVector(sp.getString("userName", "m"))
+                        .encrypt();
+
+                data.setGroupPassword(encryptPassword);
+                data.setGroupMemberNum(memberList.size() - 1);
+                token = sp.getString("token", null);
+                GroupSend send = new GroupSend("Group", "getGroupUID", token, data);
+                String sendJson2 = sendJson.toJson(send);
+                checkSend = false;
+                new SimpleHttpTask(CreateGroup.this).execute(sendJson2);
+            }
 //            StorageReference imagesRef = storageRef.child("GroupImage/" + groupName.getQuery().toString() + ".jpg");
 //            imagesRef.putFile(resultUri).addOnFailureListener(new OnFailureListener() {
 //                @Override

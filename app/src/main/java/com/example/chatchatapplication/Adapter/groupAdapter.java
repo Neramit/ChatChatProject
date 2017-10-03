@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.example.chatchatapplication.Object_json.Friend;
+import com.example.chatchatapplication.Object_json.Group;
 import com.example.chatchatapplication.R;
 
 import java.util.ArrayList;
@@ -18,29 +18,28 @@ import java.util.TreeSet;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
- * Created by Neramit777 on 9/13/2017 at 11:01 AM.
+ * Created by Neramit777 on 10/3/2017 at 4:18 PM.
  */
 
-public class friendAdapter extends BaseAdapter {
-
+public class groupAdapter extends BaseAdapter {
     private static final int TYPE_ITEM = 0;
     private static final int TYPE_SEPARATOR = 1;
 
-    private ArrayList<Friend> mData = new ArrayList<Friend>();
+    private ArrayList<Group> mData = new ArrayList<Group>();
     private TreeSet<Integer> sectionHeader = new TreeSet<Integer>();
 
     private LayoutInflater mInflater;
 
-    public friendAdapter(Context context) {
+    public groupAdapter(Context context) {
         mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
-    public void addItem(final Friend item) {
+    public void addItem(final Group item) {
         mData.add(item);
         notifyDataSetChanged();
     }
 
-    public void addSectionHeaderItem(final Friend item) {
+    public void addSectionHeaderItem(final Group item) {
         mData.add(item);
         sectionHeader.add(mData.size() - 1);
         notifyDataSetChanged();
@@ -62,7 +61,7 @@ public class friendAdapter extends BaseAdapter {
     }
 
     @Override
-    public Friend getItem(int position) {
+    public Group getItem(int position) {
         return mData.get(position);
     }
 
@@ -72,47 +71,41 @@ public class friendAdapter extends BaseAdapter {
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder holder;
+        groupAdapter.ViewHolder holder;
         int rowType = getItemViewType(position);
 
         if (convertView == null) {
-            holder = new ViewHolder();
+            holder = new groupAdapter.ViewHolder();
             switch (rowType) {
                 case TYPE_ITEM:
-                    convertView = mInflater.inflate(R.layout.friend_listview, null);
-                    holder.textView = (TextView) convertView.findViewById(R.id.friendname);
+                    convertView = mInflater.inflate(R.layout.group_listview, null);
+                    holder.textView = (TextView) convertView.findViewById(R.id.groupname);
                     holder.statusImage = (ImageView) convertView.findViewById(R.id.status_image);
-                    holder.circleImageView = (CircleImageView) convertView.findViewById(R.id.image_user);
+                    holder.circleImageView = (CircleImageView) convertView.findViewById(R.id.image_group);
 
-                    String friendDisplayName = mData.get(position).getDisplayName();
-                    if (friendDisplayName != null)
-                        holder.textView.setText(friendDisplayName);
-                    else holder.textView.setText(mData.get(position).getFriendUsername());
+                    String friendDisplayName = mData.get(position).getGroupName();
+                    holder.textView.setText(friendDisplayName);
 
-//                    if (mData.get(position).getFavorite()) {
-//                        holder.statusImage.setImageResource(R.drawable.star);
-//                    }
-
-                    if (mData.get(position).getFriendStatus()==0){
+                    if (mData.get(position).getGroupStatus() == 0) {
                         holder.statusImage.setImageResource(R.drawable.letter1);
                     }
 
-                    String friendDisplayPictureURL = mData.get(position).getDisplayPictureURL();
-                    if (friendDisplayPictureURL != null) {
+                    String groupImageURL = mData.get(position).getGroupImageURL();
+                    if (groupImageURL!= null) {
                         Glide.with(convertView)
-                                .load(mData.get(position).getDisplayPictureURL())  //Test
+                                .load(mData.get(position).getGroupImageURL())  //Test
                                 .into(holder.circleImageView);
                     }
                     break;
                 case TYPE_SEPARATOR:
                     convertView = mInflater.inflate(R.layout.section_listview, null);
                     holder.textView = (TextView) convertView.findViewById(R.id.textSequence);
-                    holder.textView.setText(mData.get(position).getFriendUsername());
+//                    holder.textView.setText(mData.get(position).getFriendUsername());
                     break;
             }
             convertView.setTag(holder);
         } else {
-            holder = (ViewHolder) convertView.getTag();
+            holder = (groupAdapter.ViewHolder) convertView.getTag();
         }
 
         return convertView;

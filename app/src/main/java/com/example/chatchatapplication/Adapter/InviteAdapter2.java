@@ -100,15 +100,10 @@ public class InviteAdapter2 extends BaseAdapter {
 
                 inviteList.get(i).setCheckInvite(b);
                 countCheck = 0;
-//                inviteButton.setText(mContext.getString(R.string.text_invite) + " (" + String.valueOf(countCheck) + ")");
                 for (int j = 0; j < getCount(); j++) {
 
-//                        arraylist.clear();
                     if (inviteList.get(j).getCheckInvite()) {
                         countCheck++;
-//                            for (Friend ex : arraylist)
-
-//                            arraylist.add(inviteList.get(j));
                     }
 
                 }

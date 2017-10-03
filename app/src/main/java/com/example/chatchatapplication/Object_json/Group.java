@@ -14,6 +14,15 @@ public class Group {
     private List<Friend> groupMember;
     private int groupMemberNum;
     private int groupUID;
+    private int groupStatus;
+
+    public int getGroupStatus() {
+        return groupStatus;
+    }
+
+    public void setGroupStatus(int groupStatus) {
+        this.groupStatus = groupStatus;
+    }
 
     public int getGroupUID() {
         return groupUID;
@@ -62,7 +71,6 @@ public class Group {
     public void setGroupMember(List<Friend> groupMember) {
         this.groupMember = groupMember;
     }
-
 
     public int getGroupMemberNum() {
         return groupMemberNum;
