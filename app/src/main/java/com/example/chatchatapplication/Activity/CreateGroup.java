@@ -10,7 +10,6 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -79,10 +78,20 @@ public class CreateGroup extends AppCompatActivity implements jsonBack {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         sp = PreferenceManager.getDefaultSharedPreferences(this);
-        int theme = sp.getInt("Theme", 0);
-        if (theme != 0) {
-            Log.d("Test", Integer.toString(theme));
-            setTheme(theme);
+        String theme = sp.getString("Theme", "Green");
+        switch (theme) {
+            case "Blue":
+                setTheme(R.style.Blue_NoActionBar);
+                break;
+            case "Pink":
+                setTheme(R.style.Blue_NoActionBar);
+                break;
+            case "Orange":
+                setTheme(R.style.Orange_NoActionBar);
+                break;
+            default:
+                setTheme(R.style.AppTheme_NoActionBar);
+                break;
         }
         getSupportActionBar().setTitle(R.string.title_create_group);
         setContentView(R.layout.activity_create_group);

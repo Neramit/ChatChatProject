@@ -52,31 +52,41 @@ public class groupFragment extends Fragment implements jsonBack {
         sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
         mEdit1 = sp.edit();
 
-        Gson sendJson = new Gson();
-//        button.setProgress(50);
-        final User data = new User();
-//        data.setDisplayName(displayname);
         token = sp.getString("token", null);
-        registerSend send = new registerSend("Group", "groupTabEnter", token, data);
-        String sendJson2 = sendJson.toJson(send);
-        new SimpleHttpTask(this).execute(sendJson2);
+
+//        Gson sendJson = new Gson();
+//        final User data = new User();
+//        registerSend send = new registerSend("Group", "groupTabEnter", token, data);
+//        String sendJson2 = sendJson.toJson(send);
+//        new SimpleHttpTask(this).execute(sendJson2);
 
         groupList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // TODO Auto-generated method stub
                 Intent intent = new Intent(getActivity(),FriendChatroom.class);
-//                mEdit1.putInt("chatroomUid",group_list.get(position).getChatroomUID());
-//                mEdit1.putString("groupName",group_list.get(position).getGroupName());
+                mEdit1.putInt("groupUid",group_list.get(position).getGroupUID());
+                mEdit1.putString("groupName",group_list.get(position).getGroupName());
 //                mEdit1.putInt("friendStatus",group_list.get(position).getFriendStatus());
 //                mEdit1.putString("friendDisplayName",group_list.get(position).getDisplayName());
-//                mEdit1.putString("friendDisplayPictureURL",group_list.get(position).getDisplayPictureURL());
+                mEdit1.putString("groupImageURL",group_list.get(position).getGroupImageURL());
 //                mEdit1.putString("friendRegistrationID",group_list.get(position).getFriendRegistrationID());
 //                mEdit1.commit();
                 startActivity(intent);
             }
         });
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        Gson sendJson = new Gson();
+        final User data = new User();
+        registerSend send = new registerSend("Group", "groupTabEnter", token, data);
+        String sendJson2 = sendJson.toJson(send);
+        new SimpleHttpTask(this).execute(sendJson2);
     }
 
     @Override
@@ -98,9 +108,8 @@ public class groupFragment extends Fragment implements jsonBack {
                 noGroup.setVisibility(View.VISIBLE);
             }else{
                 groupList.setAdapter(mAdapter);
-//                String json = gson.toJson(data.getData());
-//                mEdit1.putString("friendList", json);
-//                mEdit1.commit();
+                groupList.setVisibility(View.VISIBLE);
+                noGroup.setVisibility(View.GONE);
             }
         }else{
             groupList.setVisibility(View.GONE);

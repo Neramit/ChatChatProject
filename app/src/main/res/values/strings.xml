@@ -71,6 +71,15 @@
     <string name="action_add">Add</string>
     <string name="action_wrong">Add friend fail</string>
 
+    <!-- TODO:Strings related to accept friend request -->
+    <string name="title_accect">Accept this friend request ? </string>
+    <string name="message_accept">\n Sure to accept friend request ? </string>
+    <string name="Yes_accept">Accept</string>
+    <string name="No_decline">Decline</string>
+    <string name="Neutral_close">Close</string>
+    <string name="text_accept_success">Accepted friend!</string>
+    <string name="text_decline_success">Declined friend!</string>
+
     <!-- TODO: String related to create group -->
     <string name="message_warning">*You can only invite up to 200 people per group chat ,Friend did you add here will be sent an invitation to the group.</string>
     <string name="button_save">Save</string>

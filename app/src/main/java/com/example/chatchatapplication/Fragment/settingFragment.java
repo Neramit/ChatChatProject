@@ -21,8 +21,6 @@ public class settingFragment extends Fragment {
 
     // Shared preferrence
     SharedPreferences sp;
-    SharedPreferences.Editor mEdit1;
-
 
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,

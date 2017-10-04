@@ -35,9 +35,20 @@ public class ChangeDisplayname extends AppCompatActivity implements jsonBack {
         super.onCreate(savedInstanceState);
 
         sp = PreferenceManager.getDefaultSharedPreferences(this);
-        int theme = sp.getInt("Theme", 0);
-        if (theme != 0) {
-            setTheme(theme);
+        String theme = sp.getString("Theme", "Green");
+        switch (theme) {
+            case "Blue":
+                setTheme(R.style.Blue);
+                break;
+            case "Pink":
+                setTheme(R.style.Blue);
+                break;
+            case "Orange":
+                setTheme(R.style.Orange);
+                break;
+            default:
+                setTheme(R.style.AppTheme);
+                break;
         }
         setContentView(R.layout.activity_change_displayname);
 

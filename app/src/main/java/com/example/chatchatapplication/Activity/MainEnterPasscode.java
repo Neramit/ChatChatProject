@@ -28,22 +28,37 @@ public class MainEnterPasscode extends AppCompatActivity {
         sp = PreferenceManager.getDefaultSharedPreferences(this);
         mEdit1 = sp.edit();
 
-        int theme = sp.getInt("theme", 0);
-        if (theme != 0) {
-            setTheme(theme);
+        String theme = sp.getString("Theme", "Green");
+        switch (theme) {
+            case "Blue":
+                setTheme(R.style.Blue_NoActionBar);
+                break;
+            case "Pink":
+                setTheme(R.style.Pink_NoActionBar);
+                break;
+            case "Orange":
+                setTheme(R.style.Orange_NoActionBar);
+                break;
+            default:
+                setTheme(R.style.AppTheme_NoActionBar);
+                break;
         }
         setContentView(R.layout.activity_main_enter_passcode);
 
         LinearLayout linearLayout = (LinearLayout) findViewById(R.id.enter_passcode_layout);
         switch (theme) {
-            case R.style.Blue_NoActionBar:
+            case "Blue":
                 linearLayout.setBackgroundColor(getColor(R.color.colorPrimary_blue));
-            case R.style.Pink_NoActionBar:
+                break;
+            case "Pink":
                 linearLayout.setBackgroundColor(getColor(R.color.colorPrimary_pink));
-            case R.style.Orange_NoActionBar:
+                break;
+            case "Orange":
                 linearLayout.setBackgroundColor(getColor(R.color.colorPrimary_orange));
-            case R.style.AppTheme_NoActionBar:
+                break;
+            default:
                 linearLayout.setBackgroundColor(getColor(R.color.colorPrimary));
+                break;
         }
 
         mEdit1 = sp.edit();

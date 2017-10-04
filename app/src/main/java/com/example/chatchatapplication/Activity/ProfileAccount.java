@@ -89,9 +89,20 @@ public class ProfileAccount extends AppCompatActivity implements jsonBack {
 
         sp = PreferenceManager.getDefaultSharedPreferences(this);
         mEdit1 = sp.edit();
-        int theme = sp.getInt("Theme", 0);
-        if (theme != 0) {
-            setTheme(theme);
+        String theme = sp.getString("Theme", "Green");
+        switch (theme) {
+            case "Blue":
+                setTheme(R.style.Blue);
+                break;
+            case "Pink":
+                setTheme(R.style.Blue);
+                break;
+            case "Orange":
+                setTheme(R.style.Orange);
+                break;
+            default:
+                setTheme(R.style.AppTheme);
+                break;
         }
         setContentView(R.layout.activity_profile_account);
 

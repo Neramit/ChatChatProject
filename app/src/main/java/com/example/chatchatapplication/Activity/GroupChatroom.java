@@ -25,17 +25,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 import ru.bullyboo.encoder.Encoder;
 import ru.bullyboo.encoder.methods.AES;
 
-public class FriendChatroom extends AppCompatActivity {
+public class GroupChatroom extends AppCompatActivity {
     private static final String AUTH_KEY = "key=AAAAM12Rtoo:APA91bEi2_JxY1-rYm1NpotgzNxQ7jZ2H6Jbsmnrw5-KUG0uJk5DkeXzXx1zAHS5KaBysTaUDyW0Xo7rCd4PmRlScZN2zfJ00WPLKATawVwdk46fWjE6RV6imtRpgvqtf8nNN6xBnOMi";
 
     ToggleButton send_bt;
@@ -46,7 +44,7 @@ public class FriendChatroom extends AppCompatActivity {
     public static ArrayList<messages> listMessage;
     DatabaseReference mMessagesRef;
     int chatroomUid;
-    String friendUsername, friendDisplayName, username, friendDisplayPictureURL,friendRegistrationID,displayName;
+    String groupName,friendUsername, friendDisplayName, username, friendDisplayPictureURL,friendRegistrationID,displayName;
     ArrayAdapter<messages> adapter;
 
     // Shared preferrence
@@ -55,7 +53,7 @@ public class FriendChatroom extends AppCompatActivity {
 
     @Override
     protected void onStart() {
-        getSupportActionBar().setTitle(friendDisplayName);
+        getSupportActionBar().setTitle(groupName);
         super.onStart();
 
         mMessagesRef.addValueEventListener(new ValueEventListener() {
@@ -66,7 +64,7 @@ public class FriendChatroom extends AppCompatActivity {
                 for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
                     messages user = userSnapshot.getValue(messages.class);
                     listMessage.add(user);
-                    adapter = new MessageAdapter(FriendChatroom.this, R.layout.user_message_list, listMessage, username, friendDisplayPictureURL);
+                    adapter = new MessageAdapter(GroupChatroom.this, R.layout.user_message_list, listMessage, username, friendDisplayPictureURL);
                 }
                 listview.setAdapter(adapter);
 
@@ -112,7 +110,7 @@ public class FriendChatroom extends AppCompatActivity {
         friendRegistrationID = sp.getString("friendRegistrationID", null);
 
         DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
-        mMessagesRef = mRootRef.child("Private Chat").child(String.valueOf(chatroomUid));
+        mMessagesRef = mRootRef.child("Group Chat").child(String.valueOf(chatroomUid));
 
         progress_message = (LinearLayout) findViewById(R.id.progress_bar_message);
         listMessage = new ArrayList<messages>();
@@ -120,8 +118,6 @@ public class FriendChatroom extends AppCompatActivity {
         text = (EditText) findViewById(R.id.editText);
         send_bt = (ToggleButton) findViewById(R.id.send_bt);
 
-//        if(friendUsername==null)
-//            friendDisplayName = friendUsername;
         send_bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -131,7 +127,7 @@ public class FriendChatroom extends AppCompatActivity {
                     text.setText("");                      //Clear input edittext panel
                     scrollMyListViewToBottom();
                 } else {
-                    Toast.makeText(FriendChatroom.this, "Must type any character first", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(GroupChatroom.this, "Must type any character first", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -148,8 +144,8 @@ public class FriendChatroom extends AppCompatActivity {
                 .iVector(userName)
                 .encrypt();
         messages messages = new messages(encrypt, userName);
-        messages messages2 = new messages(encrypt, userName, displayName);
-        sendWithOtherThread(messages2);
+//        messages messages2 = new messages(encrypt, userName, displayName);
+//        sendWithOtherThread(messages2);
         mMessagesRef.child(id).setValue(messages);
     }
 
@@ -209,8 +205,8 @@ public class FriendChatroom extends AppCompatActivity {
             outputStream.write(jPayload.toString().getBytes());
 
             // Read FCM response.
-            InputStream inputStream = conn.getInputStream();
-            final String resp = convertStreamToString(inputStream);
+//            InputStream inputStream = conn.getInputStream();
+//            final String resp = convertStreamToString(inputStream);
 
 //            Handler h = new Handler(Looper.getMainLooper());
 //            h.post(new Runnable() {
@@ -224,10 +220,10 @@ public class FriendChatroom extends AppCompatActivity {
         }
     }
 
-    private String convertStreamToString(InputStream is) {
-        Scanner s = new Scanner(is).useDelimiter("\\A");
-        return s.hasNext() ? s.next().replace(",", ",\n") : "";
-    }
+//    private String convertStreamToString(InputStream is) {
+//        Scanner s = new Scanner(is).useDelimiter("\\A");
+//        return s.hasNext() ? s.next().replace(",", ",\n") : "";
+//    }
 
     private void scrollMyListViewToBottom() {
         listview.post(new Runnable() {

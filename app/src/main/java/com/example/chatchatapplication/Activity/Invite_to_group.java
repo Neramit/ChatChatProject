@@ -37,9 +37,20 @@ public class Invite_to_group extends AppCompatActivity implements android.suppor
         super.onCreate(savedInstanceState);
         sp = PreferenceManager.getDefaultSharedPreferences(this);
         mEdit1 = sp.edit();
-        int theme = sp.getInt("Theme", 0);
-        if (theme != 0) {
-            setTheme(theme);
+        String theme = sp.getString("Theme", "Green");
+        switch (theme) {
+            case "Blue":
+                setTheme(R.style.Blue);
+                break;
+            case "Pink":
+                setTheme(R.style.Blue);
+                break;
+            case "Orange":
+                setTheme(R.style.Orange);
+                break;
+            default:
+                setTheme(R.style.AppTheme);
+                break;
         }
         setContentView(R.layout.activity_invite_to_group);
 

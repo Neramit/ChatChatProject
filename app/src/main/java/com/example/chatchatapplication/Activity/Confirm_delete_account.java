@@ -2,6 +2,7 @@ package com.example.chatchatapplication.Activity;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.CheckBox;
@@ -26,8 +27,23 @@ public class Confirm_delete_account extends AppCompatActivity implements jsonBac
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        sp = PreferenceManager.getDefaultSharedPreferences(this);
+        String theme = sp.getString("Theme", "Green");
+        switch (theme) {
+            case "Blue":
+                setTheme(R.style.Blue);
+                break;
+            case "Pink":
+                setTheme(R.style.Blue);
+                break;
+            case "Orange":
+                setTheme(R.style.Orange);
+                break;
+            default:
+                setTheme(R.style.AppTheme);
+                break;
+        }
         setContentView(R.layout.activity_confirm_delete_account);
-
         yesDelete = (CheckBox) findViewById(R.id.chk_delete);
         deleteButton = (CircularProgressButton) findViewById(R.id.delete_button);
 
@@ -41,8 +57,8 @@ public class Confirm_delete_account extends AppCompatActivity implements jsonBac
                     deleteButton.setProgress(50);
                     Gson sendJson = new Gson();
                     User user = new User();
-                    String token = sp.getString("token",null);
-                    registerSend send = new registerSend("Other", "deleteAccount",token, user);
+                    String token = sp.getString("token", null);
+                    registerSend send = new registerSend("Other", "deleteAccount", token, user);
                     String sendJson2 = sendJson.toJson(send);
                     new SimpleHttpTask(Confirm_delete_account.this).execute(sendJson2);
                 } else

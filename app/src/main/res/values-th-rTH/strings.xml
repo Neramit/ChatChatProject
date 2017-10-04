@@ -72,6 +72,15 @@
     <string name="action_add">เพิ่ม</string>
     <string name="action_wrong">เพิ่มเพื่อนไม่สำเร็จ</string>
 
+    <!-- TODO:Strings related to accept friend request -->
+    <string name="title_accect">ยอมรับคำขอเป็นเพื่อน ? </string>
+    <string name="message_accept">\n แน่ใจหรือไม่ที่จะรับคำขอเป็นเพื่อน ? </string>
+    <string name="Yes_accept">ยอมรับ</string>
+    <string name="No_decline">ปฎิเสธ</string>
+    <string name="Neutral_close">ปิด</string>
+    <string name="text_accept_success">รับเพื่อนสำเร็จ</string>
+    <string name="text_decline_success">ปฎิเสธคำขอแล้ว</string>
+
     <!-- TODO: String related to create group -->
     <string name="message_warning">*คุณสามารถเชิญได้สูงสุด 200 คนต่อหนึ่งกลุ่มเท่านั้น ,เพื่อนที่คุณเชิญจะได้รับการเชิญเข้ากลุ่ม</string>
     <string name="button_save">บันทึก</string>

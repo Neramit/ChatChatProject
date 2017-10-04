@@ -21,9 +21,20 @@ public class Setting extends PreferenceActivity implements SharedPreferences.OnS
         super.onCreate(savedInstanceState);
         sp = PreferenceManager.getDefaultSharedPreferences(this);
         mEdit1 = sp.edit();
-        int theme = sp.getInt("theme", 0);
-        if (theme != 0) {
-            setTheme(theme);
+        String theme = sp.getString("Theme", "Green");
+        switch (theme) {
+            case "Blue":
+                setTheme(R.style.Blue_NoActionBar);
+                break;
+            case "Pink":
+                setTheme(R.style.Pink_NoActionBar);
+                break;
+            case "Orange":
+                setTheme(R.style.Orange_NoActionBar);
+                break;
+            default:
+                setTheme(R.style.AppTheme_NoActionBar);
+                break;
         }
         addPreferencesFromResource(R.xml.preferences);
     }
@@ -46,21 +57,10 @@ public class Setting extends PreferenceActivity implements SharedPreferences.OnS
                 break;
             }
             case "pref_key_theme": {
-                String m = sharedPreferences.getString(key, null);
-                if (Objects.equals(m, "1")) {
-                    mEdit1.putInt("Theme", R.style.AppTheme);
-                    mEdit1.putInt("theme", R.style.AppTheme_NoActionBar);
-                } else if (Objects.equals(m, "2")) {
-                    mEdit1.putInt("Theme", R.style.Blue);
-                    mEdit1.putInt("theme", R.style.Blue_NoActionBar);
-                } else if (Objects.equals(m, "3")) {
-                    mEdit1.putInt("Theme", R.style.Pink);
-                    mEdit1.putInt("theme", R.style.Pink_NoActionBar);
-                } else if (Objects.equals(m, "4")) {
-                    mEdit1.putInt("Theme", R.style.Orange);
-                    mEdit1.putInt("theme", R.style.Orange_NoActionBar);
-                }
+                String m = sharedPreferences.getString(key, "Green");
+                mEdit1.putString("Theme", m);
                 mEdit1.commit();
+
                 startActivity(new Intent(this, MainActivity.class));
                 startActivity(new Intent(this, Setting.class));
                 finishAffinity();

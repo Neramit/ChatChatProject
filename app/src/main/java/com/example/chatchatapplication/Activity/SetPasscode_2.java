@@ -7,6 +7,7 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.chatchatapplication.R;
@@ -26,11 +27,38 @@ public class SetPasscode_2 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         sp = PreferenceManager.getDefaultSharedPreferences(this);
         mEdit1 = sp.edit();
-        int theme = sp.getInt("theme", 0);
-        if (theme != 0) {
-            setTheme(theme);
+        String theme = sp.getString("Theme", "Green");
+        switch (theme) {
+            case "Blue":
+                setTheme(R.style.Blue_NoActionBar);
+                break;
+            case "Pink":
+                setTheme(R.style.Pink_NoActionBar);
+                break;
+            case "Orange":
+                setTheme(R.style.Orange_NoActionBar);
+                break;
+            default:
+                setTheme(R.style.AppTheme_NoActionBar);
+                break;
         }
         setContentView(R.layout.activity_set_passcode_2);
+
+        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.enter_passcode_layout);
+        switch (theme) {
+            case "Blue":
+                linearLayout.setBackgroundColor(getColor(R.color.colorPrimary_blue));
+                break;
+            case "Pink":
+                linearLayout.setBackgroundColor(getColor(R.color.colorPrimary_pink));
+                break;
+            case "Orange":
+                linearLayout.setBackgroundColor(getColor(R.color.colorPrimary_orange));
+                break;
+            default:
+                linearLayout.setBackgroundColor(getColor(R.color.colorPrimary));
+                break;
+        }
 
         c1 = (ImageView) findViewById(R.id.circle_21);
         c2 = (ImageView) findViewById(R.id.circle_22);

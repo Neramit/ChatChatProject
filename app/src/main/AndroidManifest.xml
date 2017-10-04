@@ -137,7 +137,8 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".Activity.Confirm_delete_account"></activity>
+        <activity android:name=".Activity.Confirm_delete_account" />
+        <activity android:name=".Activity.GroupChatroom"></activity>
     </application>
 
 </manifest>

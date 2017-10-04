@@ -8,7 +8,6 @@ import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
@@ -51,11 +50,20 @@ public class AddFriend extends AppCompatActivity implements jsonBack {
         super.onCreate(savedInstanceState);
 
         sp = PreferenceManager.getDefaultSharedPreferences(this);
-        int theme = sp.getInt("Theme", 0);
-
-        if (theme != 0) {
-            setTheme(theme);
-            Log.d("Test",Integer.toString(theme));
+        String theme = sp.getString("Theme", "Green");
+        switch (theme) {
+            case "Blue":
+                setTheme(R.style.Blue);
+                break;
+            case "Pink":
+                setTheme(R.style.Blue);
+                break;
+            case "Orange":
+                setTheme(R.style.Orange);
+                break;
+            default:
+                setTheme(R.style.AppTheme);
+                break;
         }
         setContentView(R.layout.activity_add_friend);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

@@ -47,10 +47,20 @@ public class Register extends AppCompatActivity implements jsonBack {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         sp = PreferenceManager.getDefaultSharedPreferences(this);
-        mEdit1 = sp.edit();
-        int theme = sp.getInt("theme", 0);
-        if (theme != 0) {
-            setTheme(theme);
+        String theme = sp.getString("Theme", "Green");
+        switch (theme) {
+            case "Blue":
+                setTheme(R.style.Blue_NoActionBar);
+                break;
+            case "Pink":
+                setTheme(R.style.Pink_NoActionBar);
+                break;
+            case "Orange":
+                setTheme(R.style.Orange_NoActionBar);
+                break;
+            default:
+                setTheme(R.style.AppTheme_NoActionBar);
+                break;
         }
         setContentView(R.layout.activity_register);
 
