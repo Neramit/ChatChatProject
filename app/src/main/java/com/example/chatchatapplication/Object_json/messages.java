@@ -10,7 +10,16 @@ public class messages {
     private String messageText;
     private String messageUser;
     private String messageDisplayName;
+    private String messagePictureURL;
     private long messageTime;
+
+    public String getMessagePictureURL() {
+        return messagePictureURL;
+    }
+
+    public void setMessagePictureURL(String messagePictureURL) {
+        this.messagePictureURL = messagePictureURL;
+    }
 
     public String getMessageDisplayName() {
         return messageDisplayName;
@@ -53,10 +62,11 @@ public class messages {
         this.messageTime = new Date().getTime();
     }
 
-    public messages(String messageText, String messageUser, String messageDisplayName) {
+    public messages(String messageText, String messageUser, String messageDisplayName, String messagePictureURL) {
         this.messageText = messageText;
         this.messageUser = messageUser;
         this.messageDisplayName = messageDisplayName;
+        this.messagePictureURL = messagePictureURL;
         // Initialize to current time
         this.messageTime = new Date().getTime();
     }

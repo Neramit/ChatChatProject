@@ -1,9 +1,13 @@
 package com.example.chatchatapplication.Activity;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -12,7 +16,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
-import com.example.chatchatapplication.Adapter.MessageAdapter;
+import com.example.chatchatapplication.Adapter.GroupMessageAdapter;
 import com.example.chatchatapplication.Object_json.messages;
 import com.example.chatchatapplication.R;
 import com.google.firebase.database.DataSnapshot;
@@ -43,8 +47,8 @@ public class GroupChatroom extends AppCompatActivity {
 
     public static ArrayList<messages> listMessage;
     DatabaseReference mMessagesRef;
-    int chatroomUid;
-    String groupName,friendUsername, friendDisplayName, username, friendDisplayPictureURL,friendRegistrationID,displayName;
+    int groupChatroomUid, groupStatus, groupMemberNum;
+    String groupName, groupOwner, groupImageURL, username, friendDisplayPictureURL, friendRegistrationID, displayName;
     ArrayAdapter<messages> adapter;
 
     // Shared preferrence
@@ -53,7 +57,7 @@ public class GroupChatroom extends AppCompatActivity {
 
     @Override
     protected void onStart() {
-        getSupportActionBar().setTitle(groupName);
+        getSupportActionBar().setTitle(groupName + " (" + groupMemberNum + ")");
         super.onStart();
 
         mMessagesRef.addValueEventListener(new ValueEventListener() {
@@ -64,7 +68,7 @@ public class GroupChatroom extends AppCompatActivity {
                 for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
                     messages user = userSnapshot.getValue(messages.class);
                     listMessage.add(user);
-                    adapter = new MessageAdapter(GroupChatroom.this, R.layout.user_message_list, listMessage, username, friendDisplayPictureURL);
+                    adapter = new GroupMessageAdapter(GroupChatroom.this, R.layout.user_message_list, listMessage, username);
                 }
                 listview.setAdapter(adapter);
 
@@ -85,16 +89,16 @@ public class GroupChatroom extends AppCompatActivity {
         String theme = sp.getString("Theme", "Green");
         switch (theme) {
             case "Blue":
-                setTheme(R.style.Blue_NoActionBar);
+                setTheme(R.style.Blue);
                 break;
             case "Pink":
-                setTheme(R.style.Blue_NoActionBar);
+                setTheme(R.style.Blue);
                 break;
             case "Orange":
-                setTheme(R.style.Orange_NoActionBar);
+                setTheme(R.style.Orange);
                 break;
             default:
-                setTheme(R.style.AppTheme_NoActionBar);
+                setTheme(R.style.AppTheme);
                 break;
         }
         setContentView(R.layout.activity_friend_chatroom);
@@ -102,15 +106,18 @@ public class GroupChatroom extends AppCompatActivity {
         mEdit1 = sp.edit();
 
         username = sp.getString("username", null);
-        displayName = sp.getString("displayName",null);
-        chatroomUid = sp.getInt("chatroomUid",0);
-        friendUsername = sp.getString("friendUsername",null);
-        friendDisplayName = sp.getString("friendDisplayName",null);
-        friendDisplayPictureURL = sp.getString("friendDisplayPictureURL",null);
-        friendRegistrationID = sp.getString("friendRegistrationID", null);
+        displayName = sp.getString("displayName", null);
+        friendDisplayPictureURL = sp.getString("displayPictureURL", null);
+
+        groupName = sp.getString("groupName", null);
+        groupChatroomUid = sp.getInt("groupUid", 0);
+        groupOwner = sp.getString("groupOwner", null);
+        groupImageURL = sp.getString("groupImageURL", null);
+        groupStatus = sp.getInt("groupStatus", 0);
+        groupMemberNum = sp.getInt("groupMemberNum", 0);
 
         DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
-        mMessagesRef = mRootRef.child("Group Chat").child(String.valueOf(chatroomUid));
+        mMessagesRef = mRootRef.child("Group Chat").child(String.valueOf(groupChatroomUid));
 
         progress_message = (LinearLayout) findViewById(R.id.progress_bar_message);
         listMessage = new ArrayList<messages>();
@@ -123,7 +130,7 @@ public class GroupChatroom extends AppCompatActivity {
             public void onClick(View v) {
                 mMessagesRef.setValue(listMessage);
                 if (!text.getText().toString().trim().isEmpty()) {
-                    sendNewMessage(text.getText().toString(), username);
+                    sendNewMessage(text.getText().toString(), username, displayName, friendDisplayPictureURL);
                     text.setText("");                      //Clear input edittext panel
                     scrollMyListViewToBottom();
                 } else {
@@ -133,8 +140,7 @@ public class GroupChatroom extends AppCompatActivity {
         });
     }
 
-    private void sendNewMessage(String message, String userName) {
-//        String id = mMessagesRef.push().getKey();
+    private void sendNewMessage(String message, String userName, String displayName, String friendDisplayPictureURL) {
         String id = mMessagesRef.push().getKey();
         String encrypt = Encoder.BuilderAES()
                 .message(message)
@@ -143,7 +149,7 @@ public class GroupChatroom extends AppCompatActivity {
                 .keySize(AES.Key.SIZE_128)
                 .iVector(userName)
                 .encrypt();
-        messages messages = new messages(encrypt, userName);
+        messages messages = new messages(encrypt, userName, displayName, friendDisplayPictureURL);
 //        messages messages2 = new messages(encrypt, userName, displayName);
 //        sendWithOtherThread(messages2);
         mMessagesRef.child(id).setValue(messages);
@@ -233,6 +239,31 @@ public class GroupChatroom extends AppCompatActivity {
                 listview.setSelection(adapter.getCount() - 1);
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.group_chat_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_group_detail) {
+            if (groupStatus == 2)
+                startActivity(new Intent(this,Owner_group_detail.class));
+            else
+                startActivity(new Intent(this,Owner_group_detail.class));
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

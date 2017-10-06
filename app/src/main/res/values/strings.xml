@@ -91,9 +91,10 @@
     <string name="text_invite">Invite</string>
     <string name="can_not_invite">Can not create group\nPlease invite 1 friend at least</string>
     <string name="text_set_password">Set group password</string>
+    <string name="text_change_password">Change group password</string>
     <string name="text_search_hint">search by displayname</string>
     <string name="button_invite">Invite (0)</string>
-    <string name="text_member">Member 0</string>
+    <string name="text_member">Member</string>
 
     <!-- TODO: String related to Profile account -->
     <string name="title_profile">Profile</string>
@@ -126,6 +127,7 @@
     <string name="pref_title_change_passcode">Change passcode</string>
     <string name="pref_theme_title">Theme</string>
     <string name="pref_title_theme">Select theme</string>
+    <string name="default_theme">Green</string>
     <!-- Passcode -->
     <string name="enter_passcode">Enter passcode</string>
     <string name="enter_old_passcode">Enter old passcode</string>
@@ -148,4 +150,32 @@
     <!-- TODO: Strings related to Other -->
     <string name="title_profile_account">Profile\nAccount</string>
     <string name="title_Setting">Setting</string>
+
+    <!-- TODO:Strings related to join group request -->
+    <string name="title_join">Join this group ? </string>
+    <string name="message_join">\n Sure to join this group ? </string>
+    <string name="Yes_join">Join</string>
+    <string name="No_ignore">Ignore</string>
+    <string name="text_join_success">Joined group!</string>
+    <string name="text_ignore_success">Ignore group!</string>
+
+    <!-- TODO: Strings related to Group detail -->
+    <string name="title_group_detail">Group detail</string>
+    <string name="button_kick_meber">Kick members</string>
+    <string name="button_kick">Kick</string>
+    <string name="toast_group_member_null">Not have invitation\nPlease add one friend at less</string>
+    <string name="toast_group_password_null">Not have group password\nPlease set group password</string>
+    <string name="toast_group_name_null">Not have group name\nPlease type group name</string>
+    <string name="toast_group_name_more">Group name must have more than 4 characters</string>
+    <string name="toast_group_password_more">Group password must have more than 6 characters</string>
+
+    <!-- TODO: Strings related to Group chatroom -->
+    <string name="menu_group_detail">Group detail</string>
+    <string name="menu_invite_to_group">Invite</string>
+    <string name="menu_leave_group">Leave</string>
+    <string name="hint_enter_message">Enter message here</string>
+
+    <!-- TODO: Strings related to Private chatroom -->
+    <string name="menu_block">Block</string>
+
 </resources>

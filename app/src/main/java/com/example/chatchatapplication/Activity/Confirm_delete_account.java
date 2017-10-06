@@ -1,5 +1,6 @@
 package com.example.chatchatapplication.Activity;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -34,7 +35,7 @@ public class Confirm_delete_account extends AppCompatActivity implements jsonBac
                 setTheme(R.style.Blue);
                 break;
             case "Pink":
-                setTheme(R.style.Blue);
+                setTheme(R.style.Pink);
                 break;
             case "Orange":
                 setTheme(R.style.Orange);
@@ -70,5 +71,7 @@ public class Confirm_delete_account extends AppCompatActivity implements jsonBac
     @Override
     public void processFinish(String output) {
         deleteButton.setProgress(100);
+        startActivity(new Intent(this,Login.class));
+        finishAffinity();
     }
 }

@@ -6,7 +6,7 @@
     android:orientation="horizontal">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/image_user2"
+        android:id="@+id/image_member"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:padding="10dp"
@@ -14,7 +14,7 @@
         android:src="@drawable/default_user" />
 
     <TextView
-        android:id="@+id/invite_name2"
+        android:id="@+id/kick_member_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:maxLength="20"
@@ -26,16 +26,13 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <CheckBox
-            android:id="@+id/checkbox"
+        <ImageView
+            android:id="@+id/status_member_image"
             android:layout_width="wrap_content"
-            android:layout_height="70dp"
-            android:layout_alignParentEnd="true"
-            android:checked="false"
-            android:padding="10dp"
-            android:src="@drawable/theme"
-            android:focusable="false"/>
+            android:layout_height="match_parent"
+            android:adjustViewBounds="true"
+            android:padding="5dp"
+            android:layout_alignParentEnd="true"/>
     </RelativeLayout>
-
 
 </LinearLayout>

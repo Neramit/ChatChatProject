@@ -68,18 +68,12 @@ public class InviteAdapter2 extends BaseAdapter {
 
     @Override
     public View getView(final int i, View view, ViewGroup viewGroup) {
-//        ViewHolder holder;
-////        if (view == null) {
-//            holder = new ViewHolder();
+
         view = inflater.inflate(R.layout.invite_friend_list2, null);
         // Locate the TextViews in listview_item.xml
         CircleImageView circleImageView = (CircleImageView) view.findViewById(R.id.image_user2);
         TextView name = (TextView) view.findViewById(R.id.invite_name2);
         CheckBox chk = (CheckBox) view.findViewById(R.id.checkbox);
-//            view.setTag(holder);
-//        } else {
-//            holder = (ViewHolder) view.getTag();
-//        }
 
         String pictureURL = inviteList.get(i).getDisplayPictureURL();
         if (pictureURL != null) {
@@ -89,10 +83,7 @@ public class InviteAdapter2 extends BaseAdapter {
         } else
             circleImageView.setImageResource(R.drawable.default_user);
         name.setText(inviteList.get(i).getDisplayName());
-//        if (inviteList.get(i).getCheckInvite() != null)
-//            holder.chk.setChecked(true);
-//        else
-//            holder.chk.setChecked(false);
+
         chk.setChecked(inviteList.get(i).getCheckInvite());
         chk.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/action_group_detail"
+        android:title="@string/menu_group_detail"
+        android:orderInCategory="101"
+        android:icon="@drawable/group_detail"
+        app:showAsAction="never" />
+    <item android:id="@+id/action_invite"
+        android:title="@string/menu_invite_to_group"
+        android:orderInCategory="102"
+        android:icon="@drawable/letter1"
+        app:showAsAction="never" />
+    <item android:id="@+id/action_leave"
+        android:title="@string/menu_leave_group"
+        android:orderInCategory="103"
+        android:icon="@drawable/leave"
+        app:showAsAction="never" />
+</menu>

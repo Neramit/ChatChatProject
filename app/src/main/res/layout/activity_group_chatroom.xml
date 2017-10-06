@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:focusableInTouchMode="true"
     tools:context="com.example.chatchatapplication.Activity.GroupChatroom">
 
     <RelativeLayout
@@ -18,7 +19,8 @@
             android:id="@+id/editText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginRight="60dp" />
+            android:layout_marginRight="60dp"
+            android:hint="@string/hint_enter_message"/>
 
         <LinearLayout
             android:layout_width="match_parent"

@@ -33,7 +33,7 @@
         android:key="pref_key_theme_settings"
         android:title="@string/pref_theme_title">
         <ListPreference
-            android:defaultValue="Green"
+            android:defaultValue="@string/default_theme"
             android:entries="@array/colors"
             android:entryValues="@array/colors_values"
             android:icon="@drawable/theme"

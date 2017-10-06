@@ -95,7 +95,7 @@ public class ProfileAccount extends AppCompatActivity implements jsonBack {
                 setTheme(R.style.Blue);
                 break;
             case "Pink":
-                setTheme(R.style.Blue);
+                setTheme(R.style.Pink);
                 break;
             case "Orange":
                 setTheme(R.style.Orange);

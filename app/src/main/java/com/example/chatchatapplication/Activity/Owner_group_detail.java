@@ -7,36 +7,32 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.chatchatapplication.Adapter.InviteAdapter;
-import com.example.chatchatapplication.Not_Activity.ExpandedGridView;
+import com.example.chatchatapplication.Adapter.KickAdapter;
 import com.example.chatchatapplication.Not_Activity.SimpleHttpTask;
 import com.example.chatchatapplication.Not_Activity.jsonBack;
 import com.example.chatchatapplication.Object_json.Friend;
 import com.example.chatchatapplication.Object_json.Group;
 import com.example.chatchatapplication.Object_json.GroupSend;
-import com.example.chatchatapplication.Object_json.groupUidRetrieve;
-import com.example.chatchatapplication.Object_json.searchRetrieve;
+import com.example.chatchatapplication.Object_json.Member;
+import com.example.chatchatapplication.Object_json.User;
+import com.example.chatchatapplication.Object_json.detailRecieve;
+import com.example.chatchatapplication.Object_json.registerSend;
 import com.example.chatchatapplication.R;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.theartofdev.edmodo.cropper.CropImage;
@@ -51,39 +47,43 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import ru.bullyboo.encoder.Encoder;
 import ru.bullyboo.encoder.methods.AES;
 
-public class CreateGroup extends AppCompatActivity implements jsonBack {
+public class Owner_group_detail extends AppCompatActivity implements jsonBack {
 
     StorageReference storageRef;
 
-    InviteAdapter iAdapter;
-    List<Friend> sendFriendList;
-    String token;
-    boolean checkSend;
-    Uri resultUri;
-    ArrayList<Friend> memberList = new ArrayList<Friend>();
-
-    ExpandedGridView gridView;
     RelativeLayout groupImage, progress;
     SearchView groupName;
     ProgressBar progrssImage;
     CircleImageView circleImageGroup;
     TextView count, member_num;
     EditText groupPassword;
+    ListView listView;
 
+    ArrayList<Member> member_list = new ArrayList<Member>();
+    ArrayList<Member> memberList = new ArrayList<Member>();
+    KickAdapter iAdapter;
+    List<Member> sendFriendList;
+    Uri resultUri;
+    String token;
+    String checkSend;
+
+    // Shared preferrence
     SharedPreferences sp;
     SharedPreferences.Editor mEdit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setTitle(getResources().getString(R.string.title_group_detail));
         sp = PreferenceManager.getDefaultSharedPreferences(this);
+        mEdit = sp.edit();
         String theme = sp.getString("Theme", "Green");
         switch (theme) {
             case "Blue":
                 setTheme(R.style.Blue);
                 break;
             case "Pink":
-                setTheme(R.style.Blue);
+                setTheme(R.style.Pink);
                 break;
             case "Orange":
                 setTheme(R.style.Orange);
@@ -92,13 +92,11 @@ public class CreateGroup extends AppCompatActivity implements jsonBack {
                 setTheme(R.style.AppTheme);
                 break;
         }
-        getSupportActionBar().setTitle(R.string.title_create_group);
-        setContentView(R.layout.activity_create_group);
+        setContentView(R.layout.activity_owner_group_detail);
 
         storageRef = FirebaseStorage.getInstance().getReference();
 
-        mEdit = sp.edit();
-        mEdit.putString("inviteFriendList", null);
+        mEdit.putString("kickFriendList", null);
         mEdit.commit();
 
         progress = (RelativeLayout) findViewById(R.id.wait_send);
@@ -108,23 +106,11 @@ public class CreateGroup extends AppCompatActivity implements jsonBack {
         circleImageGroup = (CircleImageView) findViewById(R.id.group_circle);
         groupImage = (RelativeLayout) findViewById(R.id.group_picture);
         progrssImage = (ProgressBar) findViewById(R.id.progress_image);
-        gridView = (ExpandedGridView) findViewById(R.id.ex_grid_view);
+        listView = (ListView) findViewById(R.id.list_view);
         member_num = (TextView) findViewById(R.id.member_num);
 
-        iAdapter = new InviteAdapter(this, memberList);
-        gridView.setAdapter(iAdapter);
-        gridView.setExpanded(true);
-
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // TODO Auto-generated method stub
-                if (position == 0) {
-                    startActivity(new Intent(CreateGroup.this, Invite_to_group.class));
-                }
-            }
-        });
-
+        count.setText(sp.getString("groupName","").length() + "/20");
+        groupName.setQuery(sp.getString("groupName",""),false);  // Not sure
         groupName.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
@@ -139,14 +125,10 @@ public class CreateGroup extends AppCompatActivity implements jsonBack {
                 return false;
             }
         });
+    }
 
-//        List<Friend> sendFriendList = iAdapter2.getInviteList();
-//        Gson sendJson = new Gson();
-//        inviteSend data = new inviteSend();
-//        data = ;
-//        inviteSend2 send = new inviteSend2("Forgot password", "enterEmail", data);
-//        String sendJson2 = sendJson.toJson(send);
-//        new SimpleHttpTask(Invite_to_group.this).execute(sendJson2);
+    public void gotoKickList(View view) {
+        startActivity(new Intent(this,kick_list.class));
     }
 
     public void setGroupPicture(View v) {
@@ -211,7 +193,7 @@ public class CreateGroup extends AppCompatActivity implements jsonBack {
                 progress.setVisibility(View.VISIBLE);
                 Group data = new Group();
                 data.setGroupName(groupName.getQuery().toString());
-                data.setGroupMember(memberList);
+//                data.setGroupMember(memberList);
                 data.setGroupOwner(sp.getString("username", null));
 
                 String encryptPassword = Encoder.BuilderAES()
@@ -219,16 +201,16 @@ public class CreateGroup extends AppCompatActivity implements jsonBack {
                         .method(AES.Method.AES_CBC_PKCS5PADDING)
                         .key("mit&24737")
                         .keySize(AES.Key.SIZE_128)
-                        .iVector(sp.getString("username", "m"))
+                        .iVector(sp.getString("userName", "m"))
                         .encrypt();
 
                 data.setGroupPassword(encryptPassword);
-                data.setGroupMemberNum(memberList.size() - 1);
+//                data.setGroupMemberNum(memberList.size() - 1);
                 token = sp.getString("token", null);
                 GroupSend send = new GroupSend("Group", "getGroupUID", token, data);
                 String sendJson2 = sendJson.toJson(send);
-                checkSend = false;
-                new SimpleHttpTask(CreateGroup.this).execute(sendJson2);
+                checkSend = "save";  // not sure
+                new SimpleHttpTask(Owner_group_detail.this).execute(sendJson2);
             }
 //            StorageReference imagesRef = storageRef.child("GroupImage/" + groupName.getQuery().toString() + ".jpg");
 //            imagesRef.putFile(resultUri).addOnFailureListener(new OnFailureListener() {
@@ -267,60 +249,41 @@ public class CreateGroup extends AppCompatActivity implements jsonBack {
 
     @Override
     public void processFinish(String output) {
+        Gson gson = new Gson();
+        detailRecieve data = gson.fromJson(output, detailRecieve.class);
+        if (data.getStatus() == 200) {
+            member_list.clear();
+            int i = 0;
+            while (data.getData().getMemberList().size() > i) {
+                member_list.add(data.getData().getMemberList().get(i));
+                i++;
+            }
+            if (member_list.size() == 0) {
+//                friendList.setVisibility(View.GONE);
+            } else {
+                iAdapter = new KickAdapter(this, member_list);
+                listView.setAdapter(iAdapter);
+                String json = gson.toJson(data.getData().getMemberList());
+                mEdit.putString("memberList", json);
+                mEdit.commit();
+            }
 
-        if (!checkSend) {
-            Gson gson = new Gson();
-            final groupUidRetrieve data = gson.fromJson(output, groupUidRetrieve.class);
-            if (data.getStatus() == 200) {
-                if (resultUri == null) {
-                    Gson sendJson = new Gson();
-                    Group data2 = new Group();
-                    data2.setGroupImageURL("null");
-                    data2.setGroupUID(data.getData().getGroupUID());
-                    token = sp.getString("token", null);
-                    GroupSend send = new GroupSend("Group", "createGroup", token, data2);
-                    String sendJson2 = sendJson.toJson(send);
-                    checkSend = true;
-                    new SimpleHttpTask(CreateGroup.this).execute(sendJson2);
-                } else {
-                    StorageReference imagesRef = storageRef.child("GroupImage/" + data.getData().getGroupUID() + ".jpg");
-                    imagesRef.putFile(resultUri).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception exception) {
-                            Toast.makeText(CreateGroup.this, "Failed upload group picture", Toast.LENGTH_SHORT).show();
-                        }
-                    }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            String pictureURL = taskSnapshot.getDownloadUrl().toString();
-                            Gson sendJson = new Gson();
-                            Group data2 = new Group();
-                            data2.setGroupImageURL(pictureURL);
-                            data2.setGroupUID(data.getData().getGroupUID());
-                            token = sp.getString("token", null);
-                            GroupSend send = new GroupSend("Group", "createGroup", token, data2);
-                            String sendJson2 = sendJson.toJson(send);
-                            checkSend = true;
-                            new SimpleHttpTask(CreateGroup.this).execute(sendJson2);
-                        }
-                    }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                            Toast.makeText(CreateGroup.this, "Uploading group picture ...", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                }
-            } else
-                Toast.makeText(this, data.getMessage(), Toast.LENGTH_SHORT).show();
+            String decrypted = Encoder.BuilderAES()
+                    .message(data.getData().getGroupDetail().getGroupPassword())
+                    .method(AES.Method.AES_CBC_PKCS5PADDING)
+                    .key("mit&24737")
+                    .keySize(AES.Key.SIZE_128)
+                    .iVector(data.getData().getGroupDetail().getGroupOwner())
+                    .decrypt();
+
+            groupPassword.setText(decrypted);
+
+            if (member_list.size() != 0)
+                member_num.setText(getResources().getString(R.string.text_member) + " " + member_list.size());
+            else
+                member_num.setText(getResources().getString(R.string.text_member) + " 0");
         } else {
-            Gson gson = new Gson();
-            final searchRetrieve data3 = gson.fromJson(output, searchRetrieve.class);
-            if (data3.getStatus() == 200) {
-                finish();
-                Toast.makeText(this, "Create group successful", Toast.LENGTH_SHORT).show();
-            } else
-                Toast.makeText(this, "Failed to create group", Toast.LENGTH_SHORT).show();
-            progress.setVisibility(View.GONE);
+//            friendList.setVisibility(View.GONE);
         }
     }
 
@@ -330,32 +293,28 @@ public class CreateGroup extends AppCompatActivity implements jsonBack {
 
         sp = PreferenceManager.getDefaultSharedPreferences(this);
         Gson gson = new Gson();
-        String json = sp.getString("inviteFriendList", null);
+        String json = sp.getString("kickFriendList", null);
         Type type = new TypeToken<List<Friend>>() {
         }.getType();
         sendFriendList = gson.fromJson(json, type);
 
-        memberList.clear();
-        Friend add = new Friend();
-        add.setDisplayName("AddButton271137");
-        memberList.add(add);
+        Gson sendJson = new Gson();
+        final User data = new User();
+        data.setGenNum(sp.getInt("groupUid",0));
+        token = sp.getString("token", null);
+        registerSend send = new registerSend("GroupDetail", "enterGroupDetail", token, data);
+        String sendJson2 = sendJson.toJson(send);
+        new SimpleHttpTask(this).execute(sendJson2);
 
-        if (sendFriendList != null) {
-            for (int i = 0; sendFriendList.size() > i; i++) {
-                if (sendFriendList.get(i).getCheckInvite())
-                    memberList.add(sendFriendList.get(i));
-            }
-        }
+//        if (sendFriendList != null) {
+//            for (int i = 0; sendFriendList.size() > i; i++) {
+//                if (sendFriendList.get(i).getCheckInvite())
+//                    memberList.add(sendFriendList.get(i));
+//            }
+//        }
 
-        iAdapter = new InviteAdapter(this, memberList);
-        gridView.setAdapter(iAdapter);
-        gridView.setExpanded(true);
-
-        if (memberList.size() != 0)
-            member_num.setText(getResources().getString(R.string.text_member) + " " + (memberList.size()-1));
-        else
-            member_num.setText(getResources().getString(R.string.text_member) + " 0");
-
+        iAdapter = new KickAdapter(this, member_list);
+        listView.setAdapter(iAdapter);
     }
 
     @Override
@@ -365,7 +324,7 @@ public class CreateGroup extends AppCompatActivity implements jsonBack {
         sp = PreferenceManager.getDefaultSharedPreferences(this);
         mEdit = sp.edit();
 
-        mEdit.putString("inviteFriendList", null);
+        mEdit.putString("kickFriendList", null);
         mEdit.commit();
     }
 
@@ -374,5 +333,4 @@ public class CreateGroup extends AppCompatActivity implements jsonBack {
         super.onBackPressed();
         finish();
     }
-
 }

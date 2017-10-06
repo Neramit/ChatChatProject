@@ -9,8 +9,8 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.example.chatchatapplication.R;
 import com.example.chatchatapplication.Object_json.messages;
+import com.example.chatchatapplication.R;
 
 import java.util.ArrayList;
 
@@ -19,21 +19,20 @@ import ru.bullyboo.encoder.Encoder;
 import ru.bullyboo.encoder.methods.AES;
 
 /**
- * Created by Neramit777 on 9/14/2017.
+ * Created by Neramit777 on 10/4/2017 at 5:35 PM.
  */
 
-public class MessageAdapter extends ArrayAdapter<messages> {
+public class GroupMessageAdapter extends ArrayAdapter<messages> {
     private Context mContext;
     private ArrayList<messages> items;
-    private String user, friendDisplayPictureURL;
+    private String user, friendDisplayPictureURL,memberDisplayName;
 
-    public MessageAdapter(Context context, int textViewResourceId, ArrayList<messages> items, String user, String friendDisplayPictureURL) {
+    public GroupMessageAdapter(Context context, int textViewResourceId, ArrayList<messages> items, String user) {
         super(context, textViewResourceId, items);
 
         this.user = user;
         this.mContext = context;
         this.items = items;
-        this.friendDisplayPictureURL = friendDisplayPictureURL;
     }
 
     @Override
@@ -44,15 +43,22 @@ public class MessageAdapter extends ArrayAdapter<messages> {
             v = vi.inflate(R.layout.user_message_list, null);
         } else {
             LayoutInflater vi = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            v = vi.inflate(R.layout.other_message_list, null);
+            v = vi.inflate(R.layout.othermember_message_list, null);
 
-//            items.get(position).getMessageDisplayName();
+            friendDisplayPictureURL = items.get(position).getMessagePictureURL();
+            memberDisplayName = items.get(position).getMessageDisplayName();
 
-            if (friendDisplayPictureURL != null){
-                CircleImageView otherImage = (CircleImageView) v.findViewById(R.id.other_image);
+            CircleImageView otherImage = (CircleImageView) v.findViewById(R.id.other_image);
+            TextView memberName = (TextView) v.findViewById(R.id.member_name);
+
+            if (friendDisplayPictureURL != null) {
                 Glide.with(mContext)
                         .load(friendDisplayPictureURL)  //Test
                         .into(otherImage);
+            }
+
+            if (memberDisplayName != null){
+                memberName.setText(memberDisplayName);
             }
         }
         messages o = items.get(position);

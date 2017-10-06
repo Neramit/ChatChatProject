@@ -62,9 +62,7 @@ public class friendFragment extends Fragment implements jsonBack {
         final String username = sp.getString("username", null);
 
         Gson sendJson = new Gson();
-//        button.setProgress(50);
         final User data = new User();
-//        data.setDisplayName(displayname);
         token = sp.getString("token", null);
         registerSend send = new registerSend("Friend", "friendTabEnter", token, data);
         String sendJson2 = sendJson.toJson(send);
@@ -184,7 +182,6 @@ public class friendFragment extends Fragment implements jsonBack {
                 getActivity().finish();
             } else {
                 Toast.makeText(getActivity(), data.getMessage(), Toast.LENGTH_SHORT).show();
-
             }
         } else if (Objects.equals(chkResponse, "declineFriend")) {
             Gson gson = new Gson();

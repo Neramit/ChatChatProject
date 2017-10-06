@@ -30,6 +30,7 @@ public class Invite_to_group extends AppCompatActivity implements android.suppor
     // Shared preferrence
     SharedPreferences sp;
     SharedPreferences.Editor mEdit1;
+
     InviteAdapter2 iAdapter2;
 
     @Override
@@ -43,7 +44,7 @@ public class Invite_to_group extends AppCompatActivity implements android.suppor
                 setTheme(R.style.Blue);
                 break;
             case "Pink":
-                setTheme(R.style.Blue);
+                setTheme(R.style.Pink);
                 break;
             case "Orange":
                 setTheme(R.style.Orange);

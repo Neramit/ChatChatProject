@@ -137,8 +137,20 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".Activity.Confirm_delete_account" />
-        <activity android:name=".Activity.GroupChatroom"></activity>
+        <activity
+            android:name=".Activity.Confirm_delete_account"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".Activity.GroupChatroom"
+            android:theme="@style/AppTheme"/>
+        <activity
+            android:name=".Activity.Owner_group_detail"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".Activity.kick_list"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"/>
     </application>
 
 </manifest>

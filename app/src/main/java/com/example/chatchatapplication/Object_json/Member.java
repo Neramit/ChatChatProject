@@ -6,7 +6,25 @@ package com.example.chatchatapplication.Object_json;
 
 public class Member {
     private String memberUsername;
+    private String memberDisplayName;
+    private String memberImageURL;
     private int memberStatus;
+
+    public String getMemberDisplayName() {
+        return memberDisplayName;
+    }
+
+    public void setMemberDisplayName(String memberDisplayName) {
+        this.memberDisplayName = memberDisplayName;
+    }
+
+    public String getMemberImageURL() {
+        return memberImageURL;
+    }
+
+    public void setMemberImageURL(String memberImageURL) {
+        this.memberImageURL = memberImageURL;
+    }
 
     public Member(String memberUsername, int memberStatus) {
         this.memberUsername = memberUsername;

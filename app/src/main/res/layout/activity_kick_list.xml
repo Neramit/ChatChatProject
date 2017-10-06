@@ -4,19 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.chatchatapplication.Activity.Invite_to_group"
+    tools:context="com.example.chatchatapplication.Activity.kick_list"
     android:focusableInTouchMode="true"
     android:orientation="vertical">
 
     <android.support.v7.widget.SearchView
-        android:id="@+id/search_invite"
+        android:id="@+id/search_kick"
         android:layout_margin="10dp"
         app:iconifiedByDefault="false"
         app:queryHint="search by displayname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     <Button
-        android:id="@+id/ok_button_invite"
+        android:id="@+id/ok_button_kick"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
@@ -24,12 +24,12 @@
         android:textColor="@color/white_text"
         android:textSize="18sp"
         android:textAllCaps="false"
-        android:text="@string/button_invite"/>
+        android:text="@string/button_kick"/>
     <ListView
-        android:id="@+id/friendListInvite"
+        android:id="@+id/friendListKick"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/search_invite"
-        android:layout_above="@id/ok_button_invite"/>
+        android:layout_below="@id/search_kick"
+        android:layout_above="@id/ok_button_kick"/>
 
 </RelativeLayout>

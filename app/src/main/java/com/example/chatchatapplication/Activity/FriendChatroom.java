@@ -46,7 +46,7 @@ public class FriendChatroom extends AppCompatActivity {
     public static ArrayList<messages> listMessage;
     DatabaseReference mMessagesRef;
     int chatroomUid;
-    String friendUsername, friendDisplayName, username, friendDisplayPictureURL,friendRegistrationID,displayName;
+    String friendUsername, friendDisplayName, username, friendDisplayPictureURL,friendRegistrationID,displayName,displayPictureURL;
     ArrayAdapter<messages> adapter;
 
     // Shared preferrence
@@ -87,16 +87,16 @@ public class FriendChatroom extends AppCompatActivity {
         String theme = sp.getString("Theme", "Green");
         switch (theme) {
             case "Blue":
-                setTheme(R.style.Blue_NoActionBar);
+                setTheme(R.style.Blue);
                 break;
             case "Pink":
-                setTheme(R.style.Blue_NoActionBar);
+                setTheme(R.style.Blue);
                 break;
             case "Orange":
-                setTheme(R.style.Orange_NoActionBar);
+                setTheme(R.style.Orange);
                 break;
             default:
-                setTheme(R.style.AppTheme_NoActionBar);
+                setTheme(R.style.AppTheme);
                 break;
         }
         setContentView(R.layout.activity_friend_chatroom);
@@ -105,6 +105,8 @@ public class FriendChatroom extends AppCompatActivity {
 
         username = sp.getString("username", null);
         displayName = sp.getString("displayName",null);
+        displayPictureURL = sp.getString("displayPictureURL",null);
+
         chatroomUid = sp.getInt("chatroomUid",0);
         friendUsername = sp.getString("friendUsername",null);
         friendDisplayName = sp.getString("friendDisplayName",null);
@@ -148,7 +150,7 @@ public class FriendChatroom extends AppCompatActivity {
                 .iVector(userName)
                 .encrypt();
         messages messages = new messages(encrypt, userName);
-        messages messages2 = new messages(encrypt, userName, displayName);
+        messages messages2 = new messages(encrypt, userName, displayName,displayPictureURL);
         sendWithOtherThread(messages2);
         mMessagesRef.child(id).setValue(messages);
     }

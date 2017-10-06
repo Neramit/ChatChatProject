@@ -83,8 +83,8 @@ public class groupAdapter extends BaseAdapter {
                     holder.statusImage = (ImageView) convertView.findViewById(R.id.status_image);
                     holder.circleImageView = (CircleImageView) convertView.findViewById(R.id.image_group);
 
-                    String friendDisplayName = mData.get(position).getGroupName();
-                    holder.textView.setText(friendDisplayName);
+                    String GroupName = mData.get(position).getGroupName();
+                    holder.textView.setText(GroupName + " (" + mData.get(position).getGroupMemberNum() + ")");
 
                     if (mData.get(position).getGroupStatus() == 0) {
                         holder.statusImage.setImageResource(R.drawable.letter1);

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black_overlay"
-    android:weightSum="1"
+    android:id="@+id/enter_passcode_layout"
     android:orientation="vertical"
     android:gravity="center"
     tools:context="com.example.chatchatapplication.Activity.EnterPasscode">

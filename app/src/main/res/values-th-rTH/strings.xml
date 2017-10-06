@@ -92,9 +92,10 @@
     <string name="text_invite">เชิญ</string>
     <string name="can_not_invite">ต้องเชิญเพื่อนอย่างน้อย 1 คน</string>
     <string name="text_set_password">กำหนดรหัสผ่านกลุ่ม</string>
+    <string name="text_change_password">เปลี่ยนรหัสผ่านกลุ่ม</string>
     <string name="text_search_hint">ค้นหาจากชื่อเพื่อน</string>
     <string name="button_invite">เชิญ (0)</string>
-    <string name="text_member">สมาชิก 0</string>
+    <string name="text_member">สมาชิก</string>
 
     <!-- TODO: String related to Profile account -->
     <string name="title_profile">โปรไฟล์</string>
@@ -150,5 +151,25 @@
     <!-- TODO: Strings related to Other -->
     <string name="title_profile_account">โปรไฟล์\nบัญชีผู้ใช้</string>
     <string name="title_Setting">ตั้งค่า</string>
+
+    <!-- TODO: Strings related to Group chat -->
+    <string name="title_group_detail">รายละเอียดกลุ่ม</string>
+    <string name="button_kick_meber">เตะสมาชิก</string>
+    <string name="button_kick">เตะ (0)</string>
+    <string name="toast_group_member_null">ไม่มีเพื่อนที่เชิญ\nกรุณาเชิญเพื่อนอย่างน้อย 1 คน</string>
+    <string name="toast_group_password_null">ไม่ได้ตั้งรหัสกลุ่ม\nกรุณาตั้งรหัสกลุ่มก่อน</string>
+    <string name="toast_group_name_null">ไม่ได้ตั้งชื่อกลุ่ม\nกรุณาตั้งชื่อกลุ่มก่อน</string>
+    <string name="toast_group_name_more">ชื่อกลุ่มต้องมีมากกว่า 4 ตัว</string>
+    <string name="toast_group_password_more">รหัสกลุ่มต้องมีมากกว่า 6 ตัว</string>
+
+    <!-- TODO: Strings related to Group chatroom -->
+    <string name="menu_group_detail">รายละเอียดกลุ่ม</string>
+    <string name="menu_invite_to_group">เชิญ</string>
+    <string name="menu_leave_group">ออกจากกลุ่ม</string>
+    <string name="hint_enter_message">พิมพ์ข้อความที่นี่</string>
+
+
+    <!-- TODO: Strings related to Private chatroom -->
+    <string name="menu_block">บล็อค</string>
 
 </resources>
