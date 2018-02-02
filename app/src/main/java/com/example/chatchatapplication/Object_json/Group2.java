@@ -6,12 +6,12 @@ import java.util.List;
  * Created by Neramit777 on 9/21/2017 at 1:03 PM.
  */
 
-public class Group {
+public class Group2 {
 
     private String groupName,groupOwner;
     private String groupImageURL;
     private String groupPassword;
-    private List<Member> groupMember;
+    private List<Friend> groupMember;
     private int groupMemberNum;
     private int groupUID;
     private int groupStatus;
@@ -64,11 +64,11 @@ public class Group {
         this.groupPassword = groupPassword;
     }
 
-    public List<Member> getGroupMember() {
+    public List<Friend> getGroupMember() {
         return groupMember;
     }
 
-    public void setGroupMember(List<Member> groupMember) {
+    public void setGroupMember(List<Friend> groupMember) {
         this.groupMember = groupMember;
     }
 

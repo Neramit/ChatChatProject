@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:tint="@color/white_text">
+    <item
+        android:id="@+id/action_close_group"
+        android:itemBackground="#cc9d3e"
+        android:orderInCategory="100"
+        android:title="@string/button_close"
+        app:showAsAction="always" />
+</menu>

@@ -158,6 +158,9 @@
     <string name="No_ignore">Ignore</string>
     <string name="text_join_success">Joined group!</string>
     <string name="text_ignore_success">Ignore group!</string>
+    <string name="title_group_password">Enter group password</string>
+    <string name="text_wrong_password">Wrong password</string>
+    <string name="button_cancel">Cancel</string>
 
     <!-- TODO: Strings related to Group detail -->
     <string name="title_group_detail">Group detail</string>
@@ -168,6 +171,10 @@
     <string name="toast_group_name_null">Not have group name\nPlease type group name</string>
     <string name="toast_group_name_more">Group name must have more than 4 characters</string>
     <string name="toast_group_password_more">Group password must have more than 6 characters</string>
+    <string name="can_not_kick">Can not kick\nPlease kick 1 member at least</string>
+    <string name="button_close">Close</string>
+    <string name="text_change_success">Change successful</string>
+    <string name="text_change_fail">Change failed</string>
 
     <!-- TODO: Strings related to Group chatroom -->
     <string name="menu_group_detail">Group detail</string>

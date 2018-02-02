@@ -1,6 +1,5 @@
 package com.example.chatchatapplication.Activity;
 
-
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -163,7 +162,7 @@ public class MainActivity extends AppCompatActivity implements TabHost.OnTabChan
                     mTabHost.getTabWidget().setBackgroundColor(getResources().getColor(R.color.colorPrimary_blue, null));
                     break;
                 case "Pink":
-                    setTheme(R.style.Blue_NoActionBar);
+                    setTheme(R.style.Pink_NoActionBar);
                     mTabHost.getTabWidget().setBackgroundColor(getResources().getColor(R.color.colorPrimary_pink, null));
                     break;
                 case "Orange":
@@ -175,21 +174,6 @@ public class MainActivity extends AppCompatActivity implements TabHost.OnTabChan
                     mTabHost.getTabWidget().setBackgroundColor(getResources().getColor(R.color.colorPrimary, null));
                     break;
             }
-
-//        switch (theme) {
-//            case R.style.Blue_NoActionBar:
-//                mTabHost.getTabWidget().setBackgroundColor(getResources().getColor(R.color.colorPrimary_blue, null));
-//                break;
-//            case R.style.Pink_NoActionBar:
-//                mTabHost.getTabWidget().setBackgroundColor(getResources().getColor(R.color.colorPrimary_pink, null));
-//                break;
-//            case R.style.Orange_NoActionBar:
-//                mTabHost.getTabWidget().setBackgroundColor(getResources().getColor(R.color.colorPrimary_orange, null));
-//                break;
-//            default:
-//                mTabHost.getTabWidget().setBackgroundColor(getResources().getColor(R.color.colorPrimary, null));
-//                break;
-//        }
 
         TabInfo tabInfo = null;
         MainActivity.AddTab(this, this.mTabHost, this.mTabHost.newTabSpec("Tab1").setIndicator("", getDrawable(R.drawable.tab1_selector)), (tabInfo = new TabInfo("Tab1", friendFragment.class, args)));
@@ -316,13 +300,11 @@ public class MainActivity extends AppCompatActivity implements TabHost.OnTabChan
         builder.setPositiveButton(R.string.Yes_exit, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                    finishAndRemoveTask();
+                finishAndRemoveTask();
 //                    finishAffinity();
-                    System.exit(0);
-                    int pid = android.os.Process.myPid();
-                    android.os.Process.killProcess(pid);
-                }
+                System.exit(0);
+                int pid = android.os.Process.myPid();
+                android.os.Process.killProcess(pid);
             }
         });
         builder.setNegativeButton(R.string.No_exit, new DialogInterface.OnClickListener() {

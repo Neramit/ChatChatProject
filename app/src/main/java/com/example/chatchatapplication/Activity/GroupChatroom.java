@@ -92,7 +92,7 @@ public class GroupChatroom extends AppCompatActivity {
                 setTheme(R.style.Blue);
                 break;
             case "Pink":
-                setTheme(R.style.Blue);
+                setTheme(R.style.Pink);
                 break;
             case "Orange":
                 setTheme(R.style.Orange);
@@ -131,7 +131,7 @@ public class GroupChatroom extends AppCompatActivity {
                 mMessagesRef.setValue(listMessage);
                 if (!text.getText().toString().trim().isEmpty()) {
                     sendNewMessage(text.getText().toString(), username, displayName, friendDisplayPictureURL);
-                    text.setText("");                      //Clear input edittext panel
+                    text.setText("");                      //Clear input edit text panel
                     scrollMyListViewToBottom();
                 } else {
                     Toast.makeText(GroupChatroom.this, "Must type any character first", Toast.LENGTH_SHORT).show();
@@ -260,7 +260,7 @@ public class GroupChatroom extends AppCompatActivity {
             if (groupStatus == 2)
                 startActivity(new Intent(this,Owner_group_detail.class));
             else
-                startActivity(new Intent(this,Owner_group_detail.class));
+                startActivity(new Intent(this,Member_group_detail.class));
             return true;
         }
         return super.onOptionsItemSelected(item);

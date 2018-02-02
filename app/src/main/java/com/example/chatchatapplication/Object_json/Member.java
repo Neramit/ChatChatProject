@@ -9,6 +9,15 @@ public class Member {
     private String memberDisplayName;
     private String memberImageURL;
     private int memberStatus;
+    private boolean checkInvite;
+
+    public boolean isCheckInvite() {
+        return checkInvite;
+    }
+
+    public void setCheckInvite(boolean checkInvite) {
+        this.checkInvite = checkInvite;
+    }
 
     public String getMemberDisplayName() {
         return memberDisplayName;

@@ -47,8 +47,7 @@ public class friendFragment extends Fragment implements jsonBack {
     SharedPreferences.Editor mEdit1;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mAdapter = new friendAdapter(getActivity());
         View view = null;
         view = inflater.inflate(R.layout.fragment_friend, container, false);

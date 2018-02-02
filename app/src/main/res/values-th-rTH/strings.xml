@@ -129,6 +129,7 @@
     <string name="pref_title_change_passcode">เปลี่ยนรหัสผ่าน</string>
     <string name="pref_theme_title">ทีม</string>
     <string name="pref_title_theme">เลือกทีม</string>
+    <string name="default_theme">เขียว</string>
     <!-- Passcode -->
     <string name="enter_passcode">ใส่รหัสผ่าน</string>
     <string name="enter_old_passcode">ใส่รหัสผ่านปัจจุบัน</string>
@@ -152,7 +153,18 @@
     <string name="title_profile_account">โปรไฟล์\nบัญชีผู้ใช้</string>
     <string name="title_Setting">ตั้งค่า</string>
 
-    <!-- TODO: Strings related to Group chat -->
+    <!-- TODO:Strings related to join group request -->
+    <string name="title_join">เข้าร่วมกลุ่ม ? </string>
+    <string name="message_join">\n คุณแน่ใจหรือไม่ที่จะเข้าร่วมกลุ่ม ? </string>
+    <string name="Yes_join">เข้าร่วม</string>
+    <string name="No_ignore">ไม่เข้าร่วม</string>
+    <string name="text_join_success">เข้าร่วมกลุ่มแล้ว!</string>
+    <string name="text_ignore_success">ปฎิเสธการเข้าร่วมกลุ่ม!</string>
+    <string name="title_group_password">ใส่รหัสผ่านเข้ากลุ่ม</string>
+    <string name="text_wrong_password">รหัสผ่านไม่ถูกต้อง</string>
+    <string name="button_cancel">ยกเลิก</string>
+
+    <!-- TODO: Strings related to Group detail -->
     <string name="title_group_detail">รายละเอียดกลุ่ม</string>
     <string name="button_kick_meber">เตะสมาชิก</string>
     <string name="button_kick">เตะ (0)</string>
@@ -161,13 +173,16 @@
     <string name="toast_group_name_null">ไม่ได้ตั้งชื่อกลุ่ม\nกรุณาตั้งชื่อกลุ่มก่อน</string>
     <string name="toast_group_name_more">ชื่อกลุ่มต้องมีมากกว่า 4 ตัว</string>
     <string name="toast_group_password_more">รหัสกลุ่มต้องมีมากกว่า 6 ตัว</string>
+    <string name="button_close">ปิด</string>
+    <string name="can_not_kick">ไม่สามารถเตะได้\nกรุณาเลือกสมาชิกอย่างน้อย 1 คน</string>
+    <string name="text_change_success">เปลี่ยนแปลงข้อมูลสำเร็จ</string>
+    <string name="text_change_fail">เปลี่ยนแปลงข้อมูลไม่สำเร็จ</string>
 
     <!-- TODO: Strings related to Group chatroom -->
     <string name="menu_group_detail">รายละเอียดกลุ่ม</string>
     <string name="menu_invite_to_group">เชิญ</string>
     <string name="menu_leave_group">ออกจากกลุ่ม</string>
     <string name="hint_enter_message">พิมพ์ข้อความที่นี่</string>
-
 
     <!-- TODO: Strings related to Private chatroom -->
     <string name="menu_block">บล็อค</string>

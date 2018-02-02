@@ -4,13 +4,13 @@ package com.example.chatchatapplication.Object_json;
  * Created by Neramit777 on 10/2/2017 at 3:06 PM.
  */
 
-public class GroupSend {
+public class GroupSend2 {
     private String module;
     private String target;
     private String token;
-    private Group2 data;
+    private Group data;
 
-    public GroupSend (String module,String target,String token,Group2 data){
+    public GroupSend2(String module, String target, String token, Group data){
         this.module = module;
         this.target = target;
         this.token = token;
@@ -41,11 +41,11 @@ public class GroupSend {
         this.token = token;
     }
 
-    public Group2 getData() {
+    public Group getData() {
         return data;
     }
 
-    public void setData(Group2 data) {
+    public void setData(Group data) {
         this.data = data;
     }
 }

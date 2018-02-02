@@ -3,6 +3,7 @@ package com.example.chatchatapplication.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -14,6 +15,7 @@ import com.example.chatchatapplication.Not_Activity.SimpleHttpTask;
 import com.example.chatchatapplication.Not_Activity.jsonBack;
 import com.example.chatchatapplication.Object_json.User;
 import com.example.chatchatapplication.Object_json.registerSend;
+import com.example.chatchatapplication.Object_json.simpleRetrieve;
 import com.example.chatchatapplication.R;
 import com.google.gson.Gson;
 
@@ -70,8 +72,19 @@ public class Confirm_delete_account extends AppCompatActivity implements jsonBac
 
     @Override
     public void processFinish(String output) {
-        deleteButton.setProgress(100);
-        startActivity(new Intent(this,Login.class));
-        finishAffinity();
+        Gson gson = new Gson();
+        simpleRetrieve data = gson.fromJson(output, simpleRetrieve.class);
+        if (data.getStatus() == 200) {
+            deleteButton.setProgress(100);
+            final Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    startActivity(new Intent(Confirm_delete_account.this, Login.class));
+                    finishAffinity();
+                }
+            }, 1000);
+
+        }
     }
 }

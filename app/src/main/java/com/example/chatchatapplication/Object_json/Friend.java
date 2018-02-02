@@ -12,6 +12,8 @@ public class Friend {
     private int chatroomUID;
     private String displayName;
     private String displayPictureURL;
+    private String friendRegistrationID;
+    private boolean checkInvite;
 
     public String getFriendRegistrationID() {
         return friendRegistrationID;
@@ -20,10 +22,6 @@ public class Friend {
     public void setFriendRegistrationID(String friendRegistrationID) {
         this.friendRegistrationID = friendRegistrationID;
     }
-
-    private String friendRegistrationID;
-
-    private boolean checkInvite;
 
     public boolean getCheckInvite() {
         return checkInvite;

@@ -78,6 +78,7 @@ public class KickAdapter extends BaseAdapter {
             holder.circleImageView.setImageResource(R.drawable.default_user);
         }
         holder.name.setText(membersList.get(i).getMemberDisplayName());
+
         if (status == 0)
             holder.status.setImageResource(R.drawable.letter1);
         else if (status == 2)

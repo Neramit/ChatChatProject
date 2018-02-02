@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.chatchatapplication">
-    // Interner permission
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -94,6 +94,10 @@
             </intent-filter>
         </activity>
 
+        <meta-data
+            tools:replace="android:value"
+            android:name="android.support.VERSION"
+            android:value="26.1.0" />
         <!--
      Set custom default icon. This is used when no icon is set for incoming notification messages.
      See README(https://goo.gl/l4GJaQ) for more.
@@ -141,8 +145,9 @@
             android:name=".Activity.Confirm_delete_account"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
-        <activity android:name=".Activity.GroupChatroom"
-            android:theme="@style/AppTheme"/>
+        <activity
+            android:name=".Activity.GroupChatroom"
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".Activity.Owner_group_detail"
             android:screenOrientation="portrait"
@@ -150,7 +155,8 @@
         <activity
             android:name=".Activity.kick_list"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"/>
+            android:theme="@style/AppTheme" />
+        <activity android:name=".Activity.Member_group_detail"></activity>
     </application>
 
 </manifest>

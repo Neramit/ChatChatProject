@@ -44,6 +44,7 @@ public class SimpleHttpTask extends AsyncTask<String, Void, String> {
 //            URL url = new URL("http://192.168.43.54/Application-Real/CentralController.php");
 //            URL url = new URL("http://192.168.43.143/Application-Real/CentralController.php");
             URL url = new URL("http://192.168.1.38/Application-Real/CentralController.php");
+//            URL url = new URL("http://172.17.1.70/Application-Real/CentralController.php");
 
             conn = (HttpURLConnection) url.openConnection();
             conn.setReadTimeout(10000);

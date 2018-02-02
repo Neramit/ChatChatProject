@@ -26,7 +26,7 @@ import com.example.chatchatapplication.Not_Activity.ExpandedGridView;
 import com.example.chatchatapplication.Not_Activity.SimpleHttpTask;
 import com.example.chatchatapplication.Not_Activity.jsonBack;
 import com.example.chatchatapplication.Object_json.Friend;
-import com.example.chatchatapplication.Object_json.Group;
+import com.example.chatchatapplication.Object_json.Group2;
 import com.example.chatchatapplication.Object_json.GroupSend;
 import com.example.chatchatapplication.Object_json.groupUidRetrieve;
 import com.example.chatchatapplication.Object_json.searchRetrieve;
@@ -83,7 +83,7 @@ public class CreateGroup extends AppCompatActivity implements jsonBack {
                 setTheme(R.style.Blue);
                 break;
             case "Pink":
-                setTheme(R.style.Blue);
+                setTheme(R.style.Pink);
                 break;
             case "Orange":
                 setTheme(R.style.Orange);
@@ -209,7 +209,7 @@ public class CreateGroup extends AppCompatActivity implements jsonBack {
 
                 Gson sendJson = new Gson();
                 progress.setVisibility(View.VISIBLE);
-                Group data = new Group();
+                Group2 data = new Group2();
                 data.setGroupName(groupName.getQuery().toString());
                 data.setGroupMember(memberList);
                 data.setGroupOwner(sp.getString("username", null));
@@ -274,7 +274,7 @@ public class CreateGroup extends AppCompatActivity implements jsonBack {
             if (data.getStatus() == 200) {
                 if (resultUri == null) {
                     Gson sendJson = new Gson();
-                    Group data2 = new Group();
+                    Group2 data2 = new Group2();
                     data2.setGroupImageURL("null");
                     data2.setGroupUID(data.getData().getGroupUID());
                     token = sp.getString("token", null);
@@ -294,7 +294,7 @@ public class CreateGroup extends AppCompatActivity implements jsonBack {
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             String pictureURL = taskSnapshot.getDownloadUrl().toString();
                             Gson sendJson = new Gson();
-                            Group data2 = new Group();
+                            Group2 data2 = new Group2();
                             data2.setGroupImageURL(pictureURL);
                             data2.setGroupUID(data.getData().getGroupUID());
                             token = sp.getString("token", null);

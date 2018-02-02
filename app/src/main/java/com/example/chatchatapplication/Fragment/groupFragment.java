@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -29,6 +30,9 @@ import com.example.chatchatapplication.R;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
+
+import ru.bullyboo.encoder.Encoder;
+import ru.bullyboo.encoder.methods.AES;
 
 
 public class groupFragment extends Fragment implements jsonBack {
@@ -75,14 +79,49 @@ public class groupFragment extends Fragment implements jsonBack {
                     builder.setPositiveButton(R.string.Yes_join, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            Gson sendJson = new Gson();
-                            User data = new User();
-                            data.setGenNum(group_list.get(position).getGroupUID());
-                            token = sp.getString("token", null);
-                            registerSend send = new registerSend("Group", "joinGroupRequest", token, data);
-                            String sendJson2 = sendJson.toJson(send);
-                            new SimpleHttpTask(groupFragment.this).execute(sendJson2);
-                            chkResponse = "joinGroup";
+
+                            final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                            LayoutInflater inflater = getLayoutInflater();
+
+                            View view = inflater.inflate(R.layout.key_group_password, null);
+                            builder.setView(view);
+
+                            final EditText password = (EditText) view.findViewById(R.id.password_group);
+
+                            builder.setPositiveButton(R.string.button_OK, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // Check username password
+                                    String decrypted = Encoder.BuilderAES()
+                                            .message(group_list.get(position).getGroupPassword())
+                                            .method(AES.Method.AES_CBC_PKCS5PADDING)
+                                            .key("mit&24737")
+                                            .keySize(AES.Key.SIZE_128)
+                                            .iVector(group_list.get(position).getGroupOwner())
+                                            .decrypt();
+                                    String Password = password.getText().toString();
+                                    if (Password.equals(decrypted)) {
+                                        Gson sendJson = new Gson();
+                                        User data = new User();
+                                        data.setGenNum(group_list.get(position).getGroupUID());
+                                        token = sp.getString("token", null);
+                                        registerSend send = new registerSend("Group", "joinGroupRequest", token, data);
+                                        String sendJson2 = sendJson.toJson(send);
+                                        new SimpleHttpTask(groupFragment.this).execute(sendJson2);
+                                        chkResponse = "joinGroup";
+//                                        Toast.makeText(getActivity(), "Join success!",Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        Toast.makeText(getActivity(), R.string.text_wrong_password,Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
+                            builder.setNegativeButton(R.string.button_cancel, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                }
+                            });
+                            builder.show();
 
                         }
                     });
